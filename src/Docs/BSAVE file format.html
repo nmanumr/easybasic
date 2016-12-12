@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>BSAVE file format</h3>
+        <p>
+            A memory-dump file on a disk device has the following format.
+        </p>
+        <h4>Magic byte</h4>
+            <code>FD</code>
+        <h4>Header</h4>
+                    <table class="table table-striped">
+                <thead>
+                        <tr>
+                            <th>
+                                Bytes
+                            </th>
+                            <th>
+                                Format
+                            </th>
+                            <th>
+                                Meaning
+                            </th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Unsigned 16-bit little-endian integer.
+                            </td>
+                            <td>
+                                Segment of the memory block.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Unsigned 16-bit little-endian integer.
+                            </td>
+                            <td>
+                                Offset of the first byte of the memory block.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Unsigned 16-bit little-endian integer.
+                            </td>
+                            <td>
+                                Length of the memory block in bytes.
+                            </td>
+                        </tr>
+                </tbody>
+                    </table>
+            <h4>Payload</h4>
+            <p>
+                The bytes of the memory block.
+            </p>
+            <h4>
+                Footer
+            </h4>
+            <p>
+                On Tandy only, the magic byte and the six bytes of the header are repeated here.
+                This is optional;
+                the file will be read without problems if it is omitted.
+            </p>
+            <h4>
+                End of file marker
+            </h4>
+            <p>
+                An <code>1A</code> is written to mark the end of file. This is optional;
+                the file will be read without problems if it is omitted.
+            </p>
+        
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

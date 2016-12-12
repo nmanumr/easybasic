@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Bitwise operators</h3>
+            <p>
+        PC-BASIC has no Boolean type and does not implement Boolean operators.
+        It does, however, implement bitwise operators.
+    </p>
+    <p>
+        Bitwise operators operate on numeric expressions only.
+        Floating-point operands are rounded to integers before being used.
+    </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+            <th>Operation</th>
+            <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                <td id="NOT"><code>NOT <var>y</var></code></td>
+                <td>Complement</td>
+                <td><code>-<var>y</var>-1</code></td>
+            </tr>
+            <tr>
+                <td id="AND"><code><var>x</var> AND y</code></td>
+                <td>Bitwise conjunction</td>
+                <td>
+                    The bitwise AND of <code><var>x</var></code> and <code><var>y</var></code>
+                </td>
+            </tr>
+            <tr>
+                <td id="OR"><code><var>x</var> OR <var>y</var></code></td>
+                <td>Bitwise disjunction</td>
+                <td>
+                    The bitwise OR of <code><var>x</var></code> and <code><var>y</var></code>
+                </td>
+            </tr>
+            <tr>
+                <td id="XOR"><code><var>x</var> XOR <var>y</var></code></td>
+                <td>Bitwise exclusive or</td>
+                <td>
+                    The bitwise XOR of <code><var>x</var></code> and <code><var>y</var></code>
+                </td>
+            </tr>
+            <tr>
+                <td id="EQV"><code><var>x</var> EQV <var>y</var></code></td>
+                <td>Bitwise equivalence</td>
+                <td>
+                    <code>NOT(<var>x</var> XOR <var>y</var>)</code>
+                </td>
+            </tr>
+            <tr>
+                <td id="IMP"><code><var>x</var> IMP <var>y</var></code></td>
+                <td>Bitwise implication</td>
+                <td>
+                    <code>NOT(<var>x</var>) OR <var>y</var></code>
+                </td>
+            </tr>
+                </tbody>
+            </table>
+            <p>
+        These operators can be used
+        as Boolean operators only if <code>-1</code> is used to represent <i>true</i> while <code>0</code>
+        represents <i>false</i>. Note that PC-BASIC represents
+        negative integers using the two's complement, so <code>NOT 0 = -1</code>.
+        The Boolean interpretation of bitwise operators
+        is given in the table below.
+    </p>
+    <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+            <th>Operation</th>
+            <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                <td><code>NOT <var>y</var></code></td>
+                <td>Logical negation</td>
+                <td>True if <code><var>y</var></code> is false and vice versa</td>
+            </tr>
+            <tr>
+                <td><code><var>x</var> AND y</code></td>
+                <td>Conjunction</td>
+                <td>
+                    Only true if both  <code><var>x</var></code> and
+                    <code><var>y</var></code> are true
+                </td>
+            </tr>
+            <tr>
+                <td><code><var>x</var> OR <var>y</var></code></td>
+                <td>Disjunction</td>
+                <td>
+                    Only false if both <code><var>x</var></code> and
+                    <code><var>y</var></code> are false
+                </td>
+            </tr>
+            <tr>
+                <td><code><var>x</var> XOR <var>y</var></code></td>
+                <td>Exclusive or</td>
+                <td>
+                    True if the truth values of <code><var>x</var></code> and
+                    <code><var>y</var></code> differ
+                </td>
+            </tr>
+            <tr>
+                <td><code><var>x</var> EQV <var>y</var></code></td>
+                <td>Equivalence</td>
+                <td>
+                    True if the truth values of <code><var>x</var></code> and
+                    <code><var>y</var></code> are the same
+                </td>
+            </tr>
+            <tr>
+                <td><code><var>x</var> IMP <var>y</var></code></td>
+                <td>Implication</td>
+                <td>
+                    True if <code><var>x</var></code> is false or
+                    <code><var>y</var></code> is true
+                </td>
+            </tr>
+                </tbody>
+            </table>
+            <p>
+        Be aware that when used on integers other than <code>0</code> and <code>-1</code>,
+        bitwise operators can <em>not</em>
+        be interpreted as Boolean operators. For example,
+        <code>2 AND 1</code> returns <code>0</code>.
+    </p>
+    <h4>Errors</h4>
+    <ul>
+        <li>
+            If either
+            operand is a string, <samp>Type mismatch</samp> will be raised.
+        </li>
+        <li>
+            If the operands or result are not in
+            <code>[-32768&#8211;32767]</code>, <samp>Overflow</samp> is raised.
+        </li>
+    </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

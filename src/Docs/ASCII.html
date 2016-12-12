@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>ASCII</h3>
+        <p>
+            This is a list of the American Standard Code for Information Interchange (ASCII).
+            ASCII only covers 128 characters and defines the code point ranges
+            <code>&amp;h00</code>&#8211;<code>&amp;h1F</code> and <code>&amp;h7F</code>
+            as <dfn>control characters</dfn> which do not have a printable glyph assigned
+            to them. This includes such values as the <i>Carriage Return</i> (<code><i>CR</i></code>)
+            character that ends a program line.
+        </p>
+        <p>
+            In the context of this documentation, character <code>&amp;h1A</code> (<code><i>SUB</i></code>)
+            will usually be indicated as <code><i>EOF</i></code> since it plays the role of end-of-file marker in DOS.
+        </p>
+            <table class="table table-striped">
+                
+                    <tr>
+                    <td>&#160;</td>
+                    <th>_0</th>
+                    <th>_1</th>
+                    <th>_2</th>
+                    <th>_3</th>
+                    <th>_4</th>
+                    <th>_5</th>
+                    <th>_6</th>
+                    <th>_7</th>
+                    <th>_8</th>
+                    <th>_9</th>
+                    <th>_A</th>
+                    <th>_B</th>
+                    <th>_C</th>
+                    <th>_D</th>
+                    <th>_E</th>
+                    <th>_F</th>
+                </tr>
+                <tr>
+                    <th>0_</th>
+                    <td><code><i>NUL</i></code></td>
+                    <td><code><i>SOH</i></code></td>
+                    <td><code><i>STX</i></code></td>
+                    <td><code><i>ETX</i></code></td>
+                    <td><code><i>EOT</i></code></td>
+                    <td><code><i>ENQ</i></code></td>
+                    <td><code><i>ACK</i></code></td>
+                    <td><code><i>BEL</i></code></td>
+                    <td><code><i>BS&#160;</i></code></td>
+                    <td><code><i>HT&#160;</i></code></td>
+                    <td><code><i>LF&#160;</i></code></td>
+                    <td><code><i>VT&#160;</i></code></td>
+                    <td><code><i>FF&#160;</i></code></td>
+                    <td><code><i>CR&#160;</i></code></td>
+                    <td><code><i>SO&#160;</i></code></td>
+                    <td><code><i>SI&#160;</i></code></td>
+                </tr>
+                <tr>
+                    <th>1_</th>
+                    <td><code><i>DLE</i></code></td>
+                    <td><code><i>DC1</i></code></td>
+                    <td><code><i>DC2</i></code></td>
+                    <td><code><i>DC3</i></code></td>
+                    <td><code><i>DC4</i></code></td>
+                    <td><code><i>NAK</i></code></td>
+                    <td><code><i>SYN</i></code></td>
+                    <td><code><i>ETB</i></code></td>
+                    <td><code><i>CAN</i></code></td>
+                    <td><code><i>EM&#160;</i></code></td>
+                    <td><code><i>SUB</i></code></td>
+                    <td><code><i>ESC</i></code></td>
+                    <td><code><i>FS&#160;</i></code></td>
+                    <td><code><i>GS&#160;</i></code></td>
+                    <td><code><i>RS&#160;</i></code></td>
+                    <td><code><i>US&#160;</i></code></td>
+                </tr>
+                <tr>
+                    <th>2_</th>
+                    <td><code> </code></td>
+                    <td><code>!</code></td>
+                    <td><code>"</code></td>
+                    <td><code>#</code></td>
+                    <td><code>$</code></td>
+                    <td><code>%</code></td>
+                    <td><code>&amp;</code></td>
+                    <td><code>'</code></td>
+                    <td><code>(</code></td>
+                    <td><code>)</code></td>
+                    <td><code>*</code></td>
+                    <td><code>+</code></td>
+                    <td><code>,</code></td>
+                    <td><code>-</code></td>
+                    <td><code>.</code></td>
+                    <td><code>/</code></td>
+                </tr>
+                <tr>
+                    <th>3_</th>
+                    <td><code>0</code></td>
+                    <td><code>1</code></td>
+                    <td><code>2</code></td>
+                    <td><code>3</code></td>
+                    <td><code>4</code></td>
+                    <td><code>5</code></td>
+                    <td><code>6</code></td>
+                    <td><code>7</code></td>
+                    <td><code>8</code></td>
+                    <td><code>9</code></td>
+                    <td><code>:</code></td>
+                    <td><code>;</code></td>
+                    <td><code>&lt;</code></td>
+                    <td><code>=</code></td>
+                    <td><code>&gt;</code></td>
+                    <td><code>?</code></td>
+                </tr>
+                <tr>
+                    <th>4_</th>
+                    <td><code>@</code></td>
+                    <td><code>A</code></td>
+                    <td><code>B</code></td>
+                    <td><code>C</code></td>
+                    <td><code>D</code></td>
+                    <td><code>E</code></td>
+                    <td><code>F</code></td>
+                    <td><code>G</code></td>
+                    <td><code>H</code></td>
+                    <td><code>I</code></td>
+                    <td><code>J</code></td>
+                    <td><code>K</code></td>
+                    <td><code>L</code></td>
+                    <td><code>M</code></td>
+                    <td><code>N</code></td>
+                    <td><code>O</code></td>
+                </tr>
+                <tr>
+                    <th>5_</th>
+                    <td><code>P</code></td>
+                    <td><code>Q</code></td>
+                    <td><code>R</code></td>
+                    <td><code>S</code></td>
+                    <td><code>T</code></td>
+                    <td><code>U</code></td>
+                    <td><code>V</code></td>
+                    <td><code>W</code></td>
+                    <td><code>X</code></td>
+                    <td><code>Y</code></td>
+                    <td><code>Z</code></td>
+                    <td><code>[</code></td>
+                    <td><code>\</code></td>
+                    <td><code>]</code></td>
+                    <td><code>^</code></td>
+                    <td><code>_</td>
+                </tr>
+                <tr>
+                    <th>6_</th>
+                    <td><code>`</code></td>
+                    <td><code>a</code></td>
+                    <td><code>b</code></td>
+                    <td><code>c</code></td>
+                    <td><code>d</code></td>
+                    <td><code>e</code></td>
+                    <td><code>f</code></td>
+                    <td><code>g</code></td>
+                    <td><code>h</code></td>
+                    <td><code>i</code></td>
+                    <td><code>j</code></td>
+                    <td><code>k</code></td>
+                    <td><code>l</code></td>
+                    <td><code>m</code></td>
+                    <td><code>n</code></td>
+                    <td><code>o</code></td>
+                </tr>
+                <tr>
+                    <th>7_</th>
+                    <td><code>p</code></td>
+                    <td><code>q</code></td>
+                    <td><code>r</code></td>
+                    <td><code>s</code></td>
+                    <td><code>t</code></td>
+                    <td><code>u</code></td>
+                    <td><code>v</code></td>
+                    <td><code>w</code></td>
+                    <td><code>x</code></td>
+                    <td><code>y</code></td>
+                    <td><code>z</code></td>
+                    <td><code>{</code></td>
+                    <td><code>|</code></td>
+                    <td><code>}</code></td>
+                    <td><code>~</code></td>
+                    <td><code><i>DEL</i></code></td>
+                </tr>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

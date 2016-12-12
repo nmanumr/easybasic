@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">AUTO</h3>
+            <pre>
+                <code>
+                    <b>AUTO</b> [<var>line_number</var>|<b>.</b>] [<b>,</b> [<var>increment</var>]]
+                </code>
+            </pre>
+       <p>
+            Start automatic line numbering. Line numbers
+            are automatically generated when <kbd>Enter</kbd> is pressed.
+            If a program line exists at a generated line number, a <code>*</code> is shown after the
+            line number. To avoid overwriting this line, leave it empty and press <kbd>Enter</kbd>.
+            To stop automatic line numbering, press <kbd>Ctrl</kbd>+<kbd>Break</kbd> or <kbd>Ctrl</kbd>+<kbd>C</kbd>. The line being edited at
+            that point is not saved. BASIC will return to command mode, even if <code>AUTO</code> was
+            run from a program line.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                Line numbering starts at <code><var>line_number</var></code>, if specified. If <code>.</code> is specified, line
+                numbering starts at the last program line that was stored. Otherwise, line
+                numbering starts at <code>10</code>.
+            </li>
+            <li>
+                Each next line number is incremented by <code><var>increment</var></code>, if specified. If a comma
+                is used without specifying an increment, the last increment specified in an
+                <code>AUTO</code> command is used. If not, <code><var>increment</var></code> defaults to <code>10</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>line_number</var></code> is not an unsigned-integer value in <code>[0&#8212;65529]</code>:
+               <samp>Syntax error</samp>.
+            </li>
+            <li>
+                When automatic line numbering is enabled and <kbd>Enter</kbd> is pressed on an empty line with number larger than
+               <code>65519</code>: <samp>Undefined line number</samp>.
+            </li>
+            <li>
+                <code><var>increment</var></code> is <code>0</code>:
+                <samp>Illegal function call</samp>.
+        </li></ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+            $(document).ready(function(){
+                window.top.document.getElementById('status').innerHTML = "Document Loaded";
+            })
+        </script>
+        <script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

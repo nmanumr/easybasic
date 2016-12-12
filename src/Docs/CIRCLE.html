@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">CIRCLE</h3>
+            <pre>
+                <code>
+                    <b>CIRCLE</b> [<b>STEP</b>] <b>(</b><var>x</var><b>,</b> <var>y</var>)<b>,</b> <var>radius</var>
+            [<b>,</b> [<var>colour</var>] [<b>,</b> [<var>start</var>] [<b>,</b> [<var>end</var>] [<b>,</b> <var>aspect</var>]]]
+                </code>
+            </pre>
+       <p>
+            Draw an ellipse or ellipse sector.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                The midpoint of the ellipse is at <code>(<var>x</var></code>,<code><var>y</var>)</code>.
+                If <code>STEP</code> is specified, the midpoint is <code>(<var>x</var></code>,<code><var>y</var>)</code> away from the current position.
+            </li>
+            <li>
+                <code><var>radius</var></code> is the radius, in pixels, along the long axis.
+            </li>
+            <li>
+                <code><var>colour</var></code> is the colour attribute.
+            </li>
+            <li>
+                If <code><var>start</var></code> and <code><var>end</var></code> are specified, a sector of the ellipse is drawn from
+                <code><var>start</var></code> radians to <code><var>end</var></code> radians, with zero radians the intersection with the
+                right-hand x axis. If a negative value is specified, the arc sector is
+                connected by a line to the midpoint.
+            </li>
+            <li>
+                <code><var>aspect</var></code> specifies the ratio between the y radius and the x radius. If it is
+                not specified, the standard value for the <code><a href="#SCREEN-statement">SCREEN</a></code> mode is used (see there), so
+                as to make the ellipse appear like a circle on the original hardware.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                For <code><var>aspect</var> &lt;&gt; 1</code>, the midpoint algorithm used does not pixel-perfectly
+                reproduce GW-BASIC's ellipses.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                The statement is executed in text mode: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>start</var></code> or <code><var>end</var></code> is not in <code>[0&#8212;2&#960;]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                The statement ends with a comma: <samp>Missing operand</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+            $(document).ready(function(){
+                window.top.document.getElementById('status').innerHTML = "Document Loaded";
+            })
+        </script>
+        <script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>
