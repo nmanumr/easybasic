@@ -1,0 +1,25 @@
+{
+  "name": "EasyBasic",
+  "version": "0.4.0",
+  "description": "An IDE for GwBasic",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Easy",
+    "Basic",
+    "Gw",
+    ".Net"
+  ],
+  "author": "Nauman Umer",
+  "devDependencies": {
+    "asar": "^0.12.3",
+    "electron-packager": "^7.5.1",
+    "electron-prebuilt": "^1.2.0",
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "command-palette": "^1.2.0"
+  }
+}
