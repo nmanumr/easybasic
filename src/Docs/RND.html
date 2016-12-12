@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>RND</h3>
+            <pre>
+                <code class="basic">
+                    <var>random</var> <b>= RND</b>[<b>(</b><var>x</var><b>)</b>]
+                </code>
+            </pre>
+        <p>
+            Returns a pseudorandom number in the interval <code>[0&#8212;1)</code>.
+            <code><var>x</var></code> is a numeric expression. If <code><var>x</var></code> is zero, <code>RND</code> repeats the last
+            pseudo-random number. If <code><var>x</var></code> is greater than zero, a new pseudorandom number is
+            returned. If <code><var>x</var></code> is negative, the value of <code><var>x</var></code> is used to generate a new
+            random number seed; after that, a new pseudorandom number is returned.
+            The seed is generated in a different way than by <code><a href="#RANDOMIZE">RANDOMIZE</a></code>.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                PC-BASIC's <code>RND</code> function generates pseudo-random numbers through a linear congruential generator with modulo 2<sup>24</sup>,
+                multiplier 214013 and increment 2531011. This exactly reproduces the random numbers of GW-BASIC's <code>RND</code>.
+            </li>
+            <li>It should be
+                noted, however, that this is a very poor random number generator: its parameters imply a recurrence period of
+                2<sup>24</sup>, meaning that after less than 17 million calls <code>RND</code> will wrap around
+                and start running through the exact same series of numbers all over again. <code>RND</code> should not be used for
+                cryptography, scientific simulations or anything else remotely serious.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>x</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

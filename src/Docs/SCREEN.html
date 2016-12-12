@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>SCREEN (function)</h3>
+            <pre>
+                <code class="basic">
+                    <var>value</var> <b>= SCREEN(</b><var>row</var><b>,</b> <var>column</var> [<b>,</b> <var>fn</var>]<b>)</b>
+                </code>
+            </pre>
+        <p>
+            Returns the <a href="#cp437">code point</a> or colour attribute for the character at position
+            <code><var>row</var></code>, <code><var>col</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>row</var></code> is a numeric expression in the range <code>[1&#8212;25]</code>.
+            </li>
+            <li>
+                <code><var>col</var></code> is a numeric expression between 1 and the screen width (40 or 80).
+            </li>
+            <li>
+                <code><var>fn</var></code> is a numeric expression in <code>[0&#8212;255]</code>. If it is zero or not specified,
+                the code point of the character is returned. If it is non-zero, in text mode the
+                attribute is returned; in other screens, 0 is returned.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Any parameter has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>fn</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>fn</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>row</var></code> is not inside the current <code>VIEW PRINT</code> area:
+                <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><a href="#KEY-list">KEY ON</a></code> and <code><var>row</var>=25</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>col</var></code> is not in <code>[1, <var>width</var>]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

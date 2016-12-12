@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Types and sigils</h3>
+            <p>
+        PC-BASIC recognises four variable types, distinguished by their <dfn>sigil</dfn>
+        or <dfn>type character</dfn>, the last character of the variable's full name:
+    </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>sigil</th>
+                        <th>type</th>
+                        <th>size</th>
+                        <th>range</th>
+                        <th>precision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td><code>$</code></td>
+                        <td>string</td>
+                        <td>3 bytes plus allocated string space</td>
+                        <td>0&#8212;255 characters</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><code>%</code></td>
+                        <td>integer</td>
+                        <td>2 bytes</td>
+                        <td>-32768&#8212;32767</td>
+                        <td>exact</td>
+                    </tr>
+                    <tr>
+                        <td><code>!</code></td>
+                        <td>single-precision float</td>
+                        <td>4 bytes</td>
+                        <td>&#177;2.938726&#183;10<sup>-39</sup>&#8212;&#177;1.701412&#183;10<sup>38</sup></td>
+                        <td>~6 significant figures</td>
+                    </tr>
+                    <tr>
+                        <td><code>#</code></td>
+                        <td>double-precision float</td>
+                        <td>8 bytes</td>
+                        <td>&#177;2.938735877055719&#183;10<sup>-39</sup>&#8212;&#177;1.701411834604692&#183;10<sup>38</sup></td>
+                        <td>~16 significant figures</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+        Note that double-precision floats can hold more decimals than single-precision floats, but not larger or smaller numbers.
+    </p>
+    <p>
+        While all integers are signed, some statements will interpret negative
+        integers as their two's complement.
+    </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

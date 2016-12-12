@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">WAIT</h3>
+            <pre>
+                <code>
+                    <b>WAIT</b> <var>port</var><b>,</b> <var>and_mask</var> [<b>,</b> <var>xor_mask</var>]
+                </code>
+            </pre>
+       <p>
+            Waits for the value of <code>(<a href="#INP">INP</a>(<var>port</var>)
+            <a href="#boolean-operators">XOR</a> <var>xor_mask</var>) <a href="#boolean-operators">AND</a>
+            <var>and_mask</var></code> to become nonzero.
+            Event handling is suspended until <code>WAIT</code> returns.
+            If <code><var>xor_mask</var></code> is not specified, it defaults to <code>0</code>.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                A limited number of machine ports are emulated in PC-BASIC.
+                See <code><a href="#INP">INP</a></code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Any parameter has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>port</var></code> is not in <code>[-32768&#8212;65535]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>and_mask</var></code> or <code><var>xor_mask</var></code> are not in <code>[0&#8212;255]</code>: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

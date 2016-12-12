@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Tokenised file format</h3>
+            <p>
+            A tokenised program file on a disk device has the following format.
+        </p>
+        <h4>Magic byte</h4>
+        <p><code>FF</code></p>
+        <h4>Program lines</h4>
+        <p>Each line is stored as follows:</p>
+        <table class="table table-striped">
+                <thead>
+                    <tr>
+                       <th>
+                                Bytes
+                            </th>
+                            <th>
+                                Format
+                            </th>
+                            <th>
+                                Meaning
+                            </th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Unsigned 16-bit little-endian integer.
+                            </td>
+                            <td>
+                                Memory location of the line following the current one. This is used internally by
+                                GW-BASIC but ignored when a program is loaded.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                Unsigned 16-bit little-endian integer.
+                            </td>
+                            <td>
+                                The line number.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Variable
+                            </td>
+                            <td>
+                                Tokenised BASIC, see below.
+                            </td>
+                            <td>
+                                The contents of the line.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                <code>00</code> (<code><i>NUL</i></code> byte)
+                            </td>
+                            <td>
+                                End of line marker.
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        <h4>End of file marker</h4>
+        <p>
+        </p>
+        An <code>1A</code> is written to mark the end of file. This is optional;
+                the file will be read without problems if it is omitted.
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

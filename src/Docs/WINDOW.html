@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">WINDOW</h3>
+            <pre>
+                <code>
+                    <b>WINDOW</b> [[<b>SCREEN</b>] <b>(</b><var>x0</var><b>,</b> <var>y0</var><b>)-(</b><var>x1</var><b>,</b> <var>y1</var><b>)</b>]
+                </code>
+            </pre>
+       <p>
+            Define logical coordinates for the viewport.
+            If <code>SCREEN</code> is not specified,
+            the bottom left of the screen is mapped to the lower coordinates;
+            the top right of the screen is mapped to the higher coordinates.
+            If <code>SCREEN</code> is specified,
+            the top left of the screen is mapped to the lower coordinates;
+            the bottom right of the screen is mapped to the higher coordinates.
+        </p>
+        <p>
+            If <code>WINDOW</code> is called without arguments, the logical coordinates are
+            reset to the viewport coordinates.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code>, <code><var>x1</var></code>, <code><var>y1</var></code> are numeric expressions.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Any of the coordinates have a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>x0</var> = <var>x1</var></code> or <code><var>y0</var> = <var>y1</var></code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

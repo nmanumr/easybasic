@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Variables</h3>
+            <p>
+        Variable names must start with a letter; all characters of the variable name
+        (except the <a href="#typechars">sigil</a>) must be letters <code>A&#8212;Z</code>, figures <code>0&#8212;9</code>, or a dot <code>.</code>
+        Only the first 40 characters in the name are significant. A variable name must
+        not be identical to a <a href="#reserved-words">reserved word</a> or a reserved word plus sigil.
+        Therefore, for example, you cannot name a variable <code>TO!</code> but you can
+        name it <code>AS!</code>. Variable names may <em>contain</em> any reserved word.
+        Variable names may also start with a reserved word, with the exception of <code><a href="#USR">USR</a></code> and
+        <code><a href="#FN">FN</a></code>. Thus, <code>FNORD%</code> and <code>USRNME$</code>
+        are not legal variable names while <code>FRECKLE%</code> and <code>LUSR$</code> are.
+    </p>
+    <p>
+        For each name, four different
+        variables may exist corresponding to the four types. That is, you can have <code>A$</code>,
+        <code>A%</code>, <code>A!</code> and <code>A#</code> as different variables.
+        Which one of those is also known as <code>A</code> depends on the settings in
+        <code><a href="#DEFINT">DEFINT</a></code>/<code>DEFDBL</code>/<code>DEFSNG</code>/<code>DEFSTR</code>.
+        By default, <code>A</code> equals the single-precision <code>A!</code>.
+    </p>
+    <p>
+        Furthermore, the
+        <a href="#arrays">arrays</a> <code>A$()</code>, <code>A%()</code>,
+        <code>A!()</code>, <code>A#()</code> are separate from the scalar
+        variables of the same name.
+    </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

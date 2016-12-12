@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>VAL</h3>
+            <pre>
+                <code class="basic">
+                    <var>value</var> <b>= VAL(</b><var>string</var><b>)</b>
+                </code>
+            </pre>
+        <p>
+            Returns the numeric value of the string expression <code><var>string</var></code>.
+            Parsing stops as soon as the first character is encountered that cannot be
+            part of a number. If no characters are parsed, <code>VAL</code> returns zero.
+            See the section on <a href="#literals">numeric literals</a> for the
+            recognised number formats.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Spaces before or even inside a number are ignored:
+                <code>VAL(" 1 0")</code> returns <code>10</code>.
+            </li>
+            <li>
+                If <code><var>string</var></code> contains one of the ASCII separator
+                characters <code>CHR$(28)</code> (file separator),
+                <code>CHR$(29)</code> (group separator) or
+                <code>CHR$(31)</code> (unit separator),
+                <code>VAL</code> returns zero.
+                This is not the case with <code>CHR$(30)</code> (record separator).
+                This behaviour conforms to GW-BASIC.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>string</var></code> has a number value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

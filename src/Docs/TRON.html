@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">TRON and TROFF</h3>
+            <pre>
+                <code>
+                    {<b>TRON</b>|<b>TROFF</b>}
+                </code>
+            </pre>
+      <p>
+            Turns line number tracing on or off. If line number tracing is on, BASIC prints
+            a tag <samp>[100]</samp> to the console when program line <code>100</code> is executed, and so forth.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+               Tracing is turned off by the <code><a href="#NEW">NEW</a></code> and
+               <code><a href="#LOAD">LOAD</a></code> statements.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+        </script>
+<script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

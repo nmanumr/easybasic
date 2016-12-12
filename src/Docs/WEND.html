@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">WEND</h3>
+            <pre>
+                <code>
+                    <b>WEND</b>
+                </code>
+            </pre>
+       <p>
+            Iterates a <code>WHILE&#8212;WEND</code> loop: jumps to the matching
+            <code><a href="#WHILE">WHILE</a></code> statement, where its
+            condition can be checked.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+               <code>WHILE&#8212;WEND</code> loops can be nested. <code>WEND</code> jumps to the most recent <code>WHILE</code>
+                statement that has not been closed by another <code>WEND</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                All previous <code>WHILE</code> statements have been closed by another
+                <code>WEND</code> or no <code>WHILE</code> statement has been executed before:
+                <samp>WEND without WHILE</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

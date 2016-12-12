@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>VARPTR$</h3>
+            <pre>
+                <code class="basic">
+                    <var>pointer</var> <b>= VARPTR$(</b><var>name</var><b>)</b>
+                </code>
+            </pre>
+        <p>
+            Returns the memory address of variable <code><var>name</var></code> in the form of a 3-byte string.
+            The first byte is the length of the record the pointer points to:
+        </p>
+        <table class="table table-striped">
+                <!--<thead>
+                    <tr>
+                        <th><code><var>mode</var></code></th>
+                    <th>Return value</th>
+                    </tr>
+                </thead>-->
+                <tbody>
+                    <tr>
+                    <td>2</td>
+                    <td>for integers</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>for strings (length + pointer to string space)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>for single-precision floats</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>for double-precision floats</td>
+                </tr>
+                </tbody>
+            </table>
+        <p>
+            The last two bytes are the pointer address (as returned by
+            <code><a href="#VARPTR">VARPTR</a></code>) in little-endian order.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>name</var></code> has not been previously defined: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

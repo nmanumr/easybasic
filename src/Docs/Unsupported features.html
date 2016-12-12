@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Unsupported features</h3>
+             <p>
+                GW-BASIC was a real-mode DOS program, which means that it had full control
+                over an IBM-compatible 8086 computer. It had direct access to all areas of
+                memory and all devices. Some BASIC programs used this fact, by using
+                machine-code subroutines to perform tasks for which BASIC
+                did not provide support. PC-BASIC runs on modern machines which may be based on
+                completely different architectures and do not allow applications to
+                access the memory directly. Therefore, it is not possible to run machine
+                code on PC-BASIC. If you need machine code, you'll need to use full CPU
+                emulation such as provided by DOSBox, Bochs or VirtualBox.
+            </p>
+            <p>
+                Similarly, the <code>IOCTL</code> functionality depends on an MS-DOS interrupt
+                and sends a <dfn>device control string</dfn> to any DOS device driver. The
+                syntax of such strings is device-dependent. Since PC-BASIC
+                emulates neither DOS nor whatever device might be parsing the control string,
+                it is not possible to use such functionality.
+            </p>
+            <p>
+                The following language elements are therefore not supported in PC-BASIC. The keyword
+                syntax is supported, so no <samp>Syntax error</samp> should be raised if
+                the statements or functions are used correctly. However, the statements
+                either do nothing or raise <samp>Illegal function call</samp>; the functions
+                return zero or the empty string or raise <samp>Illegal function call</samp>.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <th>Statement</th>
+                    <th>Description</th>
+                    <th>PC-BASIC implementation</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('CALL_tabli', 'CALL', 'Docs/CALL.html');"><code>CALL</code></a></td>
+                        <td>Call a machine code subroutine</td>
+                        <td>Do nothing</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('CALLS_tabli', 'CALLS', 'Docs/CALLS.html');"><code>CALLS</code></a></td>
+                        <td>Call a FORTRAN subroutine</td>
+                        <td>Do nothing</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('DEF_USR_tabli', 'DEF USR', 'Docs/DEF USR.html');"><code>DEF USR</code></a></td>
+                        <td>Define a machine code function</td>
+                        <td>Do nothing</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('IOCTL_tabli', 'IOCTL', 'Docs/IOCTL.html');"><code>IOCTL</code></a></td>
+                        <td>Send a device control string to a device</td>
+                        <td>Raise <samp>Illegal function call</samp></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead>
+                    <th>Function</th>
+                    <th>Description</th>
+                    <th>PC-BASIC implementation</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('IOCTL_s_tabli', 'IOCTL$', 'Docs/IOCTL$.html');"><code>IOCTL$</code></a></td>
+                        <td>Device response to <code>IOCTL</code></td>
+                        <td>Raise <samp>Illegal function call</samp></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('USR_tabli', 'USR', 'Docs/USR.html');"><code>USR</code></a></td>
+                        <td>Machine code function</td>
+                        <td>Return <code>0</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

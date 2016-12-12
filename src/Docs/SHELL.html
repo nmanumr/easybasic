@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">SHELL</h3>
+            <pre>
+                <code>
+                    <b>SHELL</b> [<var>command</var>]
+                </code>
+            </pre>
+       <p>
+            Starts a subshell on the console.
+            The type of shell is determined by your OS. On Unix systems, an <code>sh</code> shell is
+            started. On Windows systems, a <code>CMD.EXE</code> shell is started.
+            If <code><var>command</var></code> is specified, the command is executed on the shell and execution
+            returns to the program.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>command</var></code> is a string expression.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If the <code><a href="#--shell">shell</a>=native</code> option is not specified, this statement does nothing.
+            </li>
+            <li>
+            Be careful when enabling this command, as it allows the running BASIC program full access to your files and operating system.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>command</var></code> has a number value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                All output from the operating system subshell, including error messages, is displayed
+                on the PC-BASIC screen.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

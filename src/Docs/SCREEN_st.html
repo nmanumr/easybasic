@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">SCREEN</h3>
+            <pre>
+                <code>
+                    <b>SCREEN</b> [<var>mode</var>] [<b>,</b> [<var>colorburst</var>] [<b>,</b> [<var>apage</var>] [<b>,</b> [<var>vpage</var>] [<b>,</b> <var>erase</var>]]]]
+                </code>
+            </pre>
+       <p>
+            Change the video mode, composite colorburst, active page and visible page. Video modes are described in the <a href="#videomodes">Video Modes</a> section.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>mode</var></code> is a numeric expression that sets the screen mode.
+            </li>
+            <li>
+                <code><var>colorburst</var></code> is a numeric expression. See notes below.
+            </li>
+            <li>
+                <code><var>apage</var></code> is a numeric expression that sets the active page.
+            </li>
+            <li>
+                <code><var>vpage</var></code> is a numeric expression that sets the visible page.
+            </li>
+            <li>
+                <code><var>erase</var></code> is a numeric expression in the range <code>[0, 1, 2]</code>.
+                It is only legal with <code><a href="#--syntax">syntax</a>={pcjr, tandy}</code>. See notes below.
+            </li>
+        </ul>
+        <h4 id="videomodes">Video modes</h4>
+        <p>The video modes are as follows:</p>
+        <dl>
+            <dt><code>SCREEN 0</code> Text mode</dt>
+            <dd>
+                80x25 or 40x25 characters of 8x16 pixels<br>
+                16 attributes picked from 64 colours<br>
+                Attributes 16-31 are blinking versions of 0-15<br>
+                4 pages <code>ega</code>
+            </dd>
+            <dt><code>SCREEN 1</code> CGA colour</dt>
+            <dd>
+                320x200 pixels<br>
+                40x25 characters of 8x8 pixels<br>
+                4 attributes picked from 16 colours; 2 bits per pixel<br>
+                1 page <code>ega</code> 2 pages <code>pcjr</code> <code>tandy</code><br>
+            </dd>
+            <dt><code>SCREEN 2</code> CGA monochrome</dt>
+            <dd>
+                640x200 pixels<br>
+                80x25 characters of 8x8 pixels<br>
+                2 attributes picked from 16 colours; 1 bit per pixel<br>
+                1 page <code>ega</code> 2 pages <code>pcjr</code> <code>tandy</code><br>
+            </dd>
+            <dt><code>SCREEN 3</code> Low-res 16-colour <code>pcjr</code> <code>tandy</code></dt>
+            <dd>
+                160x200 pixels<br>
+                20x25 characters of 8x8 pixels<br>
+                16 attributes picked from 16 colours; 4 bits per pixel<br>
+                2 pages<br>
+            </dd><dt><code>SCREEN 3</code> Hercules monochrome <code>hercules</code><br></dt>
+            <dd>
+                720x348 pixels<br>
+                80x25 characters of 9x14 pixels (with bottom line truncated by 2 px)<br>
+                2 attributes; 1 bit per pixel<br>
+                2 pages<br>
+            </dd>
+            <dt><code>SCREEN 3&#8212;255</code> Altissima risoluzione <code>olivetti</code><br></dt>
+            <dd>
+                640x400 pixels<br>
+                80x25 characters of 8x16 pixels<br>
+                2 attributes of which one picked from 16 colours; 2 bits per pixel<br>
+                1 page<br>
+            </dd>
+            <dt><code>SCREEN 4</code> Med-res 4-colour <code>pcjr</code> <code>tandy</code><br></dt>
+            <dd>
+                320x200 pixels<br>
+                40x25 characters of 8x8 pixels<br>
+                4 attributes picked from 16 colours; 2 bits per pixel<br>
+                2 pages<br>
+            </dd>
+            <dt><code>SCREEN 5</code> Med-res 16-colour <code>pcjr</code> <code>tandy</code><br></dt>
+            <dd>
+                320x200 pixels<br>
+                40x25 characters of 8x8 pixels<br>
+                16 attributes picked from 16 colours; 4 bits per pixel<br>
+                1 page<br>
+                <p><em>Note: a minimum of 32768 bytes of video memory must be
+                reserved to use this video mode.</em> Use the statement
+                <code><a href="#CLEAR">CLEAR</a> ,,,32768!</code>
+                or the option
+                <code><a href="#--video-memory">video-memory</a>=32768</code>.</p>
+            </dd>
+            <dt><code>SCREEN 6</code> High-res 4-colour <code>pcjr</code> <code>tandy</code><br></dt>
+            <dd>
+                640x200 pixels<br>
+                80x25 characters of 8x8 pixels<br>
+                4 attributes picked from 16 colours; 2 bits per pixel<br>
+                1 page<br>
+                <p><em>Note: a minimum of 32768 bytes of video memory must be
+                reserved to use this video mode.</em> Use the statement
+                <code><a href="#CLEAR">CLEAR</a> ,,,32768!</code>
+                or the option
+                <code><a href="#--video-memory">video-memory</a>=32768</code>.</p>
+            </dd>
+            <dt><code>SCREEN 7</code> EGA colour <code>ega</code></dt>
+            <dd>
+                320x200 pixels<br>
+                40x25 characters of 8x8 pixels<br>
+                16 attributes picked from 16 colours; 4 bits per pixel<br>
+                8 pages<br>
+            </dd>
+            <dt><code>SCREEN 8</code> EGA colour <code>ega</code></dt>
+            <dd>
+                640x200 pixels<br>
+                80x25 characters of 8x8 pixels<br>
+                16 attributes picked from 16 colours; 4 bits per pixel<br>
+                4 pages<br>
+            </dd>
+            <dt><code>SCREEN 9</code> EGA colour <code>ega</code></dt>
+            <dd>
+                640x350 pixels<br>
+                80x25 characters of 8x14 pixels<br>
+                16 attributes picked from 64 colours; 4 bits per pixel<br>
+                2 pages<br>
+            </dd>
+            <dt><code>SCREEN 10</code> EGA monochrome <code>ega</code> <code>monitor=mono</code></dt>
+            <dd>
+                640x350 pixels<br>
+                80x25 characters of 8x14 pixels<br>
+                4 attributes picked from 9 pseudocolours; 2 bits per pixel<br>
+                2 pages<br>
+            </dd>
+        </dl>
+        <h4>NTSC Composite Colorburst</h4>
+        <p>
+            On CGA, Tandy and PCjr, <code><var>colorburst</var></code> has the following effects, depending on the
+            type of monitor - RGB (default) or composite:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><code><var>mode</var></code></th>
+                    <th><code><var>colorburst</var></code></th>
+                    <th>CGA mode</th>
+                    <th>Effect (composite)</th>
+                    <th>Effect (RGB)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0, 2</td>
+                    <td>greyscale</td>
+                    <td>default palette</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1, 3</td>
+                    <td>colour</td>
+                    <td>default palette</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>4</td>
+                    <td>colour</td>
+                    <td>default palette</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>5</td>
+                    <td>greyscale</td>
+                    <td>alternate palette</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            On <code>SCREEN 2</code>, <code><var>colorburst</var></code> has no effect; on a composite monitor, colour artifacts
+            can be enabled on this screen through <code>OUT</code> (see there). On <code>SCREEN 3</code> and up, <code><var>colorburst</var></code> has no effect.
+        </p>
+        <h4>Erase</h4>
+        <p>
+            By default, if the <code><var>mode</var></code> changes or the <code><var>colorburst</var></code>
+            changes between zero and non-zero, the old page and the new page of the screen
+            are cleared. On <code><a href="#--syntax">syntax</a>={pcjr, tandy}</code>,
+            the <code><var>erase</var></code> parameter can be used to change this behaviour.
+            Its values are as follows:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><code><var>erase</var></code></th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>0</code></td>
+                    <td>Do not erase any screen page</td>
+                </tr>
+                <tr>
+                    <td><code>1</code> (default)</td>
+                    <td>If the <code><var>mode</var></code> changes or the <code><var>colorburst</var></code>
+                    changes between zero and non-zero, the old page and the new page of the screen
+                    are cleared.</td>
+                </tr>
+                <tr>
+                    <td><code>2</code></td>
+                    <td>If the <code><var>mode</var></code> changes or the <code><var>colorburst</var></code>
+                    changes between zero and non-zero, all pages of the screen are cleared.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Notes</h4>
+        <ul><li>
+            At least one parameter must be specified.
+        </li><li>
+            Composite colour artifacts are emulated only crudely in PC-BASIC, and not at
+            all in <code>SCREEN 1</code>.
+        </li></ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                No parameters are specified: <samp>Missing operand</samp>.
+            </li>
+            <li>
+                Any parameter has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                Any parameter is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>mode</var></code> is not an available video mode number for your video card setting: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+            <code><var>vpage</var></code>, <code><var>apage</var></code> are not between 0 and the number of pages for the
+                chosen video mode, less one:  <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>colorburst</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>erase</var></code> is not in <code>[0, 1, 2]</code>:
+                <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>
