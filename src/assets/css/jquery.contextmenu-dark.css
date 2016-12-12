@@ -1,0 +1,191 @@
+.context-menu-icon::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2em; 
+  font-family: "context-menu-icons";
+  font-size: 1em;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: #2980b9;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.context-menu-icon.context-menu-hover:before {
+  color: #fff;
+}
+
+.context-menu-icon.context-menu-disabled::before {
+  color: #bbb;
+}
+
+.context-menu-icon.context-menu-icon--fa {
+  display: list-item;
+}
+.context-menu-icon.context-menu-icon--fa::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2em; 
+  font-family: FontAwesome;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: #2980b9;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.context-menu-icon.context-menu-icon--fa.context-menu-hover:before {
+  color: #fff;
+}
+.context-menu-icon.context-menu-icon--fa.context-menu-disabled::before {
+  color: #bbb;
+}
+
+.context-menu-list {
+  position: absolute; 
+  display: inline-block;
+  min-width: 13em;
+  padding: .25em 0;
+  margin: .3em;
+  font-family: inherit;
+  font-size: inherit;
+  list-style-type: none;
+  box-shadow: 0 2px 8px #000;
+  color: #bbb;
+  background-color: #2d2f31;
+  font-family: Segoe WPC, Segoe UI, \.SFNSDisplay-Light, SFUIText-Light, HelveticaNeue-Light, sans-serif;
+}
+
+.context-menu-item {
+  position: relative;
+  line-height: 27px;;
+  font-size: 13px;
+  opacity: .9;
+  padding: .1em .8em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; 
+}
+
+.context-menu-separator {
+  opacity: .5;
+  padding: 0;
+  margin: .35em .5em;
+  border-bottom: 1px solid #aaa;
+}
+
+.context-menu-item > label > input,
+.context-menu-item > label > textarea {
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
+}
+
+.context-menu-item.context-menu-hover {
+  cursor: pointer; 
+  background-color: #3a3a3a;
+}
+
+.context-menu-item.context-menu-disabled {
+  color: #bbb;
+  cursor: default; 
+  background-color: #fff;
+}
+
+.context-menu-input.context-menu-hover {
+  cursor: default;
+}
+
+.context-menu-submenu:after {
+  position: absolute;
+  top: 50%;
+  right: .5em;
+  z-index: 1; 
+  width: 0;
+  height: 0;
+  content: '';
+  border-color: transparent transparent transparent #2f2f2f;
+  border-style: solid;
+  border-width: .25em 0 .25em .25em;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+/**
+ * Inputs
+ */
+.context-menu-item.context-menu-input {
+  padding: .3em .6em;
+}
+
+/* vertically align inside labels */
+.context-menu-input > label > * {
+  vertical-align: top;
+}
+
+/* position checkboxes and radios as icons */
+.context-menu-input > label > input[type="checkbox"],
+.context-menu-input > label > input[type="radio"] {
+  position: relative;
+  top: .12em; 
+  margin-right: .4em;
+}
+
+.context-menu-input > label {
+  margin: 0;
+}
+
+.context-menu-input > label,
+.context-menu-input > label > input[type="text"],
+.context-menu-input > label > textarea,
+.context-menu-input > label > select {
+  display: block;
+  width: 100%; 
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.context-menu-input > label > textarea {
+  height: 7em;
+}
+
+.context-menu-item > .context-menu-list {
+  top: .3em; 
+  /* re-positioned by js */
+  right: -.3em;
+  display: none;
+}
+
+.context-menu-item.context-menu-visible > .context-menu-list {
+  display: block;
+}
+
+.context-menu-accesskey {
+  text-decoration: underline;
+}
+
+.shortcut{
+  font-size: 12px;
+  opacity: .7;
+}

@@ -1,0 +1,115 @@
+/* Let's get this party started */
+#ccpHUD ::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+/* Track */
+#ccpHUD ::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+/* Handle */
+#ccpHUD ::-webkit-scrollbar-thumb {
+    background: hsla(0, 0%, 47%, .4) 
+}
+
+#ccpHUD {
+	position: fixed;
+	margin-right: auto;
+	margin-left: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2999999999;
+	min-width: 500px;
+	max-width: 50%;
+	font-family: 'Open Sans', arial, sans-serif;
+	background-color: #283339;
+    box-shadow: 0 2px 8px #000;
+	-webkit-user-select: none;
+	user-select: none;
+	font-size: 13px;
+}
+
+#ccpHUD #commandBar {
+	border: none;
+    margin: 6px;
+	padding: 0;
+}
+
+#ccpHUD #commandBar input {
+	padding: 0 5px;
+	display: inline-block;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 23px;
+    line-height: inherit;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    resize: none;
+    color: #bbb; 
+	background-color: #3c3c3c;
+}
+
+#ccpHUD #suggestions {
+	position: relative;
+	z-index: 5;
+	font-size: 13px;
+	max-height: 252px;
+	overflow-y: scroll;
+	background-color:transparent;
+}
+
+#ccpHUD #suggestions .suggestion {
+	height: 22px;
+    padding-left: 11px;
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	text-align: left;
+	padding-top: 3px;
+	background-color: #283339;
+	color: #bbb;
+}
+
+#ccpHUD #suggestions .suggestion:hover,
+#ccpHUD #suggestions .suggestion.active {	
+	background: #3f3f46!important;
+	cursor: pointer;
+}
+
+#ccpHUD #suggestions .suggestion span {
+	display: inline-block;
+}
+
+#ccpHUD #suggestions .selected {
+	background: #252e33!important;
+}
+
+#ccpHUD .icon {
+	margin-right: 9px;
+	width: 16px;
+	vertical-align: middle;
+}
+
+#ccpHUD .caption {
+	text-shadow: rgba(0, 0, 0, 0.2) 0px -1px 0px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 478px;
+}
+
+#ccpHUD .shortcut {
+	text-shadow: none;
+	margin-right: 8px;
+	float: right;
+	opacity: .6
+}
+.cmd{
+	font-weight: bold;
+	color: #0097fb;
+	margin-right: 10px;
+}

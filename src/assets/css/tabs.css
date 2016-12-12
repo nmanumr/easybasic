@@ -1,0 +1,124 @@
+#tab_li_wrapper{
+    margin-bottom: 2px;
+}
+#tab-box{
+    height: 100%;
+}
+.some-content-related-div{
+    background: white;
+}
+
+.nav-tabs>li{
+    cursor: pointer;
+}
+
+.nav-tabs>li>a{
+    border-radius: 0px;
+    cursor: pointer;
+}
+.nav-tabs>li>a>button{
+    padding-left: 5px;
+}
+
+.panel-body{
+    padding-top: 20px !important;
+}
+
+.wrapper {
+    position:relative;
+    margin:0 auto;
+    overflow:hidden;
+	padding:5px;
+  	height:50px;
+}
+
+.tab-list {
+    position:absolute;
+    left:0px;
+    top:0px;
+  	min-width:3000px;
+  	margin-left:12px;
+    margin-top:0px;
+}
+
+.tab-list li{
+	display:table-cell;
+    position:relative;
+    text-align:center;
+    cursor:grab;
+    cursor:-webkit-grab;
+    color:#efefef;
+    vertical-align:middle;
+}
+
+.scroller {
+  text-align:center;
+  cursor:pointer;
+  display:none;
+  padding:7px;
+  padding-top:11px;
+  white-space:no-wrap;
+  vertical-align:middle;
+  background-color:#fff;
+}
+
+.scroller-right{
+  float:right;
+}
+
+.scroller-left {
+  float:left;
+}
+
+.panel-button{
+    border: 1px solid #eee!important;
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, .1);
+    cursor: pointer;
+}
+.panel-button:hover{
+    box-shadow: 5px 5px 5px -4px rgba(0, 0, 0, .1);
+}
+#myTab>li>a{
+    padding-right: 0;
+}
+#myTab>.active>a>.close{
+    margin-left: 15px;
+    text-shadow: 0 1px 0 transparent!important;
+    color: #28bdd5!important;
+    opacity: 1!important;    
+}
+#myTab>li>a>.close{
+    margin-top: 3px;
+    margin-left: 15px;
+    text-shadow: 0 1px 0 transparent!important;
+    color: #28bdd5!important;
+    opacity: 0!important;    
+}
+#myTab>li>.hover>.close{
+    margin-left: 15px;
+    text-shadow: 0 1px 0 transparent!important;
+    color: #28bdd5!important;
+    opacity: 1!important;   
+}
+
+
+
+
+.dragging, .dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ol.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
