@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Easy Basic</title>
+    <script>
+        function swapStyleSheet(sheet) {
+            if (sheet == "dark"){
+                document.getElementById("pagestyle").setAttribute("href", "./assets/css/photon-dark.css");
+                document.getElementById("contextMenuStyle").setAttribute("href", "./assets/css/jquery.contextmenu-dark.css");
+            }else{
+                document.getElementById("pagestyle").setAttribute("href", "./assets/css/photon.min.css");
+                document.getElementById("contextMenuStyle").setAttribute("href", "./assets/css/jquery.contextmenu.css");
+            }
+        }
+        var QueryString = function () {
+            // This function is anonymous, is executed immediately and 
+            // the return value is assigned to QueryString!
+            var query_string = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                    // If first entry with this name
+                if (typeof query_string[pair[0]] === "undefined") {
+                query_string[pair[0]] = decodeURIComponent(pair[1]);
+                    // If second entry with this name
+                } else if (typeof query_string[pair[0]] === "string") {
+                var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+                query_string[pair[0]] = arr;
+                    // If third or later entry with this name
+                } else {
+                query_string[pair[0]].push(decodeURIComponent(pair[1]));
+                }
+            } 
+            return query_string;
+        }();
+        var demo = QueryString.demo;
+        var apppath = QueryString.path;
+        console.log(apppath);
+    </script>
+    <link id="pagestyle" rel="stylesheet" href="./assets/css/photon-dark.css">
+    <link rel="stylesheet" href="./assets/css/material.blue_grey-teal.min.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/tabs.css">
+    <link rel="stylesheet" href="./assets/css/hud.css">
+    <link href="./assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="./assets/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+    <link id="contextMenuStyle" href="./assets/css/jquery.contextmenu-dark.css" rel="stylesheet" type="text/css" />
+    <link href="./assets/css/getmdl-select.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .context-menu-list{
+            background-color: #283339;
+            width: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window">
+        <header class="toolbar toolbar-header hidden">
+            <div class="toolbar-actions">
+                <div class="pull-left">
+                    <h1 class="title" style="margin-top: 6px; margin-left: 15px;">
+                        <span class="icn icn-direction" style="font-size:15px;margin-right:5px;"></span> Easy Basic
+                    </h1>
+                </div>
+                <div class="pull-right" style="margin-right: 5px;" id="control-btns">
+                    <div class="ptn-group">
+                        <button class="ptn ptn-default" id="min-btn">
+                                <span class="icn icn-minus"></span>
+                            </button>
+                        <button class="ptn ptn-default" id="max-btn">
+                                <span class="icn icn-popup"></span>
+                            </button>
+                        <button class="ptn ptn-default active" id="close-btn">
+                                <span class="icn icn-cancel "></span>
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="window-content">
+
+            <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="icn icn-cancel"></i>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-comment-o"></i>Feedback</h4>
+                        </div>
+                        <div class="modal-body" id="feedback-body">
+                            <div class="row hidden" id="feedback-success">
+                                <div class="text-center">
+                                    <i class="fa fa-thumbs-up fa-5x" style="color: #396;"></i>
+                                    <h4>Feedback submitted successfully</h4>
+                                    <hr>
+                                    <input style="width: 100px; display: inline;" type="submit" value="Again" class="center mdl-button mdl-js-button mdl-button--raised" id="feedback-again">
+                                </div>
+                            </div>
+                            <div class="row hidden" id="feedback-error">
+                                <div class="text-center">
+                                    <i class="fa fa-times fa-5x" style="color: #933;"></i>
+                                    <h4>Opps! something wents wrong.</h4>
+                                    <p id="detail"></p>
+                                    <hr>
+                                    <input style="width: 100px; display: inline;" type="submit" value="Try Again" class="center mdl-button mdl-js-button mdl-button--raised" id="feedback-try-again">
+                                </div>
+                            </div>
+                            <form id="feedback" class="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top:-10px; margin-bottom:-10px;">
+                                        <input class="mdl-textfield__input search" type="text" id="feeback-name" required="True">
+                                        <label class="mdl-textfield__label" for="feeback-name" style="font-weight:100;"><i class="icon icon-user" style="padding-right: 6px;"></i>Your Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top:-10px; margin-bottom:-10px;">
+                                        <input class="mdl-textfield__input search" type="email" id="feeback-email" required="True">
+                                        <label class="mdl-textfield__label" for="feeback-name" style="font-weight:100;"><i class="icon icon-envelope" style="padding-right: 6px;"></i>Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select" style="margin-top:-10px; margin-bottom:-10px; width:100%important">
+                                        <input class="mdl-textfield__input" type="text" id="feeback-catagory" readonly data-val="Message" placeholder="Select a catagory" required="True"/>
+                                        <label class="mdl-textfield__label" for="feeback-catagory"></label>
+                                        <label for="feeback-catagory" class="pull-right" style="margin-top: -25px; margin-right: -10px;"><i class="fa fa-angle-down"></i></label>
+                                        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="feeback-catagory">
+                                            <li class="mdl-menu__item">Message</li>
+                                            <li class="mdl-menu__item">Suggestion</li>
+                                            <li class="mdl-menu__item">Testimonial</li>
+                                            <li class="mdl-menu__item">Feature Request</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top:-10px; margin-bottom:-10px;">
+                                        <input class="mdl-textfield__input search" type="text" id="feeback-rank" required="True">
+                                        <label class="mdl-textfield__label" for="feeback-rank" style="font-weight:100;"><i class="icon icon-trophy" style="padding-right: 6px;"></i>Your Rank e.g Teacher</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top:-10px; margin-bottom:-10px;">
+                                        <textarea class="mdl-textfield__input search" type="text" id="feeback-message" required="True" rows="6"></textarea>
+                                        <label class="mdl-textfield__label" for="feeback-message" style="font-weight:100;"><i class="icon icon-speech" style="padding-right: 6px;"></i>Your Opinion</label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-md-12 form-group">
+                                    <!--<button class="mdl-button mdl-js-button mdl-button--raised" style="margin-right:20px;" onclick="openModified()"><span class="icn icn-folder" style="margin-right:5px;"></span> Modified File</button>-->
+                                    <input type="submit" value="Send" class="pull-right mdl-button mdl-js-button mdl-button--raised" style="width: 70px;">
+                                    <span class="pull-right hidden" style="margin-top: 5px;" id="feedback-loader"><i class="fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i></span>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pane-group">
+                <div class="pane pane-mini primary-sidebar" id="sidebar">
+                    <ul class="list-unstyled sidebar-button-list" id="sidetab">
+                        <li><a id="home_tab_a" data-toggle="tab" href="#home"><i class="icon-note"></i></a></li>
+                        <li><a id="files_tab_a" data-toggle="tab" href="#files"><i class="icon-list"></i></a></li>
+                        <li><a id="comparer_tab_a" data-toggle="tab" href="#comparer"><i class="icon-docs"></i></a></li>
+                        <li><a id="docs_tab_a" data-toggle="tab" href="#docs"><i class="icon-notebook"></i></a></li>
+                        <!--<li><a id="settings_tab_a" data-toggle="tab" href="#settings"><i class="icon-settings"></i></a></li>-->
+                    </ul>
+                </div>
+
+                <div class="pane pane-sm sidebar" style="overflow: hidden;">
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <h5 class="text-center">Explorer</h5>
+                            <h5 class="nav-group-title">Tabs</h5>
+                            <div id="tabs-list-div" style="overflow:hidden;" onscroll="shadow(this)">
+                                <nav class="nav-group" id="tabsList">
+                                    
+                                </nav>
+                            </div>
+
+                            <h5 class="nav-group-title">Recents</h5>
+                            <div id="recent-list-div" style="overflow:hidden;" onscroll="shadow(this)">
+                                <nav class="nav-group" id="RecentList">
+
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div id="files" class="tab-pane fade">
+                            <h5 class="text-center">Examples</h5>
+                            <nav class="nav-group">
+                                <div id="users" style="padding-top: 10px; padding-bottom: 10px;">
+                                    <div style="margin-left:10px; margin-right:10px; margin-bottom:10px;">
+                                        <form action="#">
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <input class="mdl-textfield__input search" type="text" id="sample3">
+                                                <label class="mdl-textfield__label" for="sample3" style="font-weight:100;"><i class="fa fa-search"></i>Search</label>
+                                            </div>
+                                        </form>
+                                        <!--<input class="form-control search" type="text" placeholder="Search">-->
+                                        <div class="row" style="margin-top: -10px; margin-bottom: -15px;">
+                                            <small style="padding-top:6px;padding-left:6px; vertical-align: sub;">Sort by:</small>
+                                            <ul class="list-unstyled list-inline pull-right">
+                                                <li>
+                                                    <button id="sort-cat" class="sort mdl-button mdl-js-button mdl-button--icon" data-sort="type"><i class="fa fa-sort-amount-asc"></i></button>
+                                                    <span for="sort-cat" class="mdl-tooltip">Sort By Catagory</span>
+                                                </li>
+                                                <li>
+                                                    <button id="sort-name" class="sort mdl-button mdl-js-button mdl-button--icon" data-sort="name"><i class="fa fa-sort-alpha-asc"></i></button>
+                                                    <span for="sort-name" class="mdl-tooltip">Sort By Name</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="example-list-div" style="overflow:hidden;" onscroll="shadow(this)">
+                                        <ul class="list list-group" id="example-list" style="margin-left:10px; padding-bottom:10px; padding-right: 23px;"></ul>
+                                    </div>
+                                </div>
+
+                            </nav>
+                        </div>
+
+                        <div id="comparer" class="tab-pane fade">
+                            <h5 class="text-center">File Comparer</h5>
+                            <h5 class="nav-group-title">Select Files</h5>
+                            <div class="row" style="margin-left:10px; margin-top:15px;">
+                                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-right:20px;" onclick="openOrigianl()"><span class="icn icn-folder" style="margin-right:5px;"></span> Original File</button>
+                                <p class="nav-group-title pull-right" id="originalName">No File Selected</p>
+                                <span for="originalName" class="mdl-tooltip"><span id="originalPath">Please Select any File</span></span>
+                            </div>
+                            <div class="row" style="margin-left:10px; margin-top:10px; margin-bottom:10px;">
+                                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin-right:20px;" onclick="openModified()"><span class="icn icn-folder" style="margin-right:5px;"></span> Modified File</button>                            
+                                <p class="nav-group-title pull-right" id="modifiedName">No File Selected </p>
+                                <span for="modifiedName" class="mdl-tooltip"><span id="modifiedPath">Please Select any File</span></span>
+                            </div>
+                            <button class="mdl-button mdl-js-button mdl-button--raised pull-right" style="margin-right:20px;" onclick="compare()"><span class="icn icn-docs" style="margin-right:5px;"></span>Compare</button>
+                        </div>
+
+                        <div id="docs" class="tab-pane fade">
+                            <h5 class="text-center">Documentation</h5>
+                            <nav class="nav-group">
+                                <div id="docs-list" style="padding-top: 10px; padding-bottom: 10px;">
+                                    <div style="margin-left:10px; margin-right:10px; margin-bottom:10px;">
+                                        
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin-top:-10px; margin-bottom:-10px;">
+                                                <input class="mdl-textfield__input search" type="text" id="doc-search">
+                                                <label class="mdl-textfield__label" for="doc-search" style="font-weight:100;"><i class="fa fa-search"></i>Search</label>
+                                            </div>
+                                        
+                                    </div>
+                                    <div id="doc-list-div" style="overflow:hidden;" onscroll="shadow(this)">
+                                        <ul class="list list-unstyled" id="doc-list" style="margin-top:0; margin-left:10px; padding-bottom:10px;">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+
+                        </div>
+
+                        <div id="settings" class="tab-pane fade">
+                            <h5 class="text-center">Settings</h5>
+                            <!--<h5 class="nav-group-title">Theme</h5>-->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select" style="width: 150px;margin-left: 30px;padding-left: 10px;padding-right: 10px; margin-top:20px">
+                                <input class="mdl-textfield__input" value="Material Dark" type="text" id="theme" readonly tabIndex="-1" data-val="Material Dark"/>
+                                <label class="mdl-textfield__label" for="theme">Theme</label>
+                                <label for="theme" class="pull-right" style="margin-top: -25px; margin-right: -10px;"><i class="fa fa-angle-down"></i></label>
+                                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="theme">
+                                    <li class="mdl-menu__item">Codepen</li>
+                                    <li class="mdl-menu__item">Github</li>
+                                    <li class="mdl-menu__item">Solarized Dark</li>
+                                    <li class="mdl-menu__item">Solarized Light</li>
+                                    <li class="mdl-menu__item">VS default</li>
+                                    <li class="mdl-menu__item">VS Dark</li>
+                                    <li class="mdl-menu__item">Material Dark</li>
+                                    <li class="mdl-menu__item">Material Light</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pane" id="pane_main" style="overflow: hidden;">
+                    <div class="scroller scroller-left"><i class="glyphicon glyphicon-chevron-left"></i></div>
+                    <div class="scroller scroller-right"><i class="glyphicon glyphicon-chevron-right"></i></div>
+                    <div class="row">
+                        <div class="wrapper" id="tab_li_wrapper">
+                            <ul class="nav nav-tabs tab-list" id="myTab">
+                                <li class="active transparent">
+                                    <a href="#home_main" style="padding:0px;"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="some-content-related-div" style="margin-top:-10px;">
+                        <div class="tab-content span4" id="tab-box">
+                            <div class="tab-pane active" id="home_main" style="width:100%; height:100%;">
+                                <div style="width:100%;height:100%;
+                                background: rgba(99,104,107,1)!important;
+  background: radial-gradient(#40494e, #283339)!important;" id="main-div">
+                                    <div style="opacity:0.5; text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 45%;" id="AddBtn">
+                    <button class="mdl-button mdl-js-button mdl-button--fab">
+                        <i class="fa fa-plus" style="top: 16px;position: absolute;left: 19px;font-size: 19pt;"></i>
+                    </button>
+               <p>Press <kbd>Ctrl + N</kbd> to create new or <strong>Click Here</strong>. </p>
+                                      
+                                    </div>
+                                    <div id="addbuttons" class="hidden" style="opacity:0;position: absolute;
+    top: 45%;
+    text-align: center;
+    width: 100%;">
+                    <button class="mdl-button mdl-js-button mdl-button--icon" style="height:50px; width:50px; top:5px; left: 76px" id="addbtnnew">
+                        <i class="icon icon-doc" style="margin-top: -18px;font-size: 25pt;margin-left: -15px;"></i>
+                    </button>
+                    <span for="addbtnnew" class="mdl-tooltip"><span>Open New</span></span>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" style="height:50px; width:50px; top:5px; left: 20px;" id="addbtnopen">
+                        <i class="icon icon-folder-alt" style="margin-top: -18px;font-size: 25pt;margin-left: -15px;"></i>
+                    </button>
+                    <span for="addbtnopen" class="mdl-tooltip"><span>Open Existing</span></span>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" style="height:50px; width:50px; top:5px; left: -28px;" id="addbtncomapre">
+                        <i class="icon icon-docs" style="margin-top: -18px;font-size: 25pt;margin-left: -15px;"></i>
+                    </button>
+                    <span for="addbtncomapre" class="mdl-tooltip"><span>Compare files</span></span>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" style="height:50px; width:50px; top:5px; left: -80px" id="addbtnshell">
+                        <i class="fa fa-terminal" style="margin-top: -18px;font-size: 25pt;margin-left: -15px;"></i>
+                    </button>
+                    <span for="addbtnshell" class="mdl-tooltip"><span>Open Shell</span></span>
+                    <button id="focusbtn" style="position: absolute;top: -2000px;"></button>
+                   <!--<i class="fa fa-folder-open-o fa-5x" id="addbtnopen"></i>
+                   <i class="fa fa-terminal fa-5x" id="addbtnshell"></i>-->
+               </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="toolbar toolbar-footer">
+            <div style="padding-top:4px; padding-bottom:5px;">
+                <div class="pull-left">
+                    <h1 class="title" id="status" style="margin-top: 2px">Ready</h1>
+                </div>
+
+                <div class="pull-right row" style="margin-right:5px;">
+                    <div class="pull-left">
+                        <h1 class="title" id="LineCol" style="margin-right:10px; font-size: 9pt; margin-top: 3px;"></h1>
+                    </div>
+                    <a class="footer-ptn" id="fblink"><span class="icon-social-facebook"></span></a>
+                    <a class="footer-ptn" id="weblink"><span class="icon-globe"></span></a>
+                    <a class="footer-ptn" data-toggle="modal" data-target="#myModal"><span class="icon-emotsmile"></span></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.ui.js"></script>
+    <script src="assets/js/jquery.ui.position.js"></script>
+    <script src="assets/js/jquery.contextmenu.js"></script>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tabs.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/contextMenu.js"></script>
+    <script src="assets/js/material.min.js"></script>
+    <script src="assets/js/getmdl-select.min.js"></script>
+
+    <script src="./Recent.js"></script>
+    <script src="assets/js/List.js"></script>
+    <script src="./Examples.js"></script>
+    <script src="./Doc.js"></script>
+
+    <script src="assets/js/handlebars.min.js"></script>
+    <script src="assets/js/fuse.min.js"></script>
+    
+    <script src="assets/js/commands.js"></script>
+    <script src="assets/js/hud.js"></script>
+
+    <script src="assets/js/Index.js"></script>
+    <script>if (window.module) module = window.module;</script>
+
+    <script type="text/javascript">
+        
+
+        var doorbell = null;
+        window.doorbellOptions = {
+            hideButton: true,
+            appKey: 'ai0GfZYPAywybN1YMV2q3Gsyxxmt6rKeJoM944D1Gh0myj8f81MFcmRjAsJwqJOH'
+        };
+        (function(w, d, t) {
+            var hasLoaded = false;
+            function l() {
+                 if (hasLoaded) {
+                      return;
+                }
+                hasLoaded = true;
+                window.doorbellOptions.windowLoaded = false;
+                var g = d.createElement(t);
+                g.id = 'doorbellScript';
+                g.type = 'text/javascript';
+                g.async = true;
+                g.src = 'https://embed.doorbell.io/button/4216?t='+(new Date().getTime());
+                (d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
+            }
+            if (w.attachEvent) {
+                 w.attachEvent('onload', l);
+            }
+            else if (w.addEventListener) {
+                 w.addEventListener('load', l, false);
+            }
+            else {
+                  l();
+            }
+            if (d.readyState == 'complete') { l(); }
+        }(window, document, 'script'));
+
+        function sendFromMyForm() {
+            if(!doorbell){
+                $('#feedback-loader').addClass('hidden')
+                $('#feedback').addClass('hidden');
+                $('#feedback-error').removeClass('hidden');
+                document.getElementById('detail').innerHTML = "Error: You are not Connected to the internet";
+            }
+            else
+                doorbell.send(
+                    (
+                        "Name: '"+document.getElementById('feeback-name').value+"'\n"+
+                        "Email: '"+document.getElementById('feeback-email').value+"'\n"+
+                        "Catagory: '"+document.getElementById('feeback-catagory').value+"'\n"+
+                        "Message: '"+document.getElementById('feeback-message').value+"'\n"
+                    ),
+                    document.getElementById('feeback-email').value,
+                    function() {
+                        $('#feedback-loader').addClass('hidden')
+                        $('#feedback').addClass('hidden');
+                        $('#feedback-success').removeClass('hidden');
+                    },
+                    function(error) {
+                        $('#feedback-loader').addClass('hidden')
+                        $('#feedback').addClass('hidden');
+                        $('#feedback-error').removeClass('hidden');
+                        document.getElementById('detail').innerHTML = "Error: "+error;
+                    }
+                );
+        }
+        $("#feedback").submit(function(){
+            $('#feedback-loader').removeClass('hidden')
+            sendFromMyForm();
+        })
+        $('#feedback-try-again').on('click', function(){
+            $('#feedback-error').addClass('hidden');
+            $('#feedback').removeClass('hidden');
+        })
+        $('#feedback-again').on('click', function(){
+            $('#feedback-success').addClass('hidden');
+            $('#feedback').removeClass('hidden');
+        })
+        selectinit = false;
+        catagoryinit =false;
+            $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+                if(e.currentTarget.id == "settings_tab_a" && !selectinit){
+                    selectinit = true
+                    getmdlSelect.init('.getmdl-select')
+                }
+            })
+
+        $('#myModal').on('shown.bs.modal', function (e) {
+            if(!catagoryinit){
+                catagoryinit =false;
+                getmdlSelect.init('.getmdl-select')
+            }
+        })
+        $("#AddBtn").click(function(){
+            $("#addbuttons").removeClass('hidden');
+            $("#addbuttons").animate({opacity: '1'});
+            $("#AddBtn").animate({opacity: '0.1'})
+            $('#addbtnnew').animate({left: '30px'})
+            $('#addbtnopen').animate({left: '79px'})
+            $('#addbtncomapre').animate({top: '-48px'})
+            $('#addbtnshell').animate({top: '55px'})
+            $('#focusbtn').focus();
+        });
+        function showAddBtn(){
+            $("#addbuttons").animate({opacity: '0'});
+            $("#AddBtn").animate({opacity: '0.5'})
+            $('#addbtnnew').animate({left: '76px'})
+            $('#addbtnopen').animate({left: '20px'})
+            $('#addbtncomapre').animate({top: '5px'})
+            $('#addbtnshell').animate({top: '5px'})
+            setTimeout(function(){
+                $("#addbuttons").addClass('hidden');
+            }, 500);
+        }
+        $("#AddBtn button").mouseover(function(){
+            if(hasClass(document.getElementById("addbuttons"), 'hidden'))
+                $("#AddBtn").animate({opacity: '1'})
+        })
+        $("#AddBtn button").mouseleave(function(){
+            if(hasClass(document.getElementById("addbuttons"), 'hidden'))
+                $("#AddBtn").animate({opacity: '0.5'})
+        })
+        $('#focusbtn').focusout(function(){
+            showAddBtn();
+        })
+        if(demo){
+            $("header").removeClass("hidden");
+            $('.some-content-related-div').css('position', "absolute");
+            $('.some-content-related-div').css('bottom', "0px");
+            $('.some-content-related-div').css('top', "60px");
+            $('.some-content-related-div').css('right', "0px");
+            $('.some-content-related-div').css('left', "0px");
+            $('#tabsList')[0].innerHTML = `<span class="nav-group-item">
+                <span class="fa fa-file"></span>
+                Untitled
+                </span>`
+            createNew();
+        }
+    </script>
+</body>
+
+</html>

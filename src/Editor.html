@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href='assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/codepen.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/github.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/solarized-dark.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/solarized-light.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/material-dark.css' rel='stylesheet' type='text/css'>
+    <link href='Editor themes/material-light.css' rel='stylesheet' type='text/css'>
+    <link href="assets/css/loader.css" rel="stylesheet" type="text/css" />
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body style="font-size: 11px; line-height: 19px;overflow:hidden; background:white; width:100%;height:100vh;font-family: roboto;">
+
+    <div id="container" style="width:100%;height:100vh;"></div>
+
+    <script src="./monaco-editor/min/vs/loader.js"></script>
+    <script src="assets/js/autocompletion.js"></script>
+
+    <script>
+        // limit: 11976 Lines
+        var isSaved = true;
+        var n= 0;
+        var LineStatus ="";
+        var filepath = String(window.top.filepath);
+        const ipc = window.top.require('electron').ipcRenderer
+        
+        function getLineNum(preLineNum, nextLineNum){
+            if (!nextLineNum){
+                if (preLineNum)
+                    return String(parseInt(preLineNum)+10)+" ";
+                else
+                    return "";
+            }else{
+                if (preLineNum)
+                    return String(Math.floor((parseInt(preLineNum)+parseInt(nextLineNum))/2))+" ";
+                else
+                    return "";
+            }
+        }
+        
+        function getPreLineNum(preLine){
+            lineNum=preLine.match(/^[0-9]+/)
+            if (lineNum){ 
+                return lineNum[0]
+            }
+            else{
+                return 0;
+            }
+        }
+        
+        var shortcutspath = "json/shortcuts.json"
+        function getKeyBindings() {
+            fs.stat(shortcutspath.toString(), function(err, stats){
+                if (err){
+                    alert(err);
+                }
+            })
+            var json = fs.readFileSync(shortcutspath.toString(), "utf8");
+            var keybindingString = '';
+            obj = JSON.parse(json);
+            obj.shortcuts.forEach(function(node) {
+                node.Keys.forEach(function(keyName) {
+                    keybindingString += 'editor.addCommand(['+node.modifier;
+                    keybindingString += '| '+keyName.Key+'], function() {';
+                    keybindingString += 'setKeyBinding("'+keyName.Keyword+'");';
+                    keybindingString += '});'
+                })
+            }, this);
+            return keybindingString;
+        }
+        function getPreLine(position, text){
+            return text[position.lineNumber-1];
+        }
+        String.prototype.splice = function(idx, rem, str) {
+            return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+        };
+        String.prototype.insert = function (index, string) {
+            if (index > 0)
+                return this.substring(0, index) + string + this.substring(index, this.length);
+            else
+                return string + this;
+        };
+
+        function setTitle(name){
+            var iframeId = window.frameElement.getAttribute("id");
+            var aId = iframeId+"_tab-li";
+            var a = window.parent.document.getElementById(aId);
+            var i = a.children[1];
+            i.innerHTML = name;
+        }
+        String.prototype.matchAll = function(regexp) {
+            var matches = [];
+            this.replace(regexp, function() {
+                var arr = ([]).slice.call(arguments, 0);
+                var extras = arr.splice(-2);
+                arr.index = extras[0];
+                arr.input = extras[1];
+                matches.push(arr);
+            });
+            return matches.length ? matches : null;
+        };
+        function IsObjectPresent(array, Array2, Name){
+            var toFindName = (Array2[0])[Name];
+            var found = false;
+            for(var i = 0; i < array.length; i++) {
+                if ((array[i])[Name] == toFindName) {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+        function getVariableIntellisence(text){
+            var variableRe = /([a-z][0-9]*)+([$]|#|!|%){0,1}( )*(?:=)/ig;
+            var result = text.matchAll(variableRe);
+            var tempArray;
+            if (result){
+                var variablesArray = [];
+                result.forEach(function(variable){
+                    variableName = variable[0].replace("=", "").replace(' ','');
+                    tempArray = [{
+                        label: variableName,
+                        kind: monaco.languages.CompletionItemKind.Variable,
+                        insertText: variableName
+                    }];
+                    if(!IsObjectPresent(variablesArray, tempArray, 'label'))
+                        variablesArray = variablesArray.concat(tempArray);
+                })
+                return variablesArray;
+            }
+            else{
+                return null;
+            }
+        }
+        function getTxt(){
+            var text = window.top.text;
+            window.top.text = ""; 
+            window.top.filepath = "";
+            return text;
+        }
+        function getGrammer(){
+            return window.top.grammer;
+        }
+        function getTheme(){
+            var select= window.top.document.getElementById('theme');
+            return $(select).val();
+        }
+        function getWordAt(str, pos) {
+
+            // Perform type conversions.
+            str = String(str);
+            pos = Number(pos) >>> 0;
+
+            // Search for the word's beginning and end.
+            var left = str.slice(0, pos + 1).search(/\S+$/),
+                right = str.slice(pos).search(/\s/);
+
+            // The last word in the string is a special case.
+            if (right < 0) {
+                return str.slice(left);
+            }
+
+            // Return the word, using the located bounds to extract it from the string.
+            return str.slice(left, right + pos);
+
+        }
+        function getLineText(position, text){
+            var splitedText=text.split("\n");
+            return splitedText[position.lineNumber-1];
+        }
+
+        
+        require.config({ paths: { 'vs': 'monaco-editor/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            window.setTheme = function (theme){
+                if(theme == "Codepen")
+                    editor.updateOptions({ 'theme' : 'codepen' });
+                else if(theme == "Github")
+                    editor.updateOptions({ 'theme' : 'github' });
+                else if(theme == "Solarized Dark")
+                    editor.updateOptions({ 'theme' : 'solarized-dark' });
+                else if(theme == "Solarized Light")
+                    editor.updateOptions({ 'theme' : 'solarized-light' });
+                else if(theme == "VS default")
+                    editor.updateOptions({ 'theme' : 'vs' });
+                else if(theme == "VS Dark")
+                    editor.updateOptions({ 'theme' : 'vs-dark' });
+                else if(theme == "Material Dark")
+                    editor.updateOptions({ 'theme' : 'material-dark' });
+                else if(theme == "Material Light")
+                    editor.updateOptions({ 'theme' : 'material-light' });
+            }
+            var editor = monaco.editor.create(document.getElementById('container'), {
+                value: getTxt(),
+                language: getGrammer(),
+                parameterHints: true,
+                automaticLayout:true,
+                folding: true
+            });
+            editor.onDidChangeCursorPosition(function(e){
+                if (e.reason == 0)
+                    isSaved = false;
+            })
+            window.save = function(){
+             text = editor.getValue(); 
+                if (filepath){
+                    fs.writeFile(filepath, text, 'utf8', (err) => {
+                        if (err) throw err;
+                        else{
+                            isSaved =true;
+                        }
+                    });
+                }
+                else{
+                    ipc.send('save-file-dialog')
+
+                    ipc.on('saved-file', function (event, path) {  
+                        fs.writeFile(path, text, 'utf8', (err) => {
+                            if (err) throw err;
+                            else{
+                                name = filepath.toString().split("\\")[filepath.toString().split("\\").length-1]
+                                setTitle(name);
+                                isSaved =true;
+                            }
+                        });
+                        filepath=path;
+                    })
+                };
+            }
+            function setKeyBinding(word){
+
+                var position = editor.getPosition();
+                var text = editor.getValue(position);
+                var splitedText=text.split("\n");
+                currentLine = splitedText[position.lineNumber-1];
+                Keyword=word;
+                currentLine=currentLine.splice(position.column, 0, Keyword);
+                splitedText[position.lineNumber-1] =currentLine;
+                editor.setValue(splitedText.join("\n"));
+                position.column = position.column + Keyword.length; 
+                editor.setPosition(position);
+            }
+            monaco.languages.registerCompletionItemProvider('gb', {
+                provideCompletionItems: function(model, position) {
+                    
+                    var textUntilPosition = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column});
+                    var variables =getVariableIntellisence(editor.getValue());
+                    var comment = textUntilPosition.match(/'/);
+                    if (comment) 
+                        return [];
+
+                    words = textUntilPosition.split(' ').reverse();
+                    var intellisence= [];
+                    var n = 0;
+                    words.some(function(word) {
+                        n+=1;
+                        if (word.toLowerCase() == 'beep'){
+                            intellisence = beepSwitches();
+                            return true;
+                        }
+                        else if (word == 'print')
+                        {
+                            intellisence = gbFunctions();
+                            if (variables)
+                                intellisence = intellisence.concat(variables);
+                            return true;
+                        }
+                    })
+                    if (n==words.length){
+                        intellisence = gbFunctions().concat(gbAutoCompletion());
+                        if (variables)
+                            intellisence = intellisence.concat(variables);
+                    }
+                    return intellisence;
+                }
+            });
+            monaco.languages.registerHoverProvider('gb', {
+                provideHover: function(model, position) {
+                    //TODO: add position
+                    var textUntilPosition = model.getValueInRange({startLineNumber: position.lineNumber, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column});
+                    var comment = textUntilPosition.match(/'/);
+                    if (comment) {
+                        return {
+                            range: new monaco.Range(1, 1, 1, 1),
+                            contents: [
+                                '**Comment:**',
+                                { language: '', value: " This is a comment" }
+                            ]
+                        };
+                    }
+                    var text = getLineText(position, editor.getValue());
+                    var word = getWordAt(text, position.column);
+                    return getHoverInfo(word.toLowerCase());
+                }
+            });
+            getNewLineNumber = function (){
+                var currentLineNumber = editor.getPosition().lineNumber;
+                var currentLineText = editor.getModel().getLineContent(currentLineNumber);
+                console.log(currentLineText);
+                var LineNum=getLineNum(currentLineText)-11;
+                var nextLinNum = LineNum+10;
+                return nextLinNum;
+            }
+            editor.addAction({
+                id: 'Save',
+                label: 'Save',
+                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
+
+                keybindingContext: null,
+                contextMenuGroupId: '3_change/2_bla',
+                run: function(ed) {
+                    save(editor.getValue());
+                    return null;
+                },
+                enablement: {
+                    textFocus: true,
+                }
+            });
+            editor.addAction({
+                id: 'Save As',
+                label: 'Save As',
+                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KEY_S],
+
+                keybindingContext: null,
+                contextMenuGroupId: '3_change/2_bla',
+                run: function(ed) {
+                    ipc.send('save-file-dialog')
+
+                    ipc.on('saved-file', function (event, path) {  
+                        fs.writeFile(path, ed.getValue(), 'utf8', (err) => {
+                            if (err) throw err;
+                            else{
+                                name = filepath.toString().split("\\")[filepath.toString().split("\\").length-1]
+                                setTitle(name);
+                            }
+                        });
+                        filepath=path;
+                    })
+
+                    return null;
+                },
+                enablement: {
+                    textFocus: true,
+                }
+            });
+            editor.addAction({
+                id: 'Run',
+                label: 'Run',
+                keybindings: [monaco.KeyCode.F5],
+
+                keybindingContext: null,
+                contextMenuGroupId: '3_change/2_bla',
+                run: function(ed) {
+                    if (filepath === ""){
+                        ipc.send('open-information-dialog');
+                        ipc.on('information-dialog-selection', function (event, index) {
+                            if (index === 0){
+                                save(editor.getValue());
+                            }
+                            else{ return null};
+                        })
+                    }
+                    else{
+                        save(editor.getValue());
+                        ipc.send('run-shell', `--run="${filepath}"`);
+                        return null;
+                    }
+                },
+                enablement: {
+                    textFocus: true,
+                }
+            });
+            editor.addAction({
+                id: 'AddLineNum',
+                label: 'Increase Line Num',
+                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow],
+
+                keybindingContext: null,
+                contextMenuGroupId: '4_change/2_bla',
+                run: function(ed) {
+                    var currentLineNumber = editor.getPosition().lineNumber;
+                    var currentLineText = editor.getModel().getLineContent(currentLineNumber);
+                    var LineNum=getLineNum(currentLineText)-9;
+                    var LinNumLenght = (LineNum-1).toString().length;
+
+
+                    editor.executeEdits(currentLineText, [{ 
+                         range: new monaco.Range(currentLineNumber, 1, currentLineNumber, LinNumLenght+1), 
+                         text: LineNum.toString() 
+                    }]);
+                    editor.pushUndoStop
+                },
+                enablement: {
+                    textFocus: true,
+                    wordAtPosition: true,
+                }
+            });
+            editor.addAction({
+                id: 'SubLineNum',
+                label: 'Decrease Line Num',
+                keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.DownArrow],
+
+                keybindingContext: null,
+                contextMenuGroupId: '4_change/2_bla',
+                run: function(ed) {
+                    var currentLineNumber = editor.getPosition().lineNumber;
+                    var currentLineText = editor.getModel().getLineContent(currentLineNumber);
+                    var LineNum=getLineNum(currentLineText)-11;
+                    if (LineNum <0)
+                        return;
+                    var LinNumLenght = (LineNum+1).toString().length;
+
+
+                    editor.executeEdits(currentLineText, [{ 
+                         range: new monaco.Range(currentLineNumber, 1, currentLineNumber, LinNumLenght+1), 
+                         text: LineNum.toString() 
+                    }]);
+                    editor.pushUndoStop
+                },
+                enablement: {
+                    textFocus: true,
+                    wordAtPosition: true,
+                }
+            });
+            editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
+                var currentLineNumber = editor.getPosition().lineNumber;
+                var currentLineText = editor.getModel().getLineContent(currentLineNumber);
+                var LineNum=getLineNum(currentLineText)-11;
+                var nextLinNum = LineNum+11;
+                if (nextLinNum == 0)
+                    nextLineNumstr= '';
+                else 
+                    nextLineNumstr = nextLinNum.toString() +' ';
+                editor.trigger('bla', 'type', { text: `\n${nextLineNumstr}` });
+            }, 'editorTextFocus && !suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
+            editor.onDidChangeCursorPosition(function(e){
+                LineStatus = "Ln "+e.position.lineNumber+", Col "+e.position.column; 
+                window.top.document.getElementById('LineCol').innerHTML = LineStatus;
+            })
+            editor.onDidScrollChange(function(e){
+                if(n==0){
+                    window.top.document.getElementById('status').innerHTML = "Loaded Editor";
+                    window.setTheme(getTheme());
+                    n++;
+                }
+            })
+            editor.onDidBlurEditor(()=>{
+                window.top.document.getElementById('LineCol').innerHTML = "";
+            })
+            editor.onDidFocusEditorText(()=>{
+                LineStatus = "Ln "+editor.getPosition().lineNumber+", Col "+editor.getPosition().column; 
+                window.top.document.getElementById('LineCol').innerHTML = LineStatus;
+            })
+            eval(getKeyBindings());
+        });
+        
+    </script>
+</body>
+
+</html>
