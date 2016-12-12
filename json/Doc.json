@@ -1,0 +1,307 @@
+{
+    "name": "Documantion",
+    "doc": [
+        {
+            "name": "Language Guide",
+            "data": [
+                "Working with Program",
+                "Control flow",
+                "Arrays and variables",
+                "Type conversion",
+                "String operations",
+                "Text and the screen",
+                "The printer",
+                "Keyboard input",
+                "Function-keymacro",
+                {
+                    "name": "Calculations and maths",
+                    "data": [
+                        "Mathematical functions",
+                        "Random numbers"
+                    ]
+                },
+                {
+                    "name": "Devices and files",
+                    "data": [
+                        "File operations",
+                        "Devices"
+                    ]
+                },
+                "Graphics",
+                "Sounds",
+                "Joystick and pen",
+                "Disks and DOS",
+                "Serial communication",
+                "Event handling",
+                "Error handling",
+                "User-defined functions",
+                "Date and time",
+                "Including data in a program",
+                "Memory and machine ports",
+                "Feature not yet implemented",
+                "Unsupported features"
+            ]
+        },
+        {
+            "name": "Language reference",
+            "data": [
+                "Metasyntax",
+                "Definitions",
+                "Literals",
+                {
+                    "name": "Variables",
+                    "data": [
+                        "Types and sigils",
+                        "Arrays",
+                        "Conversions"
+                    ]
+                },
+                {
+                    "name": "Operators",
+                    "data": [
+                        "Order of precedence",
+                        "Mathematical operators",
+                        "Relational operators",
+                        "Bitwise operators",
+                        "String operators"
+                    ]
+                },
+                {
+                    "name": "Functions",
+                    "data": [
+                        "ABS",
+                        "ASC",
+                        "ATN",
+                        "CDBL",
+                        "CHR$",
+                        "CINT",
+                        "COS",
+                        "CSNG",
+                        "CSRLIN",
+                        "CVI",
+                        "CVS",
+                        "CVD",
+                        "DATE$",
+                        "ENVIRON$",
+                        "EOF",
+                        "ERDEV",
+                        "ERDEV$",
+                        "ERL",
+                        "ERR",
+                        "EXP",
+                        "EXTERR",
+                        "FIX",
+                        "FN",
+                        "FRE",
+                        "HEX$",
+                        "INKEY$",
+                        "INP",
+                        "INPUT$",
+                        "INSTR",
+                        "INT",
+                        "IOCTL$",
+                        "LEFT$",
+                        "LEN",
+                        "LOC",
+                        "LOF",
+                        "LOG",
+                        "LPOS",
+                        "MID$",
+                        "MKI$",
+                        "MKS$",
+                        "MKD$",
+                        "OCT$",
+                        "PEEK",
+                        "PEN",
+                        "PLAY (function)",
+                        "PMAP",
+                        "POINT",
+                        "POS",
+                        "RIGHT$",
+                        "RND",
+                        "SCREEN",
+                        "SGN",
+                        "SIN",
+                        "SPACE$",
+                        "SQR",
+                        "STICK",
+                        "STR$",
+                        "STRIG",
+                        "STRING$",
+                        "TAN",
+                        "TIME$",
+                        "TIMER",
+                        "USR",
+                        "VAL",
+                        "VARPTR",
+                        "VARPTR$"
+                    ]
+                },
+                {
+                    "name": "Statements",
+                    "data": [
+                        "AUTO",
+                        "BEEP",
+                        "BEEP (switch)",
+                        "BLOAD",
+                        "BSAVE",
+                        "CALL",
+                        "CALLS",
+                        "CHAIN",
+                        "CHDIR",
+                        "CIRCLE",
+                        "CLEAR",
+                        "CLOSE",
+                        "CLS",
+                        "COLOR",
+                        "COM",
+                        "COMMON",
+                        "CONT",
+                        "DATA",
+                        "DATE$ (statement)",
+                        "DEF FN",
+                        "DEFINT, DEFDBL, DEFSNG, DEFSTR",
+                        "DEF SEG",
+                        "DEF USR",
+                        "DELETE",
+                        "DIM",
+                        "DRAW",
+                        "EDIT",
+                        "ELSE",
+                        "END",
+                        "ENVIRON",
+                        "ERASE",
+                        "ERROR",
+                        "FIELD",
+                        "FILES",
+                        "FOR",
+                        "GET",
+                        "GOSUB",
+                        "GOTO",
+                        "IF",
+                        "INPUT",
+                        "IOCTL",
+                        "KEY",
+                        "KILL",
+                        "LCOPY",
+                        "LET",
+                        "LINE",
+                        "LINE INPUT",
+                        "LLIST",
+                        "LOAD",
+                        "LOCATE",
+                        "LOCK",
+                        "LPRINT",
+                        "LSET",
+                        "MERGE",
+                        "MID$ (statement)",
+                        "MKDIR",
+                        "MOTOR",
+                        "NAME",
+                        "NEW",
+                        "NEXT",
+                        "NOISE",
+                        "ON",
+                        "ON ERROR",
+                        "OPEN",
+                        "OPTION BASE",
+                        "OUT",
+                        "PAINT",
+                        "PALETTE",
+                        "PALETTE USING",
+                        "PCOPY",
+                        "PEN (Statement)",
+                        "PLAY",
+                        "POKE",
+                        "PSET and PRESET",
+                        "PRINT",
+                        "PUT",
+                        "RANDOMIZE",
+                        "READ",
+                        "REM",
+                        "RENUM",
+                        "RESET",
+                        "RESTORE",
+                        "RESUME",
+                        "RETURN",
+                        "RMDIR",
+                        "RSET",
+                        "SAVE",
+                        "SCREEN (statement)",
+                        "SHELL",
+                        "SOUND",
+                        "STOP",
+                        "STRIG",
+                        "SWAP",
+                        "SYSTEM",
+                        "TERM",
+                        "TIME$ (statement)",
+                        "TIMER (statement)",
+                        "TRON and TROFF",
+                        "UNLOCK",
+                        "VIEW",
+                        "VIEW PRINT",
+                        "WAIT",
+                        "WEND",
+                        "WHILE",
+                        "WIDTH",
+                        "WINDOW",
+                        "WRITE"
+                    ]
+                },
+                {
+                    "name": "Errors and Messages",
+                    "data": [
+                        "Errors",
+                        "Other messages"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Technical reference",
+            "data": [
+                {
+                    "name": "Tokenised file format",
+                    "data": [
+                        "Tokenised BASIC",
+                        "Microsoft Binary Format"
+                    ]
+                },
+                "Protected file format",
+                "BSAVE file format",
+                "Cassette file format",
+                {
+                    "name": "Character codes",
+                    "data": [
+                        "ASCII",
+                        "Codepage 437"
+                    ]
+                },
+                {
+                    "name": "Keycodes",
+                    "data": [
+                        "Scancodes",
+                        "e-ASCII codes"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Acknowledgements",
+            "data": [
+                "Shoulder of Gaints",
+                "Fonts",
+                "Development tools"
+            ]
+        },
+        {
+            "name": "License",
+            "data": [
+                "PcBasic",
+                "EasyBasic",
+                "PcBasic Documenation"
+            ]
+        }
+    ]
+}

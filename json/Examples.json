@@ -1,0 +1,102 @@
+{
+    "name": "Examples",
+    "examples": [
+        
+        {"name": "Hello World", "type": "Simple"},
+        {"name": "Happy Birthday", "type": "Simple"},
+        {"name": "Greetings", "type": "Simple"},
+
+        {"name": "ASC", "type": "Functions"},
+        {"name": "CHR$", "type": "Functions"},
+        {"name": "Easy Basic", "type": "Functions"},
+        {"name": "Point", "type": "Functions"},
+        {"name": "Pset", "type": "Functions"},
+        {"name": "Pset Line", "type": "Functions"},
+        {"name": "String$", "type": "Functions"},
+        {"name": "View", "type": "Functions"},
+
+        {"name": "Inclined", "type": "Simple Logics"},
+        {"name": "Simple Calculator", "type": "Simple Logics"},
+        {"name": "Keyboard Buffer", "type": "Simple Logics"},
+        {"name": "Find Previous Primes", "type": "Simple Logics"},
+        {"name": "Find String", "type": "Simple Logics"},
+
+        {"name": "For Loop", "type": "Loops"},
+        { "name": "Infinite For Loop", "type": "Loops"},
+        { "name": "While Loop", "type": "Loops"},
+        { "name": "Infinite While Loop", "type": "Loops"},
+        { "name": "Goto Loop", "type": "Loops"},
+        { "name": "Conditioned Goto Loop", "type": "Loops"},
+        { "name": "Unconditioned Goto Loop", "type": "Loops"},
+
+        { "name": "Binary to Decimal", "type": "Convertor"},
+        { "name": "Decimal to Binary", "type": "Convertor"},
+        { "name": "Find Days", "type": "Convertor"},
+        { "name": "D-spacing to 2 theta Convertor", "type": "Convertor"},
+
+        { "name": "Calculate Voltage", "type": "Electronics"},
+        { "name": "LED Resistance Calculator", "type": "Electronics"},
+        { "name": "Astable Oscillation Calculator", "type": "Electronics"},
+        { "name": "Parallel Resistance", "type": "Electronics"},
+
+        { "name": "COM Port", "type": "Utilities"},
+        { "name": "Duat Com", "type": "Utilities"},
+        { "name": "Easy Menu", "type": "Utilities"},
+        { "name": "File Mode", "type": "Utilities"},
+        { "name": "Monitor Type", "type": "Utilities"},
+        { "name": "Parallel Port", "type": "Utilities"},
+        { "name": "Screen Saver", "type": "Utilities"},
+
+        { "name": "AFSS Plotter", "type": "Screen and Printer"},
+        { "name": "AFSS Plotter 2", "type": "Screen and Printer"},
+        { "name": "AFSS Plotter 3", "type": "Screen and Printer"},
+        { "name": "Banner", "type": "Screen and Printer"},
+        { "name": "Bar Graph", "type": "Screen and Printer"},
+        { "name": "Color Shade", "type": "Screen and Printer"},
+        { "name": "Graphics Editor", "type": "Screen and Printer"},
+        { "name": "GwBasic.Net", "type": "Screen and Printer"},
+        { "name": "Line (screen 9)", "type": "Screen and Printer"},
+        { "name": "Make Font", "type": "Screen and Printer"},
+        { "name": "Printer Test", "type": "Screen and Printer"},
+        { "name": "Sample Animation", "type": "Screen and Printer"},
+        { "name": "Screen Demo", "type": "Screen and Printer"},
+        { "name": "Sierrinski's Triangle", "type": "Screen and Printer"},
+        { "name": "Swatch", "type": "Screen and Printer"},
+        { "name": "Ternary Plotter", "type": "Screen and Printer"},
+        { "name": "Ternary Plotter 2", "type": "Screen and Printer"},        
+        { "name": "Lines", "type": "Screen and Printer"},
+
+        { "name": "Antipode", "type": "Scientific"},
+        { "name": "Depth Calculator", "type": "Scientific"},
+        { "name": "Centrifuge Acceleration", "type": "Scientific"},
+        { "name": "Distance Calculator", "type": "Scientific"},
+        { "name": "Ocean Pressure Calculator", "type": "Scientific"},
+
+        { "name": "Degree and Radian Calculator", "type": "Math"},
+        { "name": "Deliver Sin", "type": "Math"},
+        { "name": "Prime Finder", "type": "Math"},
+        { "name": "Trignometeric Calculator", "type": "Math"},
+        { "name": "Trignometery Book", "type": "Math"},
+
+        { "name": "Message Board", "type": "Date and Time"},
+        { "name": "Timer", "type": "Date and Time"},
+        
+        { "name": "Loan Amortization", "type": "Sheets"},
+        { "name": "Pc Calc", "type": "Sheets"},
+
+        { "name": "Space War", "type": "Games"},
+        { "name": "Pinball", "type": "Games"},
+
+        { "name": "ART", "type": "IBM Samples"},
+        { "name": "Ball", "type": "Games"},
+        { "name": "Calendar", "type": "Games"},
+        { "name": "Circle", "type": "Games"},
+        { "name": "Color bar", "type": "Games"},
+        { "name": "Comm", "type": "Games"},
+        { "name": "Donkey", "type": "Games"},
+        { "name": "Mortgage", "type": "Games"},
+        { "name": "Music", "type": "Games"},
+        { "name": "PieChart", "type": "Games"},
+        { "name": "Space", "type": "Games"}
+    ]
+}

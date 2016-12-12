@@ -1,0 +1,98 @@
+{
+    "name": "Shortcuts",
+    "shortcuts": [
+        {
+            "modifier": "monaco.KeyMod.Alt",
+            "Keys": [
+                {
+                    "Key": "monaco.KeyCode.KEY_A",
+                    "Keyword": "ABS"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_B",
+                    "Keyword": "BSAVE"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_C",
+                    "Keyword": "CLS"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_D",
+                    "Keyword": "DATA"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_E",
+                    "Keyword": "END"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_F",
+                    "Keyword": "FOR"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_G",
+                    "Keyword": "GOTO"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_H",
+                    "Keyword": "HEX$"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_I",
+                    "Keyword": "INPUT"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_K",
+                    "Keyword": "KEY"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_L",
+                    "Keyword": "LOCATE"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_M",
+                    "Keyword": "MID$"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_N",
+                    "Keyword": "NEXT"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_O",
+                    "Keyword": "OPEN"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_P",
+                    "Keyword": "PRINT"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_R",
+                    "Keyword": "READ"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_S",
+                    "Keyword": "STOP"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_T",
+                    "Keyword": "THEN"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_U",
+                    "Keyword": "USING"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_V",
+                    "Keyword": "VAL"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_W",
+                    "Keyword": "WIDTH"
+                },
+                {
+                    "Key": "monaco.KeyCode.KEY_X",
+                    "Keyword": "XOR"
+                }
+            ]
+        }
+    ]
+}

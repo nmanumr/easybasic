@@ -1,0 +1,72 @@
+{
+    "print":[
+        {"documentation": "Writes expressions to the screen."},
+        {"Syntax": "Print exp"},
+        {"Parameters": "exp is any expression"},
+        {"type": "Statement"},
+        {"insertText": "PRINT {{expression}}"}
+    ],
+    "abs":[
+        {"documentation": "Returns the absolute value of x."},
+        {"Syntax": "ABS(x)"},
+        {"Parameters": "x is an expression."},
+        {"type": "Function"},
+        {"insertText": "ABS({{x}})"}
+    ],
+    "asc":[
+        {"documentation": "Returns the code point (ASCII value) for the first character of char."},
+        {"Syntax": "ASC(char)"},
+        {"Parameters":"char is an expression with a string value."},
+        {"type": "Function"}
+    ],
+    "atn":[
+        {"documentation": "Returns the inverse tangent of x."},
+        {"Syntax": "ATN(x)"},
+        {"Parameters":"x is a numeric expression that gives the angle in radians."},
+        {"type": "Function"}
+    ],
+    "cdbl":[
+        {"documentation": "Converts the numeric expression x to a double-precision value."},
+        {"Syntax": "CDBL(x)"},
+        {"Parameters":"x any expression"},
+        {"type": "Function"}
+    ],
+    "chr$":[
+        {"documentation": "Returns the character with code point x."},
+        {"Syntax": "CHR$(x)"},
+        {"Parameters":"x is a numeric expression in the range [0—255]."},
+        {"type": "Function"}
+    ],
+    "cint":[
+        {"documentation": "Converts the numeric expression x to a signed integer."},
+        {"Syntax": "CINT(x)"},
+        {"Parameters":"x is a numeric expression in the range [-32768—32767]."},
+        {"type": "Function"},
+        {"insertText": "CINT({{x}})"}
+    ],
+    "cos":[
+        {"documentation": "Returns the cosine of angle."},
+        {"Syntax": "COS(angle)"},
+        {"Parameters":"is a numeric expression that gives the angle in radians."},
+        {"type": "Function"}
+    ],
+    "csrlin":[
+        {"documentation": "Returns the screen row of the cursor on the active page."},
+        {"Syntax": "CSRLIN"},
+        {"Parameters":"This function takes no arguments."},
+        {"type": "Function"}
+    ],
+    "dim":[
+        {"documentation": "Allocates memory for arrays. he DIM statement also fixes the number of indices of the array."},
+        {"Syntax": "DIM name {(|[} limit_0 [, limit_1] ... {)|]}"},
+        {"Parameters":"name is a legal variable name specifying the array to be allocated.\n  limit_0, limit_1, ... are numeric expressions that specify the greatest index allowed at that position."},
+        {"type": "Statement"}
+    ],
+    "gosub":[
+        {"documentation": "Jumps to a subroutine at line_number."},
+        {"Syntax": "GO[ ]SUB line_number [anything]"},
+        {"Parameters":"line_number is an existing line number literal."},
+        {"type": "Statement"}
+    ]
+}
+    
