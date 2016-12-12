@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Disks and DOS</h3>
+            <p>
+                The <a href="#" onclick="window.top.addtab('SHELL_tabli', 'SHELL', 'Docs/SHELL.html');"><code>SHELL</code></a> statement is, by default,
+                disabled; this is to avoid unpleasant surprises. In GW-BASIC under MS-DOS,
+                <code>SHELL</code> opens a DOS prompt or executes commands in it. The command
+                shells of modern operating systems work differently than those of DOS; in
+                particular, it is impossible to retrieve changes in the environment variables,
+                so that many use cases of <code>SHELL</code> simply would not work; for
+                example, changing the current drive on Windows. Moreover, Unix shells have a
+                syntax that is completely different from that of DOS. You can, however, enable
+                <code>SHELL</code> by setting the <b><code>shell</code><code>=native</code></b> option.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Statement</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td><a href="#" onclick="window.top.addtab('CHDIR_tabli', 'CHDIR', 'Docs/CHDIR.html');"><code>CHDIR</code></a></td>
+                        <td>Change current directory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('FILES_tabli', 'FILES', 'Docs/FILES.html');"><code>FILES</code></a></td>
+                        <td>List the files in the current directory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('KILL_tabli', 'KILL', 'Docs/KILL.html');"><code>KILL</code></a></td>
+                        <td>Delete a file on a disk device</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('MKDIR_tabli', 'MKDIR', 'Docs/MKDIR.html');"><code>MKDIR</code></a></td>
+                        <td>Create a new directory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('NAME_tabli', 'NAME', 'Docs/NAME.html');"><code>NAME</code></a></td>
+                        <td>Rename a file on disk</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('RMDIR_tabli', 'RMDIR', 'Docs/RMDIR.html');"><code>RMDIR</code></a></td>
+                        <td>Remove a directory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('ENVIRON_tabli', 'ENVIRON', 'Docs/ENVIRON.html');"><code>ENVIRON</code></a></td>
+                        <td>Set a shell environment string</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('SHELL_tabli', 'SHELL', 'Docs/SHELL.html');"><code>SHELL</code></a></td>
+                        <td>Enter a DOS shell</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                        <td><a href="#" onclick="window.top.addtab('ENVIRON_s_tabli', 'ENVIRON$', 'Docs/ENVIRON$.html');"><code>ENVIRON$</code></a></td>
+                        <td>String from shell environment table</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

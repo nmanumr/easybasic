@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Definitions</h3>
+            <p>
+                A <dfn>program line</dfn> consists of a line number followed by a compound statement.
+                Program lines are terminated by a
+                <code><i>CR</i></code> or
+                or by the end of the file (optionally through an <code><i>EOF</i></code> character).
+                Anything on a program line after a <code><i>NUL</i></code> character is ignored.
+            </p>
+            <p>
+                A <dfn>line number</dfn> is a whole number in the range <code>[0&#8212;65535]</code>.
+                Note that the line numbers <code>65530&#8212;65535</code> cannot be entered
+                from the console or a text program file, but can be part of a tokenised program file.
+            </p>
+            <p>
+                A <dfn>compound statement</dfn> consists of <a href="#" onclick="window.top.addtab('statements_tabli', 'Statements', 'Docs/statements.html');">statements</a> separated by colons:
+                <pre>
+                    <code class="hljs">
+                        <var>statement</var> [<b>:</b> <var>statement</var>] ...
+                    </code>
+                </pre>
+            </p>
+            <p>
+                An <dfn>expression</dfn> takes one of the following forms:
+                <pre>
+                    <code class="hljs">
+                        <var>unary_operator</var> {<var>literal</var> | <var>variable</var> | <var>array_element</var> | <var>function</var>}
+                    </code>
+                </pre>
+                <pre>
+                    <code class="hljs">
+                        <var>expression</var> <var>binary_operator</var> <var>expression</var>
+                    </code>
+                </pre>
+                <pre>
+                    <code class="hljs">
+                        <b>(</b><var>expression</var><b>)</b>
+                    </code>
+                </pre>
+                whose elements are described the sections <a href="#" onclick="window.top.addtab('Literals_tabli', 'Literals', 'Docs/Literals.html');">Literals</a>,
+                <a href="#" onclick="window.top.addtab('Variables_tabli', 'Variables', 'Docs/Variables.html');">Variables</a>, <a href="#" onclick="window.top.addtab('Operators_tabli', 'Operators', 'Docs/Operators.html');">Operators</a> and
+                <a href="#" onclick="window.top.addtab('Functions_tabli', 'Functions', 'Docs/Functions.html');">Functions</a>.
+            </p>
+            <p>
+                An <dfn>array element</dfn> takes the form
+                <pre>
+                    <code class="hljs">
+                        <var>array</var> {<b>[</b>|<b>(</b>} <var>numeric_expression</var> [<b>,</b> <var>numeric_expression</var> ] ... {<b>)</b>|<b>]</b>}
+                    </code>
+                </pre>
+            </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

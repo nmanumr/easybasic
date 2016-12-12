@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>CSNG</h3>
+            <pre>
+                <code class="basic">
+                    <var>y</var> <b>= CSNG(</b><var>x</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Converts the numeric expression <code><var>x</var></code> to a single-precision value.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>x</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+
+        <script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

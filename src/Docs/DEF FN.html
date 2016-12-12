@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">DEF FN</h3>
+            <pre>
+                <code>
+                    <b>DEF FN</b>[ ]<var>name</var> [<b>(</b><var>arg_0</var> [<b>,</b> <var>arg_1</var>] ...<b>)</b>] <b>=</b> <var>expression</var>
+                </code>
+            </pre>
+       <p>
+            Defines a function called <code><a href="#FN">FN</a><var>name</var></code>
+            (or <code>FN<var> name</var></code>: spaces between <code>FN</code> and <code><var>name</var></code> are optional).
+            On calling <code>FN<var>name</var>( ... )</code>, <code><var>expression</var></code> is
+            evaluated with the supplied parameters substituted. Any variable names used in the function that are not
+            in the argument list refer to the corresponding global variables.
+            The result of the
+            evaluation is the return value of <code>FN<var>name</var></code>. The type of the return value
+            must be compatible with the type indicated by <code><var>name</var></code>.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                This statement may only be used on a program line.
+            </li>
+            <li>
+                As the function must be a single expression and PC-BASIC does not have a ternary operator, there is
+                no way to define a recursive function that actually terminates.
+            </li>
+        </ul>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>name</var></code> must be a legal variable name.
+            </li>
+            <li>
+                <code><var>arg_0</var>, <var>arg_1</var>, ...</code> must be legal variable names. These are the parameters of the
+                function. Variables of the same name may or may not exist in the program; their value is not affected or used by the defined function.
+            </li>
+            <li>
+                <code><var>expression</var></code> must be a legal PC-BASIC expression.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                The statement is executed directly instead of in a program line: <samp>Illegal direct</samp>.
+            </li>
+            <li>
+                If the type of the return value is incompatible with the type of <code><var>name</var></code>,
+                no error is raised at the <code>DEF FN</code> statement; however, a <samp>Type mismatch</samp>
+                will be raised at the first call of <code>FN<var>name</var></code>.
+            </li>
+        </ul>
+
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+        </script>
+<script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="error-trapping">Error handling</h3>
+            <p>
+                Normally, any error will interrupt program execution and print a message on
+                the console (exceptions are <samp>Overflow</samp> and
+                <samp>Division by zero</samp>, which print a message but do not interrupt
+                execution). It is possible to handle errors more graciously by
+                setting an error-handling routine with the
+                <code><a href="#" onclick="window.top.addtab('ON_ERROR_tabli', 'ON ERROR', 'Docs/ON ERROR.html');"><code>ON ERROR</code></a> GOTO <var>line_number</var></code>
+                statement. The error-handling routine starts at the given line number
+                <code><var>line_number</var></code> and continues until a
+                <a href="#" onclick="window.top.addtab('RESUME_tabli', 'RESUME', 'Docs/RESUME.html');"><code>RESUME</code></a> statement is encountered.
+                Error trapping is in effect both when a program is running and in direct
+                mode. Error trapping is switched off with the <code>ON ERROR GOTO 0</code>
+                statement. If an error occurs, or error trapping is switched off, while the
+                program is executing an error-trapping routine, the program terminates and
+                an error message is shown.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Statement</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('ERROR_tabli', 'ERROR', 'Docs/ERROR.html');"><code>ERROR</code></a></td>
+                        <td>Raise an error</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('ON_ERROR_tabli', 'ON ERROR', 'Docs/ON ERROR.html');"><code>ON ERROR</code></a></td>
+                        <td>Define an error handler</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('RESUME_tabli', 'RESUME', 'Docs/RESUME.html');"><code>RESUME</code></a></td>
+                        <td>End error handler and return to normal execution</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('ERR_tabli', 'ERR', 'Docs/ERR.html');"><code>ERR</code></a></td>
+                        <td>Error number of last error</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('ERL_tabli', 'ERL', 'Docs/ERL.html');"><code>ERL</code></a></td>
+                        <td>Line number of last error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

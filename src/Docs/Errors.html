@@ -1,0 +1,577 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Errors</h3>
+            <table class="table table-striped">
+                <tr>
+                <td><code>1</code></td>
+                <td>
+                    <code><b>NEXT without FOR</b></code>
+                    <p>
+                        A <a href="#NEXT"><code>NEXT</code></a> statement has been encountered
+                        for which no matching <a href="#FOR"><code>FOR</code></a> can be found.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>2</code></td>
+                <td>
+                    <code><b>Syntax error</b></code>
+                    <p>
+                        The BASIC syntax is incorrect. A statement or expression
+                        has been mistyped or called in one of many incorrect ways. This
+                        error is also raised on a <a href="#DATA"><code>DATA</code></a>
+                        line if a <a href="#READ"><code>READ</code></a>
+                        statement encounters a data entry of an incorrect format.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>3</code></td>
+                <td>
+                    <code><b>RETURN without GOSUB</b></code>
+                    <p>
+                        A <a href="#RETURN"><code>RETURN</code></a> statement has been encountered
+                        for which no <a href="#GOSUB"><code>GOSUB</code></a> call has been made.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>4</code></td>
+                <td>
+                    <code><b>Out of DATA</b></code>
+                    <p>
+                        A <a href="#READ"><code>READ</code></a> statement is attempting to read more data entries than can be found from the
+                        current <a href="#DATA"><code>DATA</code></a> location onward.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>5</code></td>
+                <td>
+                    <code><b>Illegal function call</b></code>
+                    <p>
+                        A statement, function or operator has been called with parameters outside the accepted range. This error is also raised for a
+                        large variety of other conditions &#8211; check the reference for the statement or function called.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>6</code></td>
+                <td>
+                    <code><b>Overflow</b></code>
+                    <p>
+                        A numeric expression result or intermediate value is too large for the required number format.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>7</code></td>
+                <td>
+                    <code><b>Out of memory</b></code>
+                    <p>
+                        There is not enough free BASIC memory to complete the operation.
+                        Too much memory is consumed by the program; variables, arrays and strings,
+                        or execution stacks for loops, subroutines or
+                        user-defined functions.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>8</code></td>
+                <td>
+                    <code><b>Undefined line number</b></code>
+                    <p>
+                        A reference is made to a line number that does not exist in the program.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>9</code></td>
+                <td>
+                    <code><b>Subscript out of range</b></code>
+                    <p>
+                        An array index (subscript) is used that is outside the range
+                        reserved for that array by the <a href="#DIM"><code>DIM</code></a>
+                        statement.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>10</code></td>
+                <td>
+                    <code><b>Duplicate Definition</b></code>
+                    <p>
+                        A <a href="#DIM"><code>DIM</code></a> statement is
+                        used on an array that has been dimensioned before (either implicitly or explicitly) or
+                        <a href="#OPTION-BASE"><code>OPTION BASE</code></a> is called in a way that conflicts with
+                        an earlier implicit or explicit definition of the starting index.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>11</code></td>
+                <td>
+                    <code><b>Division by zero</b></code>
+                    <p>
+                        An attempt is made to divide a number by zero or by a number that is
+                        too small to distinguish from zero within the number format's precision.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>12</code></td>
+                <td>
+                    <code><b>Illegal direct</b></code>
+                    <p>
+                        A <a href="#DEF_FN"><code>DEF FN</code></a> statement is being used in direct
+                        mode.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>13</code></td>
+                <td>
+                    <code><b>Type mismatch</b></code>
+                    <p>
+                        The expression used is of a type that cannot be converted to
+                        the required type for the function or statement. Most commonly,
+                        this is raised if a string argument is supplied to a statement or
+                        function that expects a number, or vice versa.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>14</code></td>
+                <td>
+                    <code><b>Out of string space</b></code>
+                    <p>
+                        There is not enough free BASIC memory to store the
+                        string variable.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>15</code></td>
+                <td>
+                    <code><b>String too long</b></code>
+                    <p>
+                        A string expression result or intermediate value is longer than 255
+                        characters.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>16</code></td>
+                <td>
+                    <code><b>String formula too complex</b></code>
+                </td>
+            </tr>
+            <tr>
+                <td><code>17</code></td>
+                <td>
+                    <code><b>Can't continue</b></code>
+                    <p>
+                        The <a href="#CONT"><code>CONT</code></a> statement is used in
+                        circumstances where continuing program execution is not possible.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>18</code></td>
+                <td>
+                    <code><b>Undefined user function</b></code>
+                    <p>
+                        The <a href="#FN"><code>FN</code></a> function is called
+                        with a function name for which no definition was made by
+                        a <a href="#DEF-FN"><code>DEF FN</code></a> statement.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>19</code></td>
+                <td>
+                    <code><b>No RESUME</b></code>
+                    <p>
+                        The program terminates inside an error trapping
+                        routine that has not been closed with <a href="#RESUME"><code>RESUME</code></a> or
+                        <a href="#END"><code>END</code></a>.
+                    </p>
+                </td>
+                </tr>
+            <tr>
+                <td><code>20</code></td>
+                <td>
+                    <code><b>RESUME without error</b></code>
+                    <p>
+                        A <a href="#RESUME"><code>RESUME</code></a>
+                        statement is encountered while the program is not executing
+                        an error trapping routine.
+                </p></td>
+            </tr>
+            <tr><td><code>21</code></td><td><i>unused</i></td></tr>
+            <tr>
+                <td><code>22</code></td>
+                <td>
+                    <code><b>Missing operand</b></code>
+                    <p>
+                        An operator expression misses an operand or a function or statement
+                        is not supplied with sufficient parameters.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>23</code></td>
+                <td>
+                    <code><b>Line buffer overflow</b></code>
+                    <p>
+                        An <a href="#INPUT"><code>INPUT</code></a> or
+                        <a href="#LINE-INPUT"><code>LINE INPUT</code></a> statement encountered
+                        an input string longer than 255 characters or the plain-text program file
+                        being loaded contains a line with more than 255 characters.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>24</code></td>
+                <td>
+                    <code><b>Device Timeout</b></code>
+                    <p>
+                        The handshake has failed on a serial device or a tape device
+                        has reached the end of tape.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>25</code></td>
+                <td><code><b>Device Fault</b></code></td>
+            </tr>
+            <tr>
+                <td><code>26</code></td>
+                <td>
+                    <code><b>FOR without NEXT</b></code>
+                    <p>
+                        A <a href="#FOR"><code>FOR</code></a> statement has been encountered for
+                        which no matching <a href="#NEXT"><code>NEXT</code></a>
+                        statement can be found.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>27</code></td>
+                <td>
+                    <code><b>Out of paper</b></code>
+                    <p>
+                        An attempt is made to write to a printer which
+                        is out of paper or to another parallel device which has raised
+                        an out-of-paper condition.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>28</code></td>
+                <td><i>unused</i></td>
+            </tr>
+            <tr>
+                <td><code>29</code></td>
+                <td>
+                    <code><b>WHILE without WEND</b></code>
+                    <p>
+                        A <a href="#WHILE"><code>WHILE</code></a> statement has been encountered for
+                        which no matching <a href="#WEND"><code>WEND</code></a>
+                        statement can be found.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>30</code></td>
+                <td>
+                    <code><b>WEND without WHILE</b></code>
+                    <p>
+                        A <a href="#WEND"><code>WEND</code></a> statement has been encountered for
+                        which no matching <a href="#WHILE"><code>WHILE</code></a>
+                        statement can be found.
+                    </p>
+                </td>
+            </tr>
+            <tr><td><code>31&#8212;49</code></td><td><i>unused</i></td></tr>
+            <tr>
+                <td><code>50</code></td>
+                <td>
+                    <code><b>FIELD overflow</b></code>
+                    <p>
+                        An attempt is made to read, write, or define a <a href="#FIELD"><code>FIELD</code></a>
+                        variable beyond the length of the
+                        random-access file buffer.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>51</code></td>
+                <td>
+                    <code><b>Internal error</b></code>
+                    <p>
+                        The <a href="#TERM"><code>TERM</code></a> statement is executed
+                        but no terminal manager program has been defined.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>52</code></td>
+                <td>
+                    <code><b>Bad file number</b></code>
+                    <p>
+                        A file number is accessed to which no file is open, or the file number used in an <a href="#OPEN"><code>OPEN</code></a> statement
+                        is outside the range of allowable file numbers, or (confusingly) the file specification is empty, malformed or contains illegal characters.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>53</code></td>
+                <td>
+                    <code><b>File not found</b></code>
+                    <p>
+                        A named file on a disk device cannot be found.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>54</code></td>
+                <td>
+                    <code><b>Bad file mode</b></code>
+                    <p>
+                        The requested file mode in an <a href="#OPEN"><code>OPEN</code></a> statement
+                        does not exist or is unsupported for the given device, or the file function called is not
+                        supported for this device, or the function or statement called requires a file opened for
+                        <code>RANDOM</code> and the file is not.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>55</code></td>
+                <td>
+                    <code><b>File already open</b></code>
+                    <p>
+                        An attempt is made to open a file to a file number that is already in use;
+                        or an attempt is made to open a file for <code>OUTPUT</code> or <code>APPEND</code>  on a serial, disk or cassette device
+                        when a file is already open for <code>OUTPUT</code> or <code>APPEND</code> on that device;
+                        or a <a href="#KILL"><code>KILL</code></a> or <a href="#NAME"><code>NAME</code></a> statement is executed on an open disk file.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>56</code></td>
+                <td><i>unused</i></td>
+            </tr>
+            <tr>
+                <td><code>57</code></td>
+                <td>
+                    <code><b>Device I/O error</b></code>
+                    <p>
+                        An I/O error has occured during input/output to a device. This includes faming errors,
+                        CRC check failures and unexpected end-of-tape on cassette devices.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>58</code></td>
+                <td>
+                    <code><b>File already exists</b></code>
+                    <p>
+                        The proposed new name of a disk file in a <a href="#NAME"><code>NAME</code></a> statement
+                        is already in use.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>59&#8212;60</code></td>
+                <td><i>unused</i></td>
+            </tr>
+            <tr>
+                <td><code>61</code></td>
+                <td>
+                    <code><b>Disk full</b></code>
+                    <p>
+                        There is insufficient free space on the disk device to complete the operation.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>62</code></td>
+                <td>
+                    <code><b>Input past end</b></code>
+                    <p>
+                        An attempt is made to retrieve input from a file that
+                        has passed its end of file.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>63</code></td>
+                <td>
+                    <code><b>Bad record number</b></code>
+                    <p>
+                        A random-access file record number is referenced that is outside
+                        the permitted range.
+                    </p>
+                </td>
+            </tr>
+            <tr><td><code>64</code></td>
+                <td>
+                    <code><b>Bad file name</b></code>
+                    <p>
+                        The file name or other device parameter string in a file specification
+                        is malformed or contains illegal characters.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>65</code></td>
+                <td><i>unused</i></td>
+            </tr>
+            <tr>
+                <td><code>66</code></td>
+                <td>
+                    <code><b>Direct statement in file</b></code>
+                    <p>
+                        A line with no line number is encountered in a plain-text program file.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>67</code></td>
+                <td><code><b>Too many files</b></code></td>
+            </tr>
+            <tr>
+                <td><code>68</code></td>
+                <td>
+                    <code><b>Device Unavailable</b></code>
+                    <p>
+                        An attempt is made to access a device that does not exist or is not enabled.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>69</code></td>
+                <td>
+                    <code><b>Communication buffer overflow</b></code>
+                    <p>
+                        A serial device is receiving more data than fits in its buffer.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>70</code></td>
+                <td>
+                    <code><b>Permission Denied</b></code>
+                    <p>
+                        The requested access to a file is not granted due to
+                        <a href="#LOCK"><code>LOCK</code></a> restrictions,
+                        operating system locking, or insufficient operating system file permissions.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>71</code></td>
+                <td>
+                    <code><b>Disk not Ready</b></code>
+                    <p>
+                        The disk device is not ready for access. For example, there is no diskette in
+                        a floppy drive or the drive lock is open.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>72</code></td>
+                <td><code><b>Disk media error</b></code></td>
+            </tr>
+            <tr>
+                <td><code>73</code></td>
+                <td><code><b>Advanced Feature</b></code></td>
+            </tr>
+            <tr>
+                <td><code>74</code></td>
+                <td>
+                    <code><b>Rename across disks</b></code>
+                    <p>
+                        An attempt is made to use the <a href="#NAME"><code>NAME</code></a>
+                        statement to move a file from one disk device to another.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>75</code></td>
+                <td>
+                    <code><b>Path/File access error</b></code>
+                    <p>
+                        An attempt is made to create a directory that already exists
+                        or to remove a directory that is not empty.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>76</code></td>
+                <td>
+                    <code><b>Path not found</b></code>
+                    <p>
+                        An <a href="#OPEN"><code>OPEN</code></a>,
+                         <a href="#MKDIR"><code>MKDIR</code></a>,
+                        <a href="#RMDIR"><code>RMDIR</code></a>, or
+                        <a href="#CHDIR"><code>CHDIR</code></a> statement is
+                        executed referring to a (parent) path that does not exist
+                        on the disk device.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td><code>77</code></td>
+                <td><code><b>Deadlock</b></code></td>
+            </tr>
+            </table>
+            <p>
+        Any error code that does not have a message associated to it will generate
+        the message <code><b>Unprintable error</b></code>.
+    </p>
+    <p>
+        If an error occurs in direct mode, the error message is printed as above.
+        If the error occurs in a program, the message is supplemented with the
+        line number in which the error occurred. For example,
+        <code>Illegal function call in 100</code>
+        indicates that the illegal function call took place in line number <code>100</code>.
+    </p>
+    <p>
+        If a <code>Syntax error</code> occurs during program execution,
+        the error message is followed by a listing of the program line
+        in which the error occurred, wth the cursor positioned at the location
+        where the error was raised.
+    </p>
+    <p>
+        A <code>Division by zero</code> error or, in a floating point calculation, an <code>Overflow</code>,
+        will not interrupt execution unless it occurs
+        within an error handling routine. The error message will be printed on the console
+        and the result of the offending calculation will be taken to be the maximum
+        value that fits in the appropriate floating-point variable. <code>Overflow</code>
+        in an integer calculation will always interrupt execution like other errors.
+    </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

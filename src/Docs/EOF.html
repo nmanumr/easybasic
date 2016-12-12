@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>EOF</h3>
+            <pre>
+                <code class="basic">
+                   <var>is_at_end</var> <b>= EOF(</b><var>file_num</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Returns -1 if file with number <code><var>file_num</var></code> has reached end-of-file; 0 otherwise.
+            The file must be open in <code>INPUT</code> or <code>RANDOM</code> mode. <code>EOF(0)</code> returns 0.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>file_num</var></code> is open to <code>KYBD:</code>, performs a blocking read and returns -1 if
+                <kbd>CTRL</kbd>+<kbd>Z</kbd> is entered, 0 otherwise. The character entered is then echoed to
+                the console.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>file_num</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is a number not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is a number not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not 0 or the number of an open file:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                The file with number <code><var>file_num</var></code> is in OUTPUT or APPEND mode:
+                <samp>Bad file mode</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

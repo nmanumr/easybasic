@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+        <p>
+            PC-BASIC recognises the following DOS-style devices, which can be used by opening a file on them.
+            Some devices allow specification of further file parameters, such
+            as handshake specifications for serial devices, a filename for cassette devices and a path for disk devices.
+            When operating on disk devices, specifying a path is mandatory.
+        </p>
+        <p>
+            The <dfn>filename aliases</dfn> listed here are only available if the
+            current device is a disk device.
+        </p>
+        <div>
+            <h3>Mathematical function</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>Filename alias</th>
+                        <th>Allowed modes</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SCRN:</code></td>
+                        <td><code>CON</code></td>
+                        <td><code>OUTPUT</code></td>
+                        <td>
+                            The screen. Output to <code>SCRN:</code> has largely the same
+                            effect as straight output using <a href="../Statements/PRINT.html"><code>PRINT</code></a>.
+                            A difference is the <a href="../Statements/WIDTH.html"><code>WIDTH</code></a> setting which is
+                            independent of the real screen width.
+                        </td>
+                    </tr><tr>
+                        <td><code>KYBD:</code></td>
+                        <td><code>CON</code></td>
+                        <td><code>INPUT</code></td>
+                        <td>
+                            The keyboard. Input read from <code>KYBD:</code> is not echoed
+                            to the screen. Special keys like arrow keys are
+                            registered differently than when using <a href="../Statements/INPUT_c.html"><code>INPUT</code></a>
+                            or <a href="../Functions/INPUT_s.html"><code>INPUT$</code></a> straight.
+                        </td>
+                    </tr><tr>
+                        <td><code>LPT1:</code> <code>LPT2:</code> <code>LPT3:</code></td>
+                        <td><code>PRN</code> for <code>LPT1:</code></td>
+                        <td><code>OUTPUT</code> <code>RANDOM</code></td>
+                        <td>
+                            Parallel ports 1&#8212;3.
+                            <code>LPT</code> devices can be
+                            attached to the physical parallel port, to a printer or to a text file
+                            with the
+                            <code>--lpt<var>n</var></code> options.
+                            Opening a printer for <code>RANDOM</code> has the same effect as opening it
+                            for <code>OUTPUT</code>; attempting random-file operations will raise
+                            <samp>Bad file mode</samp>.
+                        </td>
+                    </tr><tr>
+                        <td><code>COM1:</code> <code>COM2:</code></td>
+                        <td><code>AUX</code> for <code>COM1:</code></td>
+                        <td><code>INPUT</code> <code>OUTPUT</code> <code>APPEND</code> <code>RANDOM</code></td>
+                        <td>
+                            Serial ports 1&#8212;2.
+                            <code>COM</code> devices can be attached to a
+                            physical serial port or to a network socket with the
+                            <code>--com<var>n</var></a> options.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>CAS1:</code></td>
+                        <td></td>
+                        <td><code>INPUT</code> <code>OUTPUT</code></td>
+                        <td>
+                            Cassette tape driver. <code>CAS</code> devices can be
+                            attached to a WAV (RIFF Wave) or a CAS (bitmap tape image) file with the <code>--cas1</code> option.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>A:</code> &#8212; <code>Z:</code> and <code>@:</code></td>
+                        <td></td>
+                        <td><code>INPUT</code> <code>OUTPUT</code> <code>APPEND</code> <code>RANDOM</code></td>
+                    <td>
+                        Disk devices. These devices can be mounted to a directory on
+                        the host file system with the <code>--mount</code> option.
+                        They do not automatically match drive letters on Windows,
+                        unless the <code>--map-drives</code> option
+                        is set.
+                    </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><code>NUL</code></td>
+                        <td><code>INPUT</code> <code>OUTPUT</code> <code>APPEND</code> <code>RANDOM</code></td>
+                    <td>
+                        Null device. This device produces no bytes when opened for <code>INPUT</code>
+                        and absorbs all bytes when opened for <code>OUTPUT</code>.
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                GW-BASIC additionally recognises the following little-used device, which is not implemented in PC-BASIC.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>Allowed modes</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td><code>CONS:</code></td>
+                <td><code>OUTPUT</code></td>
+                <td>
+                    The screen (console). Output to <code>CONS:</code> is displayed
+                    directly at the cursor position when <kbd>Enter</kbd> is
+                    pressed. It does not update the end-of-line value
+                    for the interpreter, which means that it does not
+                    move with <kbd>Backspace</kbd> or <kbd>Del</kbd> and is not
+                    stored in program lines if it appears beyond the
+                    end of the existing line. <code>CONS:</code> can be opened with
+                    any access mode, but the effect is always to open
+                    it for <code>OUTPUT</code>.
+                </td>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

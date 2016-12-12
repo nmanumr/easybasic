@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">CONT</h3>
+            <pre>
+                <code>
+                    <b>CONT</b> [<var>anything</var>]
+                </code>
+            </pre>
+       <p>
+            Resumes execution of a program that has been halted by
+            <code><a href="#STOP">STOP</a></code>, <code><a href="#END">END</a></code>,
+            <kbd>Ctrl</kbd>+<kbd>C</kbd>, or  <kbd>Ctrl</kbd>+<kbd>Break</kbd>.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Anything after the <code>CONT</code> keyword is ignored.
+            </li>
+            <li>
+                This statement can only be used in direct mode.
+            </li>
+            <li>
+                If a break is encountered in <code><a href="#GOSUB">GOSUB</a></code> routine called from a continuing
+                direct line (e.g. <code>GOSUB 100:PRINT A$</code>), <code>CONT</code> will overwrite the running
+                direct line. As the subroutine <code><a href="#RETURN">RETURN</a></code>s to the position after the <code>GOSUB</code> in
+                the old direct line, strange things may happen if commands are given after
+                <code>CONT</code>. In GW-BASIC, this can lead to strange errors in non-existing
+                program lines as the parser executes bytes that are not part of a program
+                line. In PC-BASIC, if the new direct line is shorter, execution stops
+                after <code>RETURN</code>; but if the direct line is extended beyond the old return
+                position, the parser tries to resume at that return position, with strange
+                effects.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                No program is loaded, a program has not been run, after a program line
+                has been modified or after <code><a href="#CLEAR">CLEAR</a></code>: <samp>Can't continue</samp>.
+            </li>
+            <li>
+                The break occurred in a direct line: <samp>Can't continue</samp>.
+            </li>
+            <li>
+                <code>CONT</code> is used in a program: <samp>Can't continue</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

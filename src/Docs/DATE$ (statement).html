@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">DATE$</h3>
+            <pre>
+                <code>
+                    <b>DATE$ = </b><var>date</var>
+                </code>
+            </pre>
+       <p>
+            Sets the system date. <code><var>date</var></code> is a string expression that represents a
+            date in one of the formats: <code>"mm-dd-yyyy"</code>, <code>"mm/dd/yyyy"</code>, <code>"mm-dd-yy"</code>, <code>"mm/dd/yy"</code>.
+        </p>
+        <p>
+            Of these,
+        </p>
+        <ul>
+            <li>
+                <code>mm</code> must be in <code>[01&#8212;12]</code>.
+            </li>
+            <li>
+                <code>dd</code> must be in <code>[01&#8212;31]</code>.
+            </li>
+            <li>
+                <code>yyyy</code> must be in <code>[1980&#8212;2099]</code>.
+            </li>
+            <li>
+                <code>yy</code> must be in one of the ranges:
+                <ul>
+                    <li>
+                        <code>[00&#8212;77]</code>, interpreted as <code>2000&#8212;2077</code>; or
+                    </li>
+                    <li>
+                        <code>[80&#8212;99]</code>, interpreted as <code>1980&#8212;1999</code>.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                The system date is not actually changed; rather, PC-BASIC remembers the
+                offset from the true system date. This avoids requiring user permission
+                to change the system time.
+            </li>
+            <li>
+                GW-BASIC appears to accept invalid dates such as <code>"02-31-2000"</code>. PC-BASIC
+                raises <samp>Illegal function call</samp> for these.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>date</var></code> has a numeric value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>date</var></code> is not in the format specified above:
+                <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="event-trapping">Event handling</h3>
+            <p>
+                Event trapping allows to define subroutines which are executed outside
+                of the normal course of operation. Events that can be trapped are:
+            </p>
+            <ul>
+                <li>Time intervals (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON TIMER</code></a>)</li>
+                <li>Keypresses (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON KEY</code></a>)</li>
+                <li>Serial port input (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON COM</code></a>)</li>
+                <li>Music queue exhaustion (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON PLAY</code></a>)</li>
+                <li>Joystick triggers (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON STRIG</code></a>)</li>
+                <li>Light pen activation (<a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON PEN</code></a>)</li>
+            </ul>
+            <p>
+                Event trapping subroutines are defined as regular subroutines. At the
+                <a href="#" onclick="window.top.addtab('RETURN_tabli', 'RETURN', 'Docs/RETURN.html');"><code>RETURN</code></a> statement, the normal course ofR
+                program execution is resumed. Event trapping can be switched on and off or
+                paused temporarily with statements of the form
+                <a href="#" onclick="window.top.addtab('PEN_Statement_tabli', 'PEN (Statement)', 'Docs/PEN (Statement).html');"><code>PEN ON</code></a>, <code>PEN OFF</code>,
+                <code>PEN STOP</code>.
+                Event trapping only takes place during program execution and is paused while
+                the program is in an error trap. If an event occurs while event-trapping is
+                paused, then the event is triggered immediately when event trapping is resumed.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Statement</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                <td><a href="#" onclick="window.top.addtab('COM_tabli', 'COM', 'Docs/COM.html');"><code>COM</code></a></td>
+                <td>Manage serial port event trapping</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('KEY_tabli', 'KEY', 'Docs/KEY.html');"><code>KEY</code></a></td>
+                <td>Manage keyboard event trapping</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('ON_tabli', 'ON', 'Docs/ON.html');"><code>ON</code></a></td>
+                <td>Define event-trapping subroutine</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('PEN_tabli', 'PEN', 'Docs/PEN.html');"><code>PEN</code></a></td>
+                <td>Manage light pen event trapping</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('PLAY_tabli', 'PLAY', 'Docs/PLAY.html');"><code>PLAY</code></a></td>
+                <td>Manage music queue event trapping</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('STRIG_tabli', 'STRIG', 'Docs/STRIG.html');"><code>STRIG</code></a></td>
+                <td>Manage joystick event trapping</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="window.top.addtab('TIMER_statement_tabli', 'TIMER (statement)', 'Docs/TIMER (statement).html');"><code>TIMER</code></a></td>
+                <td>Manage timer event trapping</td>
+            </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>
