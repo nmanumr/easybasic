@@ -1,0 +1,45 @@
+@font-face {
+    font-family: roboto;
+    src: url('../../assets/fonts/Roboto.ttf');
+}
+.compactlist li{
+    display: inline-block;
+    width: 10em;
+    list-style: none;
+}
+#doc-body{
+    font-family: roboto;
+}
+p{
+    font-weight: 400;
+    font-family: roboto;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: rgba(0,0,0,.7);
+    margin-bottom: 20px;
+}
+h3{
+    margin: 0;
+    line-height: 100%;
+    font-size: 17px;
+    font-weight: 400;
+    padding-bottom: 23px;
+    padding-top: 23px;
+}
+code{
+    background: #f9f2f4;
+    color: #c7254e;
+    font-family: Consolas;
+}
+::-webkit-scrollbar {
+    height: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0, .3);
+    border-radius: 1px;
+}

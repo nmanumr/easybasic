@@ -1,0 +1,63 @@
+@font-face {
+    font-family: roboto;
+    src: url('../../assets/fonts/Roboto.ttf');
+}
+.compactlist li{
+    display: inline-block;
+    width: 10em;
+    list-style: none;
+}
+#doc-body{
+    font-family: roboto;
+}
+body{
+    background: #283339;
+}
+html{
+    background: #283339;
+}
+p{
+    font-weight: 400;
+    font-family: roboto;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: rgba(255,255,255,.7);
+    margin-bottom: 20px;
+}
+h3{
+    margin: 0;
+    line-height: 100%;
+    font-size: 17px;
+    font-weight: 400;
+    padding-bottom: 23px;
+    padding-top: 23px;
+}
+code,
+kbd{
+    background: rgb(51, 60, 66)!important;
+    color: rgba(255, 255, 255, .7)!important;
+    font-family: Consolas;
+}
+::-webkit-scrollbar {
+    height: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: rgba(256,256,256, .3);
+    border-radius: 1px;
+}
+p{
+    text-align: justify;
+    text-indent: 1em;
+}
+.my-thumbnail{
+    padding: 4px;
+    background-color: #293440;    
+    border: 1px solid #444;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
