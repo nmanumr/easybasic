@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">NAME</h3>
+            <pre>
+                <code>
+                    <b>NAME</b> <var>old_name</var> <b>AS</b> <var>new_name</var>
+                </code>
+            </pre>
+       <p>
+            Renames the disk file <code><var>old_name</var></code> into <code><var>new_name</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                The string expressions <code><var>old_name</var></code> and <code><var>new_name</var></code>
+                are valid <a href="#filespec">file specifications</a> giving the path on a disk device to the old and new filenames,
+                respectively.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+               <code><var>new_name</var></code> will be modified into <a href="#eightpointthree">all-uppercase 8.3 format</a>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>old_name</var></code> or <code><var>new_name</var></code> have number values: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>old_name</var></code> does not exist: <samp>File not found</samp>.
+            </li>
+            <li>
+                <code><var>old_name</var></code> is open: <samp>File already open</samp>.
+            </li>
+            <li>
+                <code><var>new_name</var></code> exists: <samp>File already exists</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

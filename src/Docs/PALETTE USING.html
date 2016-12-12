@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">PALETTE USING</h3>
+            <pre>
+                <code>
+                    <b>PALETTE USING</b> <var>int_array_name</var> {<b>(</b>|<b>[</b>} <var>start_index</var> {<b>)</b>|<b>]</b>}
+                </code>
+            </pre>
+       <p>
+            Assigns new colours to all attributes.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>int_array_name</var></code> is an array of integers (<code>%</code>) that will supply the
+                new values for the palette.
+            </li>
+            <li>
+                <code><var>start_index</var></code> is a numeric expression that
+                indicates at which index in the array to start mapping to the palette.
+            </li>
+        </ul>
+        <p>
+            If an array entry has value <code>-1</code>, the matching attribute is left unchanged.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>int_array_name</var></code> has not been allocated: <samp>Illegal function call</samp>.
+                The array will not be automatically allocated.
+            </li>
+            <li>
+            <code><var>int_array_name</var></code> is not an integer array: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+            <code><var>int_array_name</var></code> is too short: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+            <code><var>start_index</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+            <code><var>start_index</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>
+            </li>
+            <li>
+            <code><var>start_index</var></code> is outside array dimensions: <samp>Subscript out of range</samp>
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

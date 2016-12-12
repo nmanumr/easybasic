@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">PEN</h3>
+            <pre>
+                <code>
+                    <b>PEN</b> {<b>ON</b>|<b>OFF</b>|<b>STOP</b>}
+                </code>
+            </pre>
+       <p>
+            Controls event trapping and read access of the light pen (emulated through the mouse in PC-BASIC).
+            <code>PEN ON</code> switches pen reading and trapping on.  <code>PEN OFF</code> switches it off.
+            <code>PEN STOP</code> suspends <code>PEN</code> event trapping until <code>PEN ON</code> is
+            executed. Up to one event can be triggered during suspension, provided that
+            event handling was switched on prior to suspension. The event triggered during
+            suspension is handled immediately after the next <code>PEN ON</code> statement.
+        </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

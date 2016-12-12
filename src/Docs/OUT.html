@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">OUT</h3>
+            <pre>
+                <code>
+                    <b>OUT</b> <var>port</var><b>,</b> <var>value</var>
+                </code>
+            </pre>
+       <p>
+            Sends a byte to an emulated machine port.
+        </p>
+        <p>
+            The following machine ports are emulated in PC-BASIC:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><code><var>port</var></code></th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>&amp;h201</code></td>
+                    <td>resets the game port (joystick port)</td>
+                </tr>
+                <tr>
+                    <td><code>&amp;h3C5</code></td>
+                    <td>sets the write bitmask for <code>SCREEN 7</code>, <code>8</code>, <code>9</code> colour planes.
+                                <code><var>bitmask</var> = 2 ^ <var>value</var></code>.</td>
+                </tr>
+                <tr>
+                    <td><code>&amp;h3CF</code></td>
+                    <td>sets the read colour plane to <code><var>value</var></code>.</td>
+                </tr>
+                <tr>
+                    <td><code>&amp;h3D8</code></td>
+                    <td>
+                        if <code><var>value</var> = &amp;h1A</code>, enable composite colorburst.<br>
+                        if <code><var>value</var> = &amp;h1E</code>, disable composite colorburst.<br>
+                        Requires <code><a href="#--video">video</a>={cga, tandy, pcjr}</code>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Only a limited number of machine ports are emulated.
+            </li>
+            <li>
+                In GW-BASIC under MS-DOS, the sequence needed to set the colour plane mask is:
+                <code class="block">
+                    OUT &amp;h3C4, 2<br>
+                    OUT &amp;h3C5, 2 ^ <var>plane</var>
+                </code>
+                The sequence needed to set the colour plane is:
+                <code class="block">
+                    OUT &amp;h3CE, 4<br>
+                    OUT &amp;h3CF, <var>plane</var>
+                </code>
+                The initial <code>OUT</code> statements currently have no effect in PC-BASIC.
+            </li>
+        </ul>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>port</var></code> is a numeric expression in <code>[-32768&#8212;65535]</code>.
+            </li>
+            <li>
+                <code><var>value</var></code> is a numeric expression in <code>[0&#8212;255]</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>port</var></code> or <code><var>value</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>port</var></code> is not in <code>[-32768&#8212;65535]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>value</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>value</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

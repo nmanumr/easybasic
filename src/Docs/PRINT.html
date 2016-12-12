@@ -1,0 +1,429 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">PRINT and LPRINT</h3>
+            <pre>
+                <code>
+                    {<b>LPRINT</b>|{<b>PRINT</b>|<b>?</b>} [<b>#</b> <var>file_num</var><b>,</b>]} [<var>expr_0</var>|<b>;</b>|<b>,</b>|<b>SPC(</b><var>n</var><b>)</b>|<b>TAB(</b><var>n</var><b>)</b>] ...
+                    [<b>USING</b> <var>format</var><b>;</b> <var>uexpr_0</var> [{<b>;</b>|<b>,</b>} <var>uexpr_1</var>] ... [<b>;</b>|<b>,</b>]]
+                </code>
+            </pre>
+       <p>
+            Writes expressions to the screen, printer, or file. If <code>LPRINT</code> is used,
+            output goes to <code>LPT1:</code>. If <code><var>file_num</var></code> is specified, output goes to the file
+            open under that number. <code>?</code> is a shorthand for <code>PRINT</code>.
+        </p>
+        <p>
+            When writing a string expression to the screen, the following control characters have special meaning.
+            Other characters are shown as their corresponding glyph in the current <a href="#cp437">codepage</a>.
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Code point
+                    </th>
+                    <th>
+                        Control character
+                    </th>
+                    <th>
+                        Effect
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <code>&amp;h07</code>
+                    </td>
+                    <td>
+                        <code><i>BEL</i></code>
+                    </td>
+                    <td>
+                        Beep the speaker.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h08</code>
+                    </td>
+                    <td>
+                        <code><i>BS</i></code>
+                    </td>
+                    <td>
+                        Erase the character in the previous column and move the cursor back.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h09</code>
+                    </td>
+                    <td>
+                        <code><i>HT</i></code>
+                    </td>
+                    <td>
+                        Jump to the next 8-cell tab stop.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0A</code>
+                    </td>
+                    <td>
+                        <code><i>LF</i></code>
+                    </td>
+                    <td>
+                        Go to the leftmost column in the next row; connect the rows to one logical line.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0B</code>
+                    </td>
+                    <td>
+                        <code><i>VT</i></code>
+                    </td>
+                    <td>
+                        Move the cursor to the top left of the screen.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0C</code>
+                    </td>
+                    <td>
+                        <code><i>FF</i></code>
+                    </td>
+                    <td>
+                        Clear the screen.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0D</code>
+                    </td>
+                    <td>
+                        <code><i>CR</i></code>
+                    </td>
+                    <td>
+                        Go to the leftmost column in the next row.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1C</code>
+                    </td>
+                    <td>
+                        <code><i>FS</i></code>
+                    </td>
+                    <td>
+                        Move the cursor one column to the right.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1D</code>
+                    </td>
+                    <td>
+                        <code><i>GS</i></code>
+                    </td>
+                    <td>
+                        Move the cursor one column to the left.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1E</code>
+                    </td>
+                    <td>
+                        <code><i>RS</i></code>
+                    </td>
+                    <td>
+                        Move the cursor one row up.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1F</code>
+                    </td>
+                    <td>
+                        <code><i>US</i></code>
+                    </td>
+                    <td>
+                        Move the cursor one row down.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Expressions can optionally be separated by one or more of the following keywords:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Keyword
+                    </th>
+                    <th>
+                        Effect
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>;</code></td>
+                    <td>
+                        Attaches two expressions tight together; strings will be
+                        printed without any space in between, numbers will have one space
+                        separating them, in addition to the space or minus sign that indicate
+                        the sign of the number.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>,</code></td>
+                    <td>
+                        The expression after will be positioned at the next available
+                        zone. The output file is divided in 14-character zones; if the width of the
+                        file is not a multiple of 14, the remaining spaces are unused and the first
+                        zone of the next line is used instead. If the file has a width of less
+                        than 14 characters, the zones are determined as if the file were wrapping
+                        continuously.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>SPC(<var>n</var>)</code></td>
+                    <td>
+                        Produces <code><var>n</var></code> spaces, where <code><var>n</var></code> is a numeric
+                        expression. if <code><var>n</var></code> is less than zero, it defaults to zero. If <code><var>n</var></code> is
+                        greater than the file width, it is taken modulo the file width.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>TAB(<var>n</var>)</code></td>
+                    <td>
+                        Moves to column <code><var>n</var></code>, where <code><var>n</var></code> is a numeric
+                        expression. if <code><var>n</var></code> is less than zero, it defaults to zero. If <code><var>n</var></code> is
+                        greater than the file width, it is taken modulo the file width. If the
+                        current column is greater than <code><var>n</var></code>, TAB moves to column <code><var>n</var></code> on the next
+                        line.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            If the print statement does not end in one of these four separation tokens, a newline is
+            printed after the last expression.
+            String expressions can be separated by one or more spaces, which has the same
+            effect as separating by semicolons.
+        </p>
+        <h4>Format string syntax</h4>
+        <p>
+            A <code>USING</code> declaration occurs at the end of an <code>[L]PRINT[#]</code> statement and writes a
+            formatted string to the screen, printer or file. The following tables list the format tokens
+            that can be used inside the <code><var>format</var></code> string.
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+
+                <tr>
+                    <td><code>_</code></td>
+                    <td>
+                        Escape character; causes the next character in the format string to be
+                        printed as is rather than interpreted as a format token.
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>For string expressions:</p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <tr>
+                    <td><code>!</code></td>
+                    <td>Prints the first character of a string.</td>
+                </tr>
+                <tr>
+                    <td><code>\\</code></td>
+                    <td>
+                        Prints 2 or more characters of a string. A greater number of characters is
+                        selected by separating the <code>\</code>s by spaces.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>&amp;</code></td>
+                    <td>   Prints the whole string.</td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            For numeric expressions, the format string specifies a width and alignment.
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <tr>
+                    <td><code>#</code></td>
+                    <td>
+                    Indicate a position for a digit.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>.</code></td>
+                    <td>
+                    Indicate the decimal point.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>,</code></td>
+                    <td>
+                        Before the decimal point: cause digits to be grouped in threes separated by
+                        commas. After the decimal point it is not a token.
+                        Provides one digit position.
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            The number of characters in the field must not exceed 24.
+        </p>
+        <p>
+            Tokens preceding the number field:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <tr>
+                    <td><code>+</code></td>
+                    <td>
+                        Cause the sign to be printed for positive as well as negative numbers. The sign is to be printed to the left of the
+                        number.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>**</code></td>
+                    <td>
+                        Cause any leading spaces to be replaced with <code>*</code>s.
+                        Provides two digit positions.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>$$</code></td>
+                    <td>
+                        Cause a <code>$</code> to be printed to the left of the number.
+                        Provides one digit position.
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            Tokens trailing the number field:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <tr>
+                    <td><code>+</code></td>
+                    <td>
+                        Cause the sign to be printed for positive as well as negative numbers.
+                        The sign will be printed to the right of the number.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>-</code></td>
+                    <td>
+                        Cause the sign for negative numbers to be printed
+                        to the right of the number. Note that <code>-</code> preceding the field is not a token
+                        but printed literally.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>^^^^</code></td>
+                    <td>Specify that scientific notation <code>E+00</code> is to be used.</td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            Numeric expressions are always fully printed, even if they do not fit in the
+            positions specified. If the number does not fit in the allowed space, a <code>%</code> is
+            printed preceding it.
+        </p>
+        <ul>
+            <li>
+                If there are more expressions than format fields, the format string is
+                wrapped around.
+            </li>
+            <li>
+                Expressions may be separated with semicolons or commas; the effect is the
+                same.
+            </li>
+            <li>
+               If the <code>USING</code> declaration ends in a comma or semicolon, no newline is printed at
+                the end.
+            </li>
+            <li>
+               After a <code>USING</code> declaration, other elements of the <code>PRINT</code> syntax such as <code>SPC(</code> and <code>TAB(</code> can not
+                be used.
+            </li>
+        </ul>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>expr_0</var>, <var>expr_1</var>, ...</code> are expressions of any type.
+            </li>
+            <li>
+                <code><var>format</var></code> is a string expression that specifies the output format.
+            </li>
+            <li>
+                <code><var>uexpr_0</var>, <var>uexpr_1</var>, ...</code> are expressions matching a token in the format string.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If an error is raised, the output before the error was encountered is
+                printed as normal.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>n</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>n</var></code> is not in <code>[-32768&#8212;65535]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                The format string contains no tokens: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                An expression doesn't match the corresponding format token type: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                A number field in the format string exceeds 24 characters: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                A number field in the format string contains no <code>#</code> characters: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

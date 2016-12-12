@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Relational operators</h3>
+            <p>
+        Relational operators can operate on numeric as well as string operands;
+        however, if one operand is string and the other numeric, <samp>Type mismatch</samp>
+        is raised.
+    </p>
+    <p>
+        Relational operators return either <code>0</code> (for <i>false</i>) or
+        <code>-1</code> for <i>true</i>.
+    </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                <th>Operation</th>
+                <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr>
+                <td id="="><code>=</code></td>
+                <td>Equal</td>
+                <td>
+                    True if <code><var>a</var></code> equals <code><var>b</var></code>,
+                    false otherwise.
+                </td>
+            </tr>
+            <tr>
+                <td id="&lt;&gt;"><code>&lt;&gt;</code> <code>&gt;&lt;</code></td>
+                <td>Not equal</td>
+            <td>
+                False if <code><var>a</var></code> equals <code><var>b</var></code>,
+                true otherwise.
+            </td>
+            </tr>
+            <tr>
+                <td id="&lt;"><code>&lt;</code></td>
+                <td>Less than</td>
+                <td>
+                    True if <code><var>a</var></code> is less than <code><var>b</var></code>,
+                    false otherwise.
+                </td>
+            </tr>
+            <tr>
+                <td id="&gt;"><code>&gt;</code></td>
+                <td>Greater than</td>
+                <td>
+                    True if <code><var>a</var></code> is greater than <code><var>b</var></code>,
+                    false otherwise.
+                </td>
+            </tr>
+            <tr>
+                <td id="&lt;="><code>&lt;=</code> <code>=&lt;</code></td>
+                <td>Less than or equal</td>
+                <td>
+                    False if <code><var>a</var></code> is greater than <code><var>b</var></code>,
+                    true otherwise.
+                </td>
+            </tr>
+            <tr>
+                <td id="&gt;="><code>&gt;=</code> <code>=&gt;</code></td>
+                <td>Greater than or equal</td>
+                <td>
+                    False if <code><var>a</var></code> is less than <code><var>b</var></code>,
+                    true otherwise.
+                </td>
+            </tr>
+                </tbody>
+            </table>
+            <p>
+        When operating on numeric operands, both operands are compared as floating-point
+        numbers according to the usual ordering of numbers. The equals operator tests
+        for equality to within machine precision for the highest-precision of the two
+        operator types.
+    </p>
+    <p>
+        When comparing strings, the ordering is as follows.
+    </p>
+    <ul>
+        <li>
+            Two strings are equal only if they are of the same length and every character
+            code of the first string agrees with the corresponding character code of the
+            second. This includes any whitespace or unprintable characters.
+        </li>
+        <li>
+            Each character position of the strings is compared starting with the leftmost character.
+            When a pair of different characters is encountered, the string
+            with the character of lesser <a href="#cp437">code point</a> is less than the string
+            with the character of greater code point.
+        </li>
+        <li>
+            If the strings are of different length, but equal up to the length of the
+            shorter string, then the shorter string is less than the longer string.
+        </li>
+    </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

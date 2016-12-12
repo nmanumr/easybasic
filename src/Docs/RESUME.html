@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">RESUME</h3>
+            <pre>
+                <code>
+                    <b>RESUME</b> [<b>0</b>|<b>NEXT</b>|<var>line</var>]
+                </code>
+            </pre>
+       <p>
+            Continues normal execution after an error handling routine.
+            If <code>0</code> or no option is specified, re-executes the statement that caused the
+            error. If <code>NEXT</code> is specified, executes the statement following the one that
+            caused the error. If <code><var>line</var></code> is specified, it must be a valid line number.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code>RESUME</code> is encountered outside of an error trapping routine:
+                <samp>RESUME without error</samp>.
+            </li>
+            <li>
+                The program ends inside an error trapping routine without a <code>RESUME</code>
+                or <code>END</code> statement: <samp>No RESUME</samp>.
+            </li>
+            <li>
+                <code><var>line</var></code> is not an existing line number: <samp>Undefined line number</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

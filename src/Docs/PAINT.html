@@ -1,0 +1,549 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">PAINT</h3>
+            <pre>
+                <code>
+                    <b>PAINT</b> [<b>STEP</b>] <b>(</b><var>x</var><b>,</b> <var>y</var><b>)</b> [<b>,</b> <var>attrib</var> [<b>,</b> <var>border</var> [<b>,</b> <var>background</var>]]]
+                </code>
+            </pre>
+       <p>
+            Flood-fills the screen with a colour or pattern, starting from the given seed point.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>x</var></code>, <code><var>y</var></code> are numeric expressions in the range <code>[-32768&#8212;32767]</code>
+                If STEP is specified, <code><var>x</var></code> <code><var>y</var></code> are offsets
+                from the current position. If the seed point is outside the visible screen
+                area, no flood fill is performed.
+            </li>
+            <li>
+                <code><var>attrib</var></code> is an expression that specifies the fill attribute or pattern. If not
+                specified, the current foreground attribute is used.
+            </li>
+            <li>
+                If <code><var>attrib</var></code> has a number value, it must be in <code>[0&#8212;255]</code>; it specifies the colour
+                attribute used to fill.
+            </li>
+            <li>
+                If <code><var>attrib</var></code> has a string value, it specifies a tile pattern (see below).
+            </li>
+            <li>
+                <code><var>border</var></code> is a numeric expression in <code>[0&#8212;255]</code>. It specifies the attribute
+                of the fill boundary (see below).
+            </li>
+            <li>
+                <code><var>background</var></code> is a string expression that represents a background tile
+                pattern to ignore when determining boundaries (see below).
+            </li>
+        </ul>
+        <h4>Tile patterns</h4>
+        <p>
+            A tile pattern can be specified by a string of up to 255 characters. The
+            interpretation of the string depends on the number of bits per pixel and on
+            the current screen mode.
+        </p>
+        <dl>
+            <dt>
+                1 bit per pixel (e.g. <code>SCREEN 2</code>)
+            </dt>
+            <dd>Here is an example:
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <code>76543210</code>
+                        </th>
+                        <th>
+                            Byte value
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <code>
+                                *.......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h80
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                .*......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h40
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                ..*.....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h20
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                ...*....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h10
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                ....*...
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h08
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                .....*..
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h04
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>
+                                ......*.
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h02
+                            </code>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                This diagonal stripe pattern can thus be produced with
+                <code class="flow">
+                    PAINT (0, 0), CHR$(128)+CHR$(64)+CHR$(32)+CHR$(16)+CHR$(8)+CHR$(4)+CHR$(2)
+                </code>
+            </dd>
+            <dt>
+                <code>SCREEN 7</code>, <code>8</code>, <code>9</code>
+            </dt>
+            <dd>
+                The tile pattern is always 8 pixels wide. The first character in the
+                pattern string contains the first bit of each of these 8 pixels, the
+                second character contains the second bits, etc.
+                For example, in a 2-bits-per-pixel mode, four colour attributes can be used in the pattern.
+                To create a diagonal stripe pattern of the same shape, in attribute <code>&amp;h03</code>, we now need a tile
+                string that is twice as long:
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Attribute bit
+                        </th>
+                        <th>
+                            <code>76543210</code>
+                        </th>
+                        <th>
+                            Byte value
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <code>
+                                *.......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h80
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                *.......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h80
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <code>
+                                .*......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h40
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                .*......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h40
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+
+                        <td>
+                            <code>
+                                ..*.....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h20
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                ..*.....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h20
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+
+                        <td>
+                            <code>
+                                ...*....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h10
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                ...*....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h10
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <code>
+                                ....*...
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h08
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                ....*...
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h08
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <code>
+                                .....*..
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h04
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                .....*..
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h04
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <code>
+                                ......*.
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h02
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <code>
+                                ......*.
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h02
+                            </code>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                If the pattern string is truncated before all bits of the last line
+                have been defined, the remaining bits will be zero.
+            </dd>
+            <dt>
+                <code>SCREEN 1</code>, <code>3</code>, <code>4</code>, <code>5</code> , <code>6</code>
+            </dt>
+            <dd>
+                Each row of the tile pattern represents a screen row. Colours are
+                encoded in consecutive bits; the more bits per pixel, the narrower the
+                pattern is. For 2 bits per pixel, the pattern is 4 pixels wide; for 4
+                bits per pixel it is 2 pixels wide. The following pattern string encodes
+                a diagonal dotted stripe in two colours:
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <code>3210</code>
+                        </th>
+                        <th>
+                            <code>76543210</code>
+                        </th>
+                        <th>
+                            Byte value
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>2000</code></td>
+                        <td>
+                            <code>
+                                *.......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h80
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>1000</code></td>
+                        <td>
+                            <code>
+                                .*......
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h40
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>0200</code></td>
+                        <td>
+                            <code>
+                                ..*.....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h20
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>0100</code></td>
+                        <td>
+                            <code>
+                                ...*....
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h10
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>0020</code></td>
+                        <td>
+                            <code>
+                                ....*...
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h08
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>0010</code></td>
+                        <td>
+                            <code>
+                                .....*..
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h04
+                            </code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>0002</code></td>
+                        <td>
+                            <code>
+                                ......*.
+                            </code>
+                        </td>
+                        <td>
+                            <code>
+                                &amp;h02
+                            </code>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
+        <p>
+            The tile pattern is anchored to the screen; imagine a grid starting at
+            <code>(0,0)</code> and covering the screen. Whenever an area is tile-filled,
+            the tiles are put into this grid. In this way, adjacent areas will have
+            continuous tiling even if they were filled from different seed points.
+        </p>
+        <h4>Boundaries</h4>
+        <p>
+            A solid flood fill stops at pixels that have the same attribute as the fill
+            or that have the specified border attribute, if specified.
+            A tiling flood fill stops at the specified border attribute; if no border
+            attribute is specified, it stops at the current foreground attribute.
+            A tiling flood fill also stops at scan line intervals that are the same as
+            the tiling pattern for that line, unless a background pattern is specified
+            and the interval also equals the background pattern for that line.</p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                In <code>SCREEN 7</code>, <code>8</code>, <code>9</code>, if <code><var>background</var></code> equals <code><var>attrib</var></code> up to the length of
+                <code><var>attrib</var></code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>background</var></code> has a number value: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>border</var></code>,<code><var>x</var></code>, or <code><var>y</var></code> have a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>border</var></code>,<code><var>x</var></code>, or <code><var>y</var></code> are not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>border</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>attrib</var></code> is numeric and not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>attrib</var></code> is numeric and not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

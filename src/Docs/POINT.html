@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>POINT (current coordinate)</h3>
+            <pre>
+                <code class="basic">
+                    <var>coord</var> <b>= POINT(</b><var>fn</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Returns a currently active coordinate of the graphics screen. This is usually
+            the last position at which a pixel has been plotted, the second corner given
+            in a <code>LINE</code> command, or the centre of the viewport if nothing has been plotted.
+            <code><var>fn</var></code> is a numeric expression in <code>[0&#8212;3]</code>.
+        </p>
+        <p>
+            The coordinate returned depends on the value of <code><var>fn</var></code>:
+        </p>
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                    <th><code><var>fn</var></code></th>
+                    <th>Return value</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>0</td>
+                    <td>viewport x</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>viewport y</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>logical x</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>logical y</td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>fn</var></code> is a numeric expression in <code>[0&#8212;3]</code>.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In text mode, returns the active coordinate of any previous graphics mode;
+                if no graphics mode has been active, returns 0.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>fn</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>fn</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>fn</var></code> is not in <code>[0&#8212;3]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        <h3>POINT (pixel attribute)</h3>
+            <pre>
+                <code class="basic">
+                    <var>attrib</var> <b>= POINT(</b><var>x</var><b>,</b> <var>y</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Returns the attribute of the pixel at logical coordinate <code><var>x</var></code>,<code><var>y</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>x</var></code>, <code><var>y</var></code> are numeric expressions in <code>[-32768&#8212;32767]</code>.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>x</var></code>,<code><var>y</var></code> is outside the screen, returns -1.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Function is called in text mode: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>x</var></code> or <code><var>y</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>x</var></code> or <code><var>y</var></code> or the physical coordinates they translate into are not in
+                <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

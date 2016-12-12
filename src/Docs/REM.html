@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">REM</h3>
+            <pre>
+                <code>
+                    {<b>REM</b>|<b>'</b>} [<var>anything</var>]
+                </code>
+            </pre>
+       <p>
+            Ignores everything until the end of the line. The <code>REM</code> statement is intended for
+            comments. Everything after <code>REM</code> will be stored in the program unaltered and
+            uninterpreted. <code>'</code> (apostrophe) is an alias for <code>:REM'</code>; it can be placed at any
+            point in the program line and will ensure that the rest of the line is ignored.
+        </p>
+        <p>
+            Note that a colon <code>:</code> does not terminate the <code>REM</code> statement; the colon and everything
+            after it will be treated as part of the comment.
+        </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

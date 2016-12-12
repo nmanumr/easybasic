@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">ON (calculated jump)</h3>
+            <pre>
+                <code>
+                    <b>ON</b> <var>n</var> {<b>GOTO</b>|<b>GOSUB</b>} <var>line_number_0</var> [<b>,</b> <var>line_number_1</var>] ...
+                </code>
+            </pre>
+       <p>
+            Jumps to the <code><var>n</var></code>th line number specified in the list. If <code><var>n</var></code> is 0 or greater
+            than the number of line numbers in the list, no jump is performed. If <code>GOTO</code> is specified,
+            the jump is unconditional; if <code>GOSUB</code> is specified, jumps to a subroutine.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>n</var></code> is a numeric expression in <code>[0&#8212;255]</code>.
+                The expression must not start with the <code>STRIG</code>, <code>PEN</code>, <code>PLAY</code> or <code>TIMER</code>
+                function keywords; if you need these functions, the expression must be bracketed.
+            </li>
+            <li>
+                <code><var>line_number_0</var>, <var>line_number_1</var>, ...</code> are existing line numbers in the program.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>n</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>n</var></code> is not in <code>[-32768&#8212;32767]</code>, <samp>Overflow</samp> .
+            </li>
+            <li>
+                <code><var>n</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                The line number jumped to does not exist: <samp>Undefined line number</samp>.
+            </li>
+        </ul>
+        <h3 id="definitions">ON (event trapping)</h3>
+            <pre>
+                <code>
+                    <b>ON</b> {<b>COM(</b><var>n</var><b>)</b>|<b>KEY(</b><var>n</var><b>)</b>|<b>STRIG(</b><var>n</var><b>)</b>|<b>PEN</b>|<b>PLAY(</b><var>n</var><b>)</b>|<b>TIMER(</b><var>x</var><b>)</b>}
+                    <b>GOSUB</b> <var>line_number</var>
+                </code>
+            </pre>
+       <p>
+            Defines an event trapping subroutine.
+            The type of event is given by one of the following keywords:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td><code>COM(<var>n</var>)</code></td>
+                    <td>
+                        The event is triggered
+                        if data is present in the input buffer of the
+                        <code>COM<var>n</var>:</code>. <code><var>n</var></code>
+                        is the port number in <code>[1,2]</code>.
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>KEY(<var>n</var>)</code></td>
+                    <td>
+                        The event is triggered if key <code><var>n</var></code> is pressed.
+                        <code><var>n</var></code> is the key number <code>[1&#8212;10]</code>
+                        defined in the <code><a href="#KEY-event-def">KEY</a></code> statement.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>STRIG(<var>n</var>)</code></td>
+                    <td>
+                        They event is triggered if fire button <code><var>n</var></code> is pressed.
+                        <code><var>n</var></code> in <code>[0,2,4,6]</code> refer to the
+                        two fire triggers on two joysticks.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>PEN</code></td>
+                    <td>
+                        The event is triggered if the light pen is on the
+                        screen. (In PC-BASIC, the light pen is emulated by default by the
+                        right mouse button).
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>PLAY(<var>n</var>)</code></td>
+                    <td>
+                        The event is triggered if there are exactly <code><var>n</var></code> notes left on the
+                        music background queue. <code><var>n</var></code> is a numeric expression in <code>[1&#8212;32]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>TIMER(<var>x</var>)</code></td>
+                    <td>
+                        The event is triggered every <code><var>x</var></code> seconds after the <code><a href="#TIMER">TIMER ON</a></code>
+                        statement. <code><var>x</var></code> is a numeric expression in <code>[1&#8212;86400]</code>.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Event trapping for your chosen event first needs to be enabled using one of the
+                statements: <code><a href="#COM">COM(<var>n</var>) ON</a></code>,
+                <code><a href="#KEY-event">KEY(<var>n</var>) ON</a></code>,
+                <code><a href="#STRIG-events">STRIG(<var>n</var>) ON</a></code>,
+                <code><a href="#PEN-statement">PEN ON</a></code>,
+                <code><a href="#PLAY-event">PLAY ON</a></code>,
+                <code><a href="#TIMER-event">TIMER ON</a></code>
+            </li>
+            <li>
+                Events are only trapped when a program is running.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>n</var></code> or <code><var>x</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>n</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>n</var></code> or <code><var>x</var></code> is outside the specified range: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

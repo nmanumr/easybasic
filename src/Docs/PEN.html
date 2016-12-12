@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>PEN</h3>
+            <pre>
+                <code class="basic">
+                    <var>x</var> <b>= PEN(</b><var>mode</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Reads the light pen. What this function returns depends on <code><var>mode</var></code>:
+        </p>
+        <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th><code><var>mode</var></code></th>
+                    <th>Return value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>0</td>
+                    <td>Boolean; whether the light pen has been down since last poll.</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>x coordinate of last pen down position</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>y coordinate of last pen down position</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Boolean; whether the pen is currently down</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>x coordinate of current pen position</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>y coordinate of current pen position</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>character row coordinate of last pen down position</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>character column coordinate of last pen down position</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>character row coordinate of current pen position</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>character column coordinate of current pen position</td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>mode</var></code> is a numeric expression in <code>[0&#8212;9]</code>.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In PC-BASIC, for <i>pen down</i> read <i>mouse button pressed</i>. For <i>pen
+                position</i> read <i>mouse pointer position</i>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>mode</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>mode</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>mode</var></code> is not in <code>[0&#8212;9]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

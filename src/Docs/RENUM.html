@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">RENUM</h3>
+            <pre>
+                <code>
+                    <b>RENUM</b> [<var>new</var>|<b>.</b>] [<b>,</b> [<var>old</var>|<b>.</b>] [<b>,</b> <var>increment</var>]]
+                </code>
+            </pre>
+       <p>
+            Replaces the line numbers in the program by a systematic enumeration starting
+            from <code><var>new</var></code> and increasing by <code><var>increment</var></code>. If <code><var>old</var></code> is specified, line numbers
+            less than <code><var>old</var></code> remain unchanged.
+            <code><var>new</var></code>, <code><var>old</var></code> are line numbers; the dot <code>.</code> signifies the last line edited.
+            <code><var>increment</var></code> is a line number but must not be a dot or zero.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                The following keywords can reference line numbers, which will be renumbered
+                by <code>RENUM</code>: <code><a href="#AUTO">AUTO</a></code>, <code><a href="#EDIT">EDIT</a></code>,
+                <code><a href="#ELSE">ELSE</a></code>, <code><a href="#ERL">ERL</a></code>,
+                <code><a href="#DELETE">DELETE</a></code>, <code><a href="#GOSUB">GOSUB</a></code>,
+                <code><a href="#GOTO">GOTO</a></code>, <code><a href="#LIST">LIST</a></code>,
+                <code><a href="#LLIST">LLIST</a></code>, <code><a href="#RENUM">RENUM</a></code>,
+                <code><a href="#RESTORE">RESTORE</a></code>, <code><a href="#RESUME">RESUME</a></code>,
+                <code><a href="#RETURN">RETURN</a></code>, <code><a href="#RUN">RUN</a></code>,
+                <code><a href="#THEN">THEN</a></code>.
+            </li>
+            <li>
+                One keyword contains line numbers in a different program, which will not be
+                renumbered: <code><a href="#CHAIN">CHAIN</a></code>. However, a line number
+                in a <code>RUN</code> statement that
+                opens a new file <em>will</em> be renumbered, and incorrectly so. Furthermore, any <code>RENUM</code>
+                or <code>AUTO</code> statements in a program will have all their arguments 'renumbered',
+                including any line number offsets or increments. However silly, this agrees with GW-BASIC's behaviour.
+            </li>
+            <li>
+                A zero line number following the keywords <code>ERROR GOTO</code> will not be renumbered.
+            </li>
+            <li>
+                If a referenced line number does not exist in the program, the statement prints a
+                message (not an error) <code>Undefined line <var>ref</var> in <var>old_line</var></code> where <code><var>old_line</var></code>
+                is the line number prior to renumbering. The referenced line number will be
+                left unchanged, but the line's old line number will be renumbered.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Any of the parameters is not in <code>[0&#8212;65529]</code>: <samp>Syntax error</samp>.
+            </li>
+            <li>
+                Any of the newly generated line numbers is greater than <code>65529</code>:
+                <samp>Illegal function call</samp>. The line numbers up to the error have not been
+                changed.
+            </li>
+            <li>
+                <code><var>increment</var></code> is empty or zero: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>old</var></code> is specified and <code><var>new</var></code> is less than or equal to an existing line
+                number less than old: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+        </script>
+<script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

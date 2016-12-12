@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">PLAY (event switch)</h3>
+            <pre>
+                <code>
+                    <b>PLAY</b> {<b>ON</b>|<b>OFF</b>|<b>STOP</b>}
+                </code>
+            </pre>
+       <ul>
+            <li>
+                <code>ON</code>: enables <code><a href="#ON-event">ON PLAY</a></code> event
+                trapping of the music queue.
+            </li>
+            <li>
+                <code>OFF</code>: disables trapping.
+            </li>
+            <li>
+                <code>STOP</code>: halts trapping until <code>PLAY ON</code> is used.
+                Events that occur while trapping is halted will trigger immediately when
+                trapping is re-enabled.
+            </li>
+        </ul>
+        <h3 id="definitions">PLAY (music statement)</h3>
+            <pre>
+                <code>
+                    <b>PLAY</b> [<var>mml_string_0</var>] [<b>,</b> [<var>mml_string_1</var>] [<b>,</b> <var>mml_string_2</var>]]
+                </code>
+            </pre>
+       <p>
+            Plays the tune defined by the Music Macro Language strings <code><var>mml_string_0</var>, ...</code>.
+        </p>
+        <p>
+            Unless <code><a href="#--syntax">syntax</a>={tandy | pcjr}</code> is set, only the single-voice syntax is available.
+            The three separate MML strings correspond to the three voices of the PCjr/Tandy sound adapter.
+            The notes in these strings are played synchronously.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>mml_string_0</var></code>, <code><var>mml_string_1</var></code>, <code><var>mml_string_2</var></code> are string expressions in MML.
+            </li>
+            <li>
+                At least one parameter must be provided and the statement must not end in a comma.
+            </li>
+        </ul>
+        <h4>Music Macro Language reference</h4>
+        <h6>Notes and Pauses</h6>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>{<b>A</b>|<b>B</b>|<b>C</b>|<b>D</b>|<b>E</b>|<b>F</b>|<b>G</b>}[<b>#</b>|<b>+</b>|<b>-</b>][<var>m</var>]</code></td>
+                    <td>
+                        Play a note. <br>
+                        <code>+</code> or <code>#</code> indicates sharp. <br>
+                        <code>-</code> indicates flat. <br>
+                        <code><var>m</var></code> is a numeric literal and
+                        indicates duration of an <code><var>m</var></code>th note.
+                        <code><var>m</var></code> is in the range <code>[0&#8212;64]</code>.
+                        If <code><var>m</var>=0</code> or omitted, use the default length.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code><b>N</b><var>n</var></code></td>
+                    <td>Play note <code><var>n</var></code>, in the range <code>[0&#8212;84]</code> (7 octaves).<br>
+                        <code><var>n</var> = 0</code> means rest.</td>
+                </tr>
+                <tr>
+                    <td><code><b>O</b><var>n</var></code></td>
+                    <td>Set the current octave to <code><var>n</var></code>, in the range <code>[0&#8212;6]</code>. Default is 4.</td>
+                </tr>
+                <tr>
+                    <td><code><b>&gt;</b></code></td>
+                    <td>Increase the current octave by 1, with a maximum of 6.</td>
+                </tr>
+                <tr>
+                    <td><code><b>&lt;</b></code></td>
+                    <td>Decrease the current octave by 1, with a minimum of 0.</td>
+                </tr>
+                <tr>
+                    <td><code><b>P</b><var>n</var></code></td>
+                    <td>
+                        Pause for the duration of an <code><var>n</var></code>th note.
+                        <code><var>n</var></code> is in the range <code>[0&#8212;64]</code>.
+                        If <code><var>n</var>=0</code>, this has no effect.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6>Timing commands</h6>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code><b>.</b></code></td>
+                    <td>
+                        Increase the duration of the preceding note by 1/2 times its normal
+                        duration. Periods can be repeated to increase duration further.</td>
+                </tr>
+                <tr>
+                    <td><code><b>L</b><var>n</var></code></td>
+                    <td>
+                        Set the duration of following note to an <code><var>n</var></code>th note.
+                        (<code><var>n</var>=4</code> is a quarter note, etc.)
+                        <code><var>n</var></code> is in the range <code>[1&#8212;64]</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code><b>MN</b></code></td>
+                    <td>Normal: 7/8 of the duration is sound, with 1/8 silence. Default mode.</td>
+                </tr>
+                <tr>
+                    <td><code><b>ML</b></code></td>
+                    <td>Legato: full duration is sound.</td>
+                </tr>
+                <tr>
+                    <td><code><b>MS</b></code></td>
+                    <td>Staccato: 3/4 of the duration is sound, with 1/4 silence.</td>
+                </tr>
+                <tr>
+                    <td><code><b>T</b><var>n</var></code></td>
+                    <td>
+                        Sets the tempo to <code><var>n</var></code> <code>L4</code>s per minute.
+                        <code><var>n</var></code> is in the range <code>[32&#8212;255]</code>.  Default is 120.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6>Background-mode commands</h6>
+        <p>
+            These commands affect <code><a href="#SOUND">SOUND</a></code>,
+            <code><a href="#PLAY">PLAY</a></code> and <code><a href="#BEEP">BEEP</a></code>
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code><b>MB</b></code></td>
+                    <td>
+                        Turns on background mode; sound commands exit without waiting for the
+                        music to finish. The music keeps playing while other commands are
+                        executed. There can be up to 16 notes in the background music queue;
+                        if more notes are played, <code>PLAY</code> will block until there are only 16 left.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code><b>MF</b></code></td>
+                    <td>Turns off background mode; sound commands block. Default mode.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6>Subroutine command</h6>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Effect</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code><b>X</b><var>s</var></code></td>
+                    <td>Execute substring. <code><var>s</var></code> is one of the following:
+                        <ul>
+                            <li>
+                                a string variable name followed by a<code>;</code>
+                            </li>
+                            <li>
+                                the result of <code><a href="#VARPTR%24">VARPTR$()</a></code> on a string variable
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6>Volume control</h6>
+        <p>
+            Volume control is available on <code><a href="#--syntax">syntax</a>={tandy | pcjr}</code> only:
+        </p>
+        <div class="scrollable">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Command</th>
+                <th>Effect</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <code><b>V</b><var>n</var></code>
+                </td>
+                <td>
+                    Set the volume to <code><var>n</var></code>, in the range <code>[0&#8212;15]</code>.
+                    On <code><a href="#--syntax">syntax</a>=pcjr</code>, if <code><a href="#SOUND-switch">SOUND ON</a></code>
+                    has not been executed, this has no effect. On <code><a href="#--syntax">syntax</a>=tandy</code> it does have.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <h6>MML Parameters</h6>
+        <p>
+            Numeric variables <code><var>n</var></code> in the commands above can be:
+        </p>
+        <ul>
+            <li>
+                an integer literal, e.g. <code>PLAY "L4G"</code>
+            </li>
+            <li>
+                a numeric variable name or array element <code><var>var</var></code> preceded by <code>=</code> and followed by <code>;</code>.
+                For example, <code>PLAY "L=VAR;G"</code> or <code>PLAY "L=A(1);G"</code>
+            </li>
+            <li>
+                the result of <code>VARPTR$(<var>var</var>)</code> preceded by <code>=</code>.  For example, <code>PLAY "L=" + VARPTR$(VAR) + "G"</code>
+            </li>
+        </ul>
+        <p>
+            Note that only number <em>literals</em> may follow named notes and dereferencing variables or arrays is not allowed there.
+            It is an error to write <code>PLAY "G=VAR;"</code> or <code>PLAY "G=" + VARPTR$(VAR)</code>.
+            Use <code>PLAY "G4"</code> or <code>PLAY "L=VAR;G"</code> or <code>PLAY "L=" + VARPTR$(VAR) + "G"</code> instead.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>mml_string</var></code> has a numeric value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>mml_string</var></code> has errors in the MML: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                A variable in an MML string is of incorrect type: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                No MML string is specified: <samp>Missing operand</samp>.
+            </li>
+            <li>
+                On PCjr, if <code>SOUND ON</code> has not been executed, using the three-voice syntax
+                will raise <samp>Syntax error</samp>. This is not the case on Tandy.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

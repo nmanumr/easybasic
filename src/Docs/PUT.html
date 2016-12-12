@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+        <h3 id="definitions">PUT (files)</h3>
+            <pre>
+                <code>
+                    <b>PUT</b> [<b>#</b>] <var>file_number</var> [<b>,</b> <var>record_number</var>]
+                </code>
+            </pre>
+       <p>
+            Writes a record to the random-access file <code><var>file_number</var></code> at position
+            <code><var>record_number</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>file_number</var></code> is a numeric expression that yields the number
+                of an open random-access file. The <code>#</code> is optional and has no effect.
+            </li>
+            <li>
+                <code><var>record_number</var></code> is a numeric expression in <code>[1&#8212;33554432]</code> (<code>2^25</code>) and is interpreted as the record number.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                The record number is stored as single-precision; this precision is not high enough to distinguish single
+                records near the maximum value of <code>2^25</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>record_number</var></code> is not in <code>[1&#8212;33554432]</code>: <samp>Bad record number</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not the number of an open file:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is open under a mode other than <code>RANDOM</code>:
+                <samp>Bad file mode</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not specified: <samp>Missing operand</samp>.
+            </li>
+        </ul>
+        <h3 id="definitions">PUT (graphics)</h3>
+            <pre>
+                <code>
+                    <b>PUT (</b><var>x0</var><b>,</b> <var>y0</var><b>),</b> <var>array_name</var> [<b>,</b> {<b>PSET</b>|<b>PRESET</b>|<b>AND</b>|<b>OR</b>|<b>XOR</b>}]
+                </code>
+            </pre>
+       <p>
+            Displays an array to a rectangular area of the graphics screen.
+            Usually, <code>PUT</code> is used with arrays that have been stored using <code>GET</code>. See <code><a href="#GET-graphics">GET</a></code> for the
+            format of the array.
+        </p>
+        <p>
+            The keywords have the following effect:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <tr>
+                    <td><code>PSET</code></td>
+                    <td>Overwrite the screen location with the new image</td>
+                </tr>
+                <tr>
+                    <td><code>PRESET</code></td>
+                    <td>Overwrite the screen location with the inverse image</td>
+                </tr>
+                <tr>
+                    <td><code>AND</code></td>
+                    <td>Combines the old and new attributes with bitwise AND</td>
+                </tr>
+                <tr>
+                    <td><code>OR</code></td>
+                    <td>Combines the old and new attributes with bitwise OR</td>
+                </tr>
+                <tr>
+                    <td><code>XOR</code></td>
+                    <td>Combines the old and new attributes with bitwise XOR</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>array_name</var></code> is a numeric array.
+            </li>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code> are numeric expressions.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                The array does not exist: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>array_name</var></code> refers to a string array: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code> are string expressions: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code> are not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code> is outside the current <code>VIEW</code> or <code>WINDOW</code>:
+                <samp>Illegal function call</samp>
+            </li>
+        </ul>
+            <h3 id="definitions">PUT (communications)</h3>
+            <pre>
+                <code>
+                    <b>PUT</b> [<b>#</b>] <var>com_file_number</var> [<b>,</b> <var>number_bytes</var>]
+                </code>
+            </pre>
+       <p>
+            Writes <code><var>number_bytes</var></code> bytes to the communications buffer opened under file
+            number <code><var>com_file_number</var></code>. <code><var>number_bytes</var></code> is a numeric expression between 1
+            and the <code>COM</code> buffer length, inclusive.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In GW-BASIC, <samp>Device I/O error</samp> is raised for overrun error, framing error,
+                and break interrupt. <samp>Device fault</samp> is raised if DSR is lost during I/O. A
+                <samp>Parity error</samp> is raised if parity is enabled and incorrect parity is
+                encountered. This is according to the manual; it is untested.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>bytes</var></code> is less than 1: <samp>Bad record number</samp>.
+            </li>
+            <li>
+                <code><var>bytes</var></code> is less than <code>32768</code> and greater than the <code>COM</code> buffer length: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not specified: <samp>Missing operand</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not the number of an open file:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                The serial input buffer is full, i.e. <code><a href="#LOF">LOF</a>(<var>com_file_number</var>) = 0</code> and
+                <code><a href="#LOC">LOC</a>(<var>com_file_number</var>)=255</code>: <samp>Communication buffer overflow</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">RESTORE</h3>
+            <pre>
+                <code>
+                    <b>RESTORE</b> [<var>line</var>]
+                </code>
+            </pre>
+       <p>
+            Resets the <code><a href="#DATA">DATA</a></code> pointer.
+            <code><var>line</var></code> is a line number. If <code><var>line</var></code>
+            is not specified, the <code>DATA</code> pointer is reset to the first
+            <code>DATA</code> entry in the program. If it is specified, the <code>DATA</code> pointer is
+            reset to the first <code>DATA</code> entry in or after <code><var>line</var></code>.
+        </p>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>line</var></code> is not an existing line number: <samp>Undefined line number</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

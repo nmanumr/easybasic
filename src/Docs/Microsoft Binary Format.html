@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Microsoft Binary Format</h3>
+            lly compatible with each other and with some applications contemporary to
+            GW-BASIC, but not easily interchanged with other software. QBASIC, for example, uses IEEE
+            floats.
+        </p>
+        <p>
+            MBF differs from IEEE in the position of the sign bit and in using
+            only 8 bits for the exponent, both in single- and in double-precision.
+            This makes the range of allowable numbers in an MBF double-precision number smaller,
+            but their precision higher, than for an IEEE double:
+            an MBF single has 23 bits of precision,
+            while an MBF double has 55 bits of precision. Both have the same range.
+        </p>
+        <p>
+            Unlike IEEE, the Microsoft Binary Format does not support signed zeroes, subnormal numbers, infinities or not-a-number values.
+        </p>
+
+        <p>
+            MBF floating point numbers are represented in bytes as follows:
+        </p>
+        <dl>
+            <dt>
+                Single
+            </dt>
+            <dd>
+                <var>M<sub>3</sub></var>  <var>M<sub>2</sub></var>  <var>M<sub>1</sub></var>  <var>E<sub>0</sub></var>
+            </dd>
+            <dt>
+                Double
+            </dt>
+            <dd>
+                <var>M<sub>7</sub></var>  <var>M<sub>6</sub></var>  <var>M<sub>5</sub></var>  <var>M<sub>4</sub></var>  <var>M<sub>3</sub></var>  <var>M<sub>2</sub></var>  <var>M<sub>1</sub></var>  <var>E<sub>0</sub></var>
+            </dd>
+        </dl>
+            <p>
+            Here, <var>E<sub>0</sub></var> is the <dfn>exponent byte</dfn> and the
+            other bytes form the <dfn>mantissa</dfn>, in little-endian order so that
+            <var>M<sub>1</sub></var> is the most significant byte.
+            The most significant bit of <var>M<sub>1</sub></var> is the <dfn>sign bit</dfn>, followed
+            by the most significant bits of the mantissa:
+            <var>M<sub>1</sub></var> = <var>s<sub>0</sub>  f<sub>1</sub> f<sub>2</sub> f<sub>3</sub> f<sub>4</sub> f<sub>5</sub> f<sub>6</sub> f<sub>7</sub></var>.
+            The other bytes contain the less-significant mantissa bits:
+            <var>M<sub>2</sub></var> = <var>f<sub>8</sub> f<sub>9</sub> f<sub>A</sub> f<sub>B</sub> f<sub>C</sub> f<sub>D</sub> f<sub>E</sub> f<sub>F</sub></var>, and so on.
+        </p>
+        <p>
+            The value of the floating-point number is <var>v</var> = 0 if <var>E<sub>0</sub></var> = 0 and
+            <var>v</var> = (-1) <sup><var>s<sub>0</sub></var></sup> &#215; <var>mantissa</var> &#215; 2 <sup><var>E<sub>0</sub></var> - 128</sup> otherwise,
+            where
+            the mantissa is formed as a binary fraction
+            <var>mantissa</var> = 0 . 1 <var>f<sub>1</sub></var> <var>f<sub>2</sub></var> <var>f<sub>3</sub></var> ...
+        </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>
