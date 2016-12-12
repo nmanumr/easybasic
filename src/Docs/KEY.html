@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">KEY (macro list)</h3>
+            <pre>
+                <code>
+                    <b>KEY</b> {<b>ON</b>|<b>OFF</b>|<b>LIST</b>}
+                </code>
+            </pre>
+        <p>
+            Turns the list of function-key macros on the bottom of the screen <code>ON</code> or <code>OFF</code>.
+            If <code>LIST</code> is specified, prints a list of
+            the 10 (or 12 with <code><a href="#--syntax">syntax</a>=tandy</code>) function keys
+            with the function-key macros defined for those keys to the console.
+        </p>
+        <p>
+            Most characters are represented by their symbol equivalent in the current <a href="#cp437">codepage</a>.
+            However, some characters get a different representation, which is a symbolic representation
+            of their effect as control characters on the screen.
+        </p>
+        <div class="scrollable">
+            <table  class="table table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Code point
+                    </th>
+                    <th>
+                        Replacement
+                    </th>
+                    <th>
+                        Usual glyph
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <code>&amp;h07</code>
+                    </td>
+                    <td>
+                        <code>&amp;h0E</code>
+                    </td>
+                    <td>
+                        &#9835;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h08</code>
+                    </td>
+                    <td>
+                        <code>&amp;hFE</code>
+                    </td>
+                    <td>
+                        &#9632;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h09</code>
+                    </td>
+                    <td>
+                        <code>&amp;h1A</code>
+                    </td>
+                    <td>
+                        &#8594;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0A</code>
+                    </td>
+                    <td>
+                        <code>&amp;h1B</code>
+                    </td>
+                    <td>
+                        &#8592;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0B</code>
+                    </td>
+                    <td>
+                        <code>&amp;h7F</code>
+                    </td>
+                    <td>
+                        &#8962;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0C</code>
+                    </td>
+                    <td>
+                        <code>&amp;h16</code>
+                    </td>
+                    <td>
+                        &#9644;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h0D</code>
+                    </td>
+                    <td>
+                        <code>&amp;h1B</code>
+                    </td>
+                    <td>
+                        &#8592;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1C</code>
+                    </td>
+                    <td>
+                        <code>&amp;h10</code>
+                    </td>
+                    <td>
+                        &#9658;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1D</code>
+                    </td>
+                    <td>
+                        <code>&amp;h11</code>
+                    </td>
+                    <td>
+                        &#9668;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1E</code>
+                    </td>
+                    <td>
+                        <code>&amp;h18</code>
+                    </td>
+                    <td>
+                        &#8593;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>&amp;h1F</code>
+                    </td>
+                    <td>
+                        <code>&amp;h19</code>
+                    </td>
+                    <td>
+                        &#8595;
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h3 id="definitions">KEY (event definition)</h3>
+            <pre>
+                <code>
+                    <b>KEY</b> <var>key_id</var><b>,</b> <var>two_char_string</var>
+                </code>
+            </pre>
+       <p>
+            Defines the key to trap for <code><var>key_id</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>key_id</var></code> is a numeric
+                expression in <code>[15&#8212;20]</code>
+                (or <code>[17&#8212;20]</code> when <code><a href="#--syntax">syntax</a>=tandy</code>).
+            </li>
+            <li>
+                <code><var>two_char_string</var></code> is a string expression of length 2. The first character is interpreted as a modifier
+                while the second character is interpreted as a <a href="#scancodes">scancode</a>.
+                The modifier character is a bitwise <code>OR</code> combination of the following flags:
+                <div class="scrollable">
+                    <table class="table table-striped">
+                        <tr>
+                            <td><code>CHR$(&amp;h80)</code></td>
+                            <td>Extended</td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h40)</code></td>
+                            <td><kbd>Caps Lock</kbd></td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h20)</code></td>
+                            <td><kbd>Num Lock</kbd></td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h08)</code></td>
+                            <td><kbd>Alt</kbd></td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h04)</code></td>
+                            <td><kbd>Ctrl</kbd></td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h02)</code></td>
+                            <td><kbd>Shift</kbd> (either side)</td>
+                        </tr>
+                        <tr>
+                            <td><code>CHR$(&amp;h01)</code></td>
+                            <td><kbd>Shift</kbd> (either side)</td>
+                        </tr>
+                    </table>
+                </div>
+                For the unmodified key, the modifier character is <code>CHR$(0)</code>.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>key_id</var></code> is not in the prescribed range, no error is raised; such values are ignored.
+                In GW-BASIC strange things can
+                happen in this case: screen anomalies and crashes suggestive of unintended
+                memory access.
+            </li>
+            <li>
+                If <code><var>key_id</var></code> is in <code>[1&#8212;10]</code>
+                (or <code>[1&#8212;12]</code> when <code><a href="#--syntax">syntax</a>=tandy</code>),
+                the statement is interpreted as a
+                <a href="#KEY-def">function-key macro definition</a>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[1&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>two_char_string</var></code> is longer than two: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>two_char_string</var></code> has a numeric value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+                    <h3 id="definitions">KEY (event switch)</h3>
+            <pre>
+                <code>
+                    <b>KEY</b> <b>(</b><var>key_id</var><b>)</b> {<b>ON</b>|<b>OFF</b>|<b>STOP</b>}
+                </code>
+            </pre>
+       <p>
+            Controls event trapping of the key with identifier <code><var>key_id</var></code>.
+            Event trapping is switched <code>ON</code> or <code>OFF</code>. <code>STOP</code> suspends event trapping until
+            a <code>KEY() ON</code> is executed. Up to one event can be triggered during
+            suspension, provided that event handling was switched on prior to suspension.
+            The event triggered during suspension is handled immediately after the next <code>KEY() ON</code>
+            statement.
+        </p>
+        <h4>Parameters</h4>
+        <p>
+            <code><var>key_id</var></code> is a numeric expression in <code>[1&#8212;20]</code>.
+            Keys are:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                
+                <tr>
+                    <td>1</td>
+                    <td><kbd>F1</kbd></td>
+                </tr>
+                
+                <tr>
+                    <td>2</td>
+                    <td><kbd>F2</kbd></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><kbd>F3</kbd></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><kbd>F4</kbd></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><kbd>F5</kbd></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><kbd>F6</kbd></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><kbd>F7</kbd></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><kbd>F8</kbd></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td><kbd>F9</kbd></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td><kbd>F10</kbd></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td><kbd>&#8593;<!--up--></kbd></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td><kbd>&#8592;<!--left--></kbd></td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td><kbd>&#8594;<!--right--></kbd></td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td><kbd>&#8595;<!--down--></kbd></td>
+                </tr>
+            </table>
+        </div>
+        <p>
+            Keys 15 to 20 are defined using the event trapping
+            <code><a href="#KEY-event-def">KEY</a></code> definition statement.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                With <code><a href="#--syntax">syntax</a>=tandy</code>, key 11
+                is <kbd>F11</kbd> and key 12 is <kbd>F12</kbd>.
+                Pre-defined keys 11&#8212;14 shift to 13&#8212;16.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[0&#8212;20]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        <h3 id="definitions">KEY (macro definition)</h3>
+            <pre>
+                <code>
+                    <b>KEY</b> <var>key_id</var><b>,</b> <var>string_value</var>
+                </code>
+            </pre>
+       <p>
+            Defines the string macro for function key <code><var>key_id</var></code>.
+            Only the first 15 characters of <code><var>string_value</var></code> are stored.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>key_id</var></code> is a numeric expression in the range
+                <code>[1&#8212;10]</code> (or <code>[1&#8212;12]</code>
+                when <code><a href="#--syntax">syntax</a>=tandy</code>).
+            </li>
+            <li>
+                <code><var>string_value</var></code> is a string expression.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>key_id</var></code> is not in the prescribed range,
+                the statement is interpreted as an
+                event-trapping <code><a href="#KEY-event">KEY</a></code> statement.
+            </li>
+            <li>
+                If <code><var>string_value</var></code> is the empty string or
+                the first character of <code><var>string_value</var></code> is
+                <code>CHR$(0)</code>, the function key macro is switched off and
+                subsequent catching of the associated function key with
+                <code><a href="#INKEY%24">INKEY$</a></code> is enabled.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> is not in <code>[1&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>key_id</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">LIST</h3>
+            <pre>
+                <code>
+                    <b>LIST</b> [<var>line_number_0</var>|<b>.</b>] [<b>-</b>[<var>line_number_1</var>|<b>.</b>]] [<b>,</b> <var>file_spec</var> [<var>anything</var>]]
+                </code>
+            </pre>
+       <p>
+            Prints the program to the screen or a file,
+            starting with <code><var>line_number_0</var></code> up to and
+            including <code><var>line_number_1</var></code>.
+            Also stops program execution and returns control to the user.
+            If the <code>LIST</code> statement ends with a file specification, anything further is ignored.
+            In all cases, any further
+            statements in a compound after <code>LIST</code> will be ignored, both in a program and in direct mode.
+        </p>
+        <p>
+            When listing to the screen, the same control characters are recognised as in the
+            <code><a href="#PRINT">PRINT</a></code> statement.
+        </p>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In GW-BASIC 3.23, <code>LIST</code> will not show line numbers
+                <code>65531</code>&#8212;<code>65535</code> inclusive.
+                By default, PC-BASIC's <code>LIST</code> does show these lines. However,
+                showing them can be disabled with the option
+                <code><a href="#--strict-hidden-lines">strict-hidden-lines</a></code>.
+            </li>
+        </ul>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>line_number_0</var></code> and <code><var>line_number_1</var></code> are
+                line numbers in the range <code>[0&#8212;65529]</code>
+                or a <code>.</code> to indicate the last line edited. The line numbers do not need to exist;
+                they specify a range. If the range is empty, nothing is printed.
+            </li>
+            <li>
+                The string expression <code><var>file_spec</var></code> is a
+                valid <a href="#filespec">file specification</a> indicating the file to list to.
+                If this file already exists, it will be overwritten.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                A line number is greater than <code>65529</code>: <samp>Syntax error</samp>.
+            </li>
+            <li>
+                <code><var>file_spec</var></code> has a numeric value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>file_spec</var></code> ends in a colon but is not a device name or drive letter:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                <code><var>file_spec</var></code> contains disallowed characters:
+                <samp>Bad file number</samp> (on <code>CAS1:</code>);
+                <samp>Bad file name</samp> (on disk devices).
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script>
+            $('#doc-body').slimScroll({
+                height: $(window).height(),
+                railVisible: false,
+                railColor: '#222',
+                railOpacity: 0.01,
+                size: '12px',
+                color: '#000'
+            });
+            window.addEventListener('resize', function (event) {
+                $('#doc-body')[0].parentElement.style.height = ($(window).height()) + "px";
+                $('#doc-body').height($(window).height());
+            })
+        </script>
+<script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

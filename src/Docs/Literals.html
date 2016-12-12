@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Literals</h3>
+            <h4>String literals</h4>
+    <p>
+        String literals are of the following form:
+        <code class="flow"><b>"</b>[<var>characters</var>]{<b><i>NUL</i></b>|<b><i>CR</i></b>|<b><i>EOF</i></b>|<b>"</b>}</code>
+        where <code><var>characters</var></code> is a string of characters. Any
+        character from the current code page can be used, with the following
+        exceptions, all of which terminate the string literal (aside from other effects they may have):
+    </p>
+    <ul>
+        <li><code><i>NUL</i></code> (<code>CHR$(&amp;h00)</code>)</li>
+        <li><code><i>CR</i></code> (<code>CHR$(&amp;h0D)</code>)</li>
+        <li><code><i>EOF</i></code> (<code>CHR$(&amp;h1A)</code>)</li>
+        <li><code>"</code> (<code>CHR$(&amp;h22)</code>)</li>
+    </ul>
+    <p>
+        Strings are also legally terminated by the end of the file in the absence of
+        an <code><i>EOF</i></code> character.
+    </p>
+    <p>
+        Apart from these, string literals should not contain any of the characters
+        in the ASCII range <code>&amp;h0D</code>&#8212;<code>&amp;h1F</code>, which lead to unpredictable results.
+        There is no escaping mechanism. To include one of the above
+        characters in a string, use <a href="#string-operators">string concatenation</a> and
+        the <code><a href="#CHR%24">CHR$</a></code> function.
+    </p>
+    <h4>Numeric literals</h4>
+    <p>
+        Numeric literals have one of the following forms:
+        <pre>
+        <code class="nohighlight hljs">
+            [<b>+</b>|<b>-</b>] [<b>0</b>|<b>1</b>|<b>2</b>|<b>3</b>|<b>4</b>|<b>5</b>|<b>6</b>|<b>7</b>|<b>8</b>|<b>9</b>]... [<b>.</b>][<b>0</b>|<b>1</b>|<b>2</b>|<b>3</b>|<b>4</b>|<b>5</b>|<b>6</b>|<b>7</b>|<b>8</b>|<b>9</b>]... [{<b>E</b>|<b>e</b>|<b>D</b>|<b>d</b>}[<b>+</b>|<b>-</b>][<b>0</b> <b>1</b>|<b>2</b>|<b>3</b>|<b>4</b>|<b>5</b>|<b>6</b>|<b>7</b>|<b>8</b>|<b>9</b>]...]|<b>#</b>|<b>!</b>|<b>%</b>]
+        </code>
+        </pre>
+        <pre>
+        <code class="nohighlight hljs">
+            <b>&amp;</b>{<b>H</b>|<b>h</b>}[<b>0</b>|<b>1</b>|<b>2</b>|<b>3</b>|<b>4</b>|<b>5</b>|<b>6</b>|<b>7</b>|<b>8</b>|<b>9</b>|<b>A</b>|<b>B</b>|<b>C</b>|<b>D</b>|<b>E</b>|<b>F</b>|<b>a</b>|<b>b</b>|<b>c</b>|<b>d</b>|<b>e</b>|<b>f</b>]...
+        </code>
+        </pre>
+        <pre>
+        <code class="nohighlight hljs">
+            <b>&amp;</b>[<b>O</b>|<b>o</b>] [<b>0</b>|<b>1</b>|<b>2</b>|<b>3</b>|<b>4</b>|<b>5</b>|<b>6</b>|<b>7</b>]...
+        </code>
+        </pre>
+    </p>
+    <p>
+        Hexadecimal literals must not contain spaces, but decimal and octal literals may. The <code>o</code> character in octal literals is optional: they can be
+        specified equally as <code>&amp;o777</code> or <code>&amp;777</code>.
+    </p>
+    <p>
+        Hexadecimal and octal literals denote integers and do not include a sign. They must range between
+        [<code>&amp;h0</code>&#8212;<code>&amp;hFFFF</code>],
+        of which the range [<code>&amp;h8000</code>&#8212;<code>&amp;hFFFF</code>]
+        is interpreted as a two's complement negative integer; for example, <code>&amp;hFFFF = -1</code>.
+        Signs can appear left of the <code>&amp;</code>
+        but these form an expression and are not part of the literal itself.
+    </p>
+    <p>
+        Floating-point literals must be specified in decimal notation. The decimal separator is the point.
+        A base-10 exponent may be specified after <code>E</code> in single-precision floats, or after <code>D</code> in double-precision floats.
+        Trailing <code>%</code> is ignored and does <em>not</em> indicate an integer literal.
+        Trailing <code>!</code> or <code>#</code> mark the literal as single- or double-precision, respectively.
+    </p><p>
+        Examples of valid numeric literals are
+        <code>-1</code> <code>42</code> <code>42!</code> <code>42#</code>
+        <code>1.3523523</code> <code>.235435</code> <code>-.3</code> <code>3.</code>
+        <code>.</code> <code>.e</code> <code>.D</code> <code>1.1e+7</code>
+        <code>1.1d+7</code> <code>1e2</code> <code>1e-2</code> <code>&amp;7</code>
+        <code>&amp;hffff</code> <code>&amp;O20</code> <code>&amp;h</code> <code>&amp;</code> <code>65537%</code> <code>1.1%</code>
+    </p>
+    <p>
+        Note that expressions such as <code>&amp;o-77</code> are legal; these are however <em>not</em>
+        negative octals but rather the expression <code>&amp;o</code> (empty octal; zero) less <code>77</code> (decimal 77).
+    </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

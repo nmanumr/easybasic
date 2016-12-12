@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>Memory and machine ports</h3>
+            <p>
+                Only selected memory ranges and selected ports are emulated in PC-BASIC. Some of the most commonly accessed
+                regions of memory are emulated and can be read and (sometimes) written. There is
+                read and write support for video memory, font RAM and selected locations of the
+                low memory segment, including the keyboard buffer. Additionally, there is read
+                support for font ROM, variable, array and string memory, <code><a href="#FIELD">FIELD</a></code>
+                buffers as well as the program code itself. Writing into the program code is
+                disabled by default, but can be enabled with the <code><a href="--allow-code-poke">allow-code-poke</a></code>
+                option. A number of machine ports related to keyboard input and
+                video modes are supported as well.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <th>Statement</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('BLOAD_tabli', 'BLOAD', 'Docs/BLOAD.html');"><code>BLOAD</code></a></td>
+                        <td>Load a binary file into memory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('BSAVE_tabli', 'BSAVE', 'Docs/BSAVE.html');"><code>BSAVE</code></a></td>
+                        <td>Save a memory region to file</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('CLEAR_tabli', 'CLEAR', 'Docs/CLEAR.html');"><code>CLEAR</code></a></td>
+                        <td>Clears BASIC memory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('DEF_SEG_tabli', 'DEF SEG', 'Docs/DEF SEG.html');"><code>DEF SEG</code></a></td>
+                        <td>Set the memory segment</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('OUT_tabli', 'OUT', 'Docs/OUT.html');"><code>OUT</code></a></td>
+                        <td>Write a byte to a machine port</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('POKE_tabli', 'POKE', 'Docs/POKE.html');"><code>POKE</code></a></td>
+                        <td>Write a byte to a memory location</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('WAIT_tabli', 'WAIT', 'Docs/WAIT.html');"><code>WAIT</code></a></td>
+                        <td>Wait for a value on a machine port</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead>
+                    <th>Statement</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('FRE_tabli', 'FRE', 'Docs/FRE.html');"><code>FRE</code></a></td>
+                        <td>Amount of free memory</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('INP_tabli', 'INP', 'Docs/INP.html');"><code>INP</code></a></td>
+                        <td>Byte at machine port</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('PEEK_tabli', 'PEEK', 'Docs/PEEK.html');"><code>PEEK</code></a></td>
+                        <td>Byte at memory address</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('VARPTR_tabli', 'VARPTR', 'Docs/VARPTR.html');"><code>VARPTR</code></a></td>
+                        <td>Memory address of variable</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" onclick="window.top.addtab('VARPTR_s_tabli', 'VARPTR$', 'Docs/VARPTR$.html');"><code>VARPTR$</code></a></td>
+                        <td>Byte representation of length and memory address of variable</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

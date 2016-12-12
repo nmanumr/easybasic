@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../../assets/Fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link href="../../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/plugins/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/plugins/waves/waves.min.css" rel="stylesheet" type="text/css"/>	
+        
+        
+        <link href="../../assets/css/modern.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/css/themes/green.css" class="theme-color" rel="stylesheet" type="text/css"/>
+        <link href="../../assets/css/custom.css" rel="stylesheet" type="text/css"/><link href="../../assets/css/loader.css" rel="stylesheet" type="text/css"/>
+
+
+        <script src="../../assets/plugins/3d-bold-navigation/js/modernizr.js"></script>
+        <script src="../../assets/plugins/offcanvasmenueffects/js/snap.svg-min.js"></script>
+
+        <link rel="stylesheet" href="../../../node_modules/highlight.js/styles/github.css">
+        <script src="../../../node_modules//highlight.js/lib/highlight.pack.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body style="background: #fff; margin-top: -50px; height: Auto; overflow:hidden; padding:15px;" id="doc-body"><div style="height: 100vh; background:#fff; position: relative; z-index: 1000; top: 40%; left: 40%;" id="loading-div"><div class="loader-container ball-pulse-double"><div class="loader"><div class="ball-1"></div><div class="ball-2"></div></div></div></div>
+        <div>
+            <h3 id="definitions">LPRINT</h3>
+            <p>
+            See <code><a href="#PRINT">PRINT</a></code>.
+        </p>
+        </div>
+
+        <script src="../../assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+        <script src="../../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="../../assets/plugins/pace-master/pace.min.js"></script>
+        <script src="../../assets/plugins/jquery-blockui/jquery.blockui.js"></script>
+        <script src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="../../assets/plugins/switchery/switchery.min.js"></script>
+        <script src="../../assets/plugins/uniform/jquery.uniform.min.js"></script>
+        <script src="../../assets/plugins/waves/waves.min.js"></script>
+        <script src="../../assets/plugins/waypoints/jquery.waypoints.min.js"></script>
+        <script src="../../assets/plugins/flot/jquery.flot.min.js"></script>
+        <script src="../../assets/plugins/flot/jquery.flot.time.min.js"></script>
+        <script src="../../assets/plugins/flot/jquery.flot.symbol.min.js"></script>
+        <script src="../../assets/plugins/flot/jquery.flot.resize.min.js"></script>
+        <script src="../../assets/plugins/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="../../assets/js/modern.min.js"></script>
+
+        <script src="../../assets/js/custom.js"></script>
+        <script>
+            $(document).on('ready', function(){setTimeout(function(){document.getElementById("loading-div").remove();}, 100);
+                $('#doc-body').slimScroll({
+                    height: '100%',
+                    railVisible: false,
+                    railColor: '#222',
+                    railOpacity: 0.01,
+                    size: '12px',
+                    color: '#000'
+                });
+            })
+            
+        </script>
+<script>
+            function swapStyleSheet(theme) {
+                var pagelink;
+                var codelink;
+                if (theme =="Dark"){
+                    pagelink = "../assets/css/bootstrap-dark.css";
+                    codelink = "../../node_modules/highlight.js/styles/agate.css";
+                }
+                else{
+                    pagelink = "../assets/css/bootstrap.min.css";
+                    codelink = "../../node_modules/highlight.js/styles/github.css";
+                }
+                document.getElementById("pagestyle").setAttribute("href", pagelink);
+                document.getElementById("codestyle").setAttribute("href", codelink);
+            }
+            
+            function getTheme(){
+                var select= window.top.document.getElementById('themes');
+                var selected = $(select).find("option:selected").text();
+                if (selected == "Codepen" ||
+                    selected == "Solarized Dark" ||
+                    selected == "VS Dark")
+                    return "Dark";
+                else if (selected == "Github" ||
+                    selected == "Solarized Light" ||
+                    selected == "VS default")
+                    return "Light";
+            }
+            swapStyleSheet(getTheme());
+        </script>
+    </body>
+</html>

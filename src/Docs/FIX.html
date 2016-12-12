@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>FIX</h3>
+            <pre>
+                <code class="basic">
+                    <var>whole</var> <b>= FIX(</b><var>number</var><b>)</b>
+                </code>
+            </pre>
+         <p>
+            Returns <code><var>number</var></code> truncated towards zero.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>number</var></code> is a numeric expression.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                <code>FIX</code> truncates towards zero: it removes the fractional part. By contrast, <code><a href="#INT">INT</a></code>
+                truncates towards negative infinity. For negative <code><var>x</var></code>, <code>FIX(<var>x</var>)-INT(<var>x</var>)=1</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>number</var></code> is a string expression: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

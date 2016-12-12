@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">INPUT (console)</h3>
+            <pre>
+                <code>
+                    <b>INPUT</b> [<b>;</b>] [<var>prompt</var> {<b>;</b>|<b>,</b>}] <var>var_0</var> [<b>,</b> <var>var_1</var>] ...
+                </code>
+            </pre>
+       <p>
+            Prints <code><var>prompt</var></code> to the screen and waits for the user to input values for the specified variables.
+            The semicolon before the prompt, if present,
+            stops a newline from being printed after the values have been entered.
+            If the prompt is followed by a semicolon, it is printed with a trailing <code>?</code>. If
+            the prompt is followed by a comma, no question mark is added.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>prompt</var></code> is a string literal.
+            </li>
+            <li>
+                <code><var>var_0</var>, <var>var_1</var>, ...</code> are variable names or fully indexed array elements.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Values entered must be separated by commas. Leading and trailing whitespace
+                is discarded.
+            </li>
+            <li>
+                String values can be entered with or without double quotes (<code>"</code>).
+            </li>
+            <li>
+                If a string with a comma, leading or trailing whitespace is needed,
+                quotes are the only way to enter it.
+            </li>
+            <li>
+                Between a closing quote and the comma at the end of the entry, only white-
+                space is allowed.
+            </li>
+            <li>
+                If quotes are needed in the string itself, the first character must be
+                neither a quote nor whitespace. It is not possible to enter a string that
+                starts with a quote through <code>INPUT</code>.
+            </li>
+            <li>
+                If a given <code><var>var_n</var></code> is a numeric variable, the value entered must be
+                number literal.
+            </li>
+            <li>
+                Characters beyond the 255th character of the screen line are discarded.
+            </li>
+            <li>
+                If user input is interrupted by <kbd>Ctrl</kbd>+<kbd>Break</kbd>,
+                <code><a href="#CONT">CONT</a></code> will re-execute the
+                <code>INPUT</code> statement.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                If the value entered for a numeric variable is not a valid numeric literal,
+                or the number of values entered does not match the number of variables in
+                the statement,
+                <samp>?Redo from start</samp> is printed and all values must be entered again.
+            </li>
+            <li>
+                A <samp>Syntax error</samp> that is caused after the prompt is printed is only raised
+                after the value shave been entered. No values are stored.
+            </li>
+        </ul>
+        <h3 id="definitions">INPUT (files)</h3>
+            <pre>
+                <code>
+                    <b>INPUT #</b> <var>file_num</var><b>,</b> <var>var_0</var> [<b>,</b> <var>var_1</var>] ...
+                </code>
+            </pre>
+       <p>
+            Reads string or numeric variables from a text file or the <code>FIELD</code> buffer
+            of a random access file.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>file_num</var></code> is the number of a file open in
+                <code>INPUT</code> mode or a random-access file open in <code>RANDOM</code> mode.
+            </li>
+            <li>
+                <code><var>var_0</var>, <var>var_1</var>, ...</code> are variable names or fully indexed array elements.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                The <code>#</code> is mandatory. There may or may not be whitespace between <code>INPUT</code> and <code>#</code>.
+            </li>
+            <li>
+                String values can be entered with or without double quotes (<code>"</code>).
+            </li>
+            <li>
+                Numeric values are terminated by <code>&#160;</code>, <code><i>LF</i></code>, <code><i>CR</i></code>, <code>,</code>.
+            </li>
+            <li>
+                Unquoted strings are terminated by <code><i>LF</i></code>, <code><i>CR</i></code>, <code>,</code>.
+            </li>
+            <li>
+                Quoted strings are terminated by the closing quote.
+            </li>
+            <li>
+                Any entry is terminated by <code><i>EOF</i></code> character or its 255th character.
+            </li>
+            <li>
+                Leading and trailing whitespace is discarded.
+            </li>
+            <li>
+                If the entry cannot be converted to the requested type, a zero value is
+                returned.
+            </li>
+            <li>
+                If <code><var>file_num</var></code> is open to <code>KYBD:</code>, <code>INPUT#</code> reads from the keyboard until a
+                return or comma is encountered (as in a file). Arrow keys and delete are
+                passed as their control characters (<em>not</em> scancodes!) preceded by <code><a href="#CHR%24">CHR$</a>(&amp;hFF)</code>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Input is requested after the end of a text file has been reached or an
+                <code><i>EOF</i></code> character has been encountered: <samp>Input past end</samp>.
+            </li>
+            <li>
+                The last character of the field buffer is read: <samp>Field overflow</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is greater than <code>32767</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is less than zero: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not an open file: <samp>Bad file number</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not open for <code>INPUT</code> or <code>RANDOM</code>: <samp>Bad file mode</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is open to a <code>COM</code> port and this is the
+                first <code><a href="#INPUT-file">INPUT</a></code>, <code><a href="#LINE-INPUT-file">LINE INPUT</a></code> or <code><a href="#INPUT%24">INPUT$</a></code> call on that port
+                since the buffer has filled up completely (i.e. <code><a href="#LOF">LOF</a>(<var>file_num</var>)</code> has become zero):
+                <samp>Communication buffer overflow</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

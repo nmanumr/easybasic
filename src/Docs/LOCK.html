@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">LOCK</h3>
+            <pre>
+                <code>
+                    <b>LOCK</b> [<b>#</b>] <var>file_number</var> [<b>,</b> <var>record_0</var>]
+                </code>
+            </pre>
+            <pre>
+                <code>
+                    <b>LOCK</b> [<b>#</b>] <var>file_number</var><b>,</b> [<var>record_0</var>] <b>TO</b> <var>record_1</var>
+                </code>
+            </pre>
+       <p>
+            Locks a file or part of a file against access by other users. On a <code>RANDOM</code> file,
+            <code><var>record_0</var></code> is the first record locked and <code><var>record_1</var></code> is the last
+            record locked. On any other kind of file <code><var>record_0</var></code> and <code><var>record_1</var></code> have no
+            effect. If <code><var>record_0</var></code> is not specified, it is assumed to be 1. If no records
+            are specified, the whole file is locked.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>file_number</var></code> is a numeric expression in <code>[0&#8212;255]</code>.
+            </li>
+            <li>
+                <code><var>record_0</var></code> and <code><var>record_1</var></code> are numeric expressions in <code>[1&#8212;2^25-2]</code>.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In GW-BASIC under MS-DOS, the <code>LOCK</code> command requires <code>SHARE.EXE</code> to be loaded.
+                The maximum number of locks is specified in the MS-DOS <code>SHARE</code> command. If <code>SHARE</code> has
+                not been activated or all locks are used, <code>LOCK</code> raises <samp>Permission denied</samp>.
+                PC-BASIC behaves as if <code>SHARE</code> has been activated with unlimited locks.
+            </li>
+            <li>
+                If <code><var>file_number</var></code> is open for <code>RANDOM</code>,
+                <code><a href="#LOCK">LOCK</a></code> and <code><a href="#UNLOCK">UNLOCK</a></code>
+                statements must match in terms of <code><var>record_0</var></code> and
+                <code><var>record_1</var></code>. An non-matching <code>UNLOCK</code> will raise
+                <samp>Permission denied</samp>.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                Any parameter has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>file_num</var></code> is not an open file: <samp>Bad file number</samp>.
+            </li>
+            <li>
+                <code>LOCK</code> (part of) a file already locked: <samp>Permission denied</samp>.
+            </li>
+            <li>
+                <code><var>record_0</var></code> or <code><var>record_1</var></code> is not in <code>[1&#8212;2^25-2]</code>: <samp>Bad record number</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

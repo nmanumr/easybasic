@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">Functions</h3>
+            <p>
+        <dfn>Functions</dfn> can only be used as part of an expression within a statement; they may take input values
+        between parentheses and produce a return value. For example,
+        in <code>PRINT ABS(-1)</code> the <code>ABS</code> function is used in an expression within a
+        <code>PRINT</code> statement; in <code>Y = SQR(X) + 2</code> the <code>SQR</code> function
+        is used in an expression within a <code>LET</code> statement.
+    </p>
+    <p>
+        Some reference works also use terms such as <dfn>system variable</dfn> for functions that do not take
+        an input, presumably since in the GW-BASIC syntax such functions have no parentheses, in contrast to
+        the languages in the C family (and indeed some modern BASICs).
+        However, this is simply the GW-BASIC syntax for functions without inputs.
+        For example, one can do <code>DEF FNA=1: PRINT FNA</code>
+        in which no parentheses are allowed.
+    </p>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

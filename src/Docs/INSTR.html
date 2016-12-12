@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3>INSTR</h3>
+            <pre>
+                <code class="basic">
+                    <var>position</var> <b>= INSTR(</b>[<var>start</var><b>,</b>] <var>parent</var><b>,</b> <var>child</var><b>)</b>
+                </code>
+            </pre>
+        <p>
+            Returns the location of the first occurrence of the substring <code><var>child</var></code> in
+            <code><var>parent</var></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>parent</var></code> and <code><var>child</var></code> are string expressions.
+            </li>
+            <li>
+                <code><var>start</var></code> is a numeric expression in <code>[1&#8212;255]</code>, specifying
+                the starting position from where to look; if not specified, the search starts
+                at character 1.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>child</var></code> is not a substring of <code><var>parent</var></code> occurring at or before <code><var>start</var></code>,
+                <code>INSTR</code> returns 0.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>start</var></code> has a string value or <code><var>parent</var></code> or <code><var>child</var></code> have numeric values: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>start</var></code> is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>start</var></code> is not in <code>[1&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

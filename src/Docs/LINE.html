@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">LINE</h3>
+            <pre>
+                <code>
+                    <b>LINE</b> [[<b>STEP</b>] <b>(</b><var>x0</var><b>,</b> <var>y0</var><b>)</b>] <b>-</b> [<b>STEP</b>]
+            <b>(</b><var>x1</var><b>,</b> <var>y1</var><b>)</b> [<b>,</b> [<var>attr</var>] [<b>,</b> [<b>B</b> [<b>F</b>]] [<b>,</b> <var>pattern</var>]]]
+                </code>
+            </pre>
+       <p>
+            Draws a line or a box in graphics mode. If <code>B</code> is not specified, a line is drawn
+            from <code>(<var>x0</var>, <var>y0</var>)</code> to <code>(<var>x1</var>, <var>y1</var>)</code>, endpoints inclusive.
+            If <code>B</code> is specified, a
+            rectangle is drawn with sides parallel to the screen and two opposing corners
+            specified by <code>(<var>x0</var>, <var>y0</var>)</code> and <code>(<var>x1</var>, <var>y1</var>)</code>. If the starting point is not given,
+            the current graphics position is used as a staring point.  If <code>STEP</code> is
+            specified, <code>(<var>x0</var>, <var>y0</var>)</code> is an offset from the current position and <code>(<var>x1</var>, <var>y1</var>)</code> is an
+            offset from <code>(<var>x0</var>, <var>y0</var>)</code>.
+            <code>LINE</code> moves the current graphics position to the last given endpoint.
+            If <code>F</code> is specified with <code>B</code>, the rectangle is filled with the specified attribute.
+            <code>F</code> and <code>B</code> may be separated by zero or more spaces.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>attr</var></code> is a numeric expression in <code>[0&#8212;255]</code>, which
+                specifies the colour attribute of the line. If it is not given, the current
+                attribute is used.
+            </li>
+            <li>
+                <code><var>pattern</var></code> is a numeric expression in <code>[-32768&#8212;32767]</code>.
+                This is interpreted as a 16-bit binary pattern mask
+                applied to consecutive pixels in the line: a 1 bit indicates a pixel
+                plotted; a 0 bit indicates a pixel left untouched. The pattern starts at
+                the most significant bit, which is applied to the topmost endpoint. If a
+                box is drawn, the pattern is applied in the following counter-intuitive
+                sequence: <code>(<var>x1</var>, <var>y1</var>)&#8212;(<var>x0</var>, <var>y1</var>)</code>,
+                <code>(<var>x1</var>, <var>y0</var>)&#8212;(<var>x0</var>, <var>y0</var>)</code>,
+                then <code>(<var>x1</var>, <var>y0</var>)&#8212;(<var>x1</var>, <var>y1</var>)</code>,
+                <code>(<var>x0</var>, <var>y0</var>)&#8212;(<var>x0</var>, <var>y1</var>)</code> if <code><var>y0</var>&lt;<var>y1</var></code> and <code><var>y0</var></code>,
+                <code><var>y1</var></code> reversed if <code><var>y1</var>&lt;<var>y0</var></code>. When drawing a
+                filled box, <code>LINE</code> ignores the pattern.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If a coordinate is outside the screen boundary, it is replaced with -1 (if
+                less than 0) or the screen dimension (if larger than the screen dimension).
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                The statement ends in a comma and it is the first or third: <samp>Missing operand</samp>. If it is the second: <samp>Syntax error</samp>.
+            </li>
+            <li>
+                Any of the coordinates is not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                Any of the parameters has a string value: <samp>Type mismatch</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

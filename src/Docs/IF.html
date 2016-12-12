@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">IF</h3>
+            <pre>
+                <code>
+                    <b>IF</b> <var>truth_value</var> [<b>,</b>] {<b>THEN</b>|<b>GOTO</b>} [<var>compound_statement_true</var>|<var>line_number_true</var> [<var>anything</var>]]
+            [<b>ELSE</b> [<var>compound_statement_false</var>|<var>line_number_false</var> [<var>anything</var>]]]
+                </code>
+            </pre>
+       <p>
+            If <code><var>truth_value</var></code> is non-zero, executes <code><var>compound_statement_true</var></code> or jumps to <code><var>line_number_true</var></code> .
+            If it is zero, executes <code><var>compound_statement_false</var></code> or jumps to <code><var>line_number_false</var></code> .
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>truth_value</var></code>
+                is a numeric expression.
+            </li>
+            <li>
+                <code><var>line_number_false</var></code> and <code><var>line_number_true</var></code> are existing line numbers.
+            </li>
+            <li>
+                <code><var>compound_statement_false</var></code> and <code><var>compound_statement_true</var></code> are compound statements,
+                consisting of at least one statement, optionally followed by further statements separated by colons <code>:</code>. The compound statements
+                may contain nested <code>IF&#8212;THEN&#8212;ELSE</code> statements.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                The comma is optional and ignored.
+            </li>
+            <li>
+                <code><a href="#ELSE">ELSE</a></code> clauses are optional; they
+                are bound to the innermost free <code>IF</code> statement if nested. Additional <code>ELSE</code>
+                clauses that have no matching <code>IF</code> are ignored.
+            </li>
+            <li>
+                All clauses must be on the same
+                program line.
+            </li>
+            <li>
+               <code>THEN</code> and <code>GOTO</code> are interchangeable; which one is chosen is independent
+                of whether a statement or a line number is given. <code>GOTO PRINT 1</code> is fine.
+            </li>
+            <li>
+                As in <code><a href="#GOTO">GOTO</a></code>, anything after the line number is ignored.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+               If <code><var>truth_value</var></code> has a string value: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>truth_value</var></code> equals <code>0</code> and <code><var>line_number_false</var></code> is a non-existing line number,
+                or
+                <code><var>truth_value</var></code> is nonzero and <code><var>line_number_true</var></code> is a non-existing line number:
+                <samp>Undefined line number</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

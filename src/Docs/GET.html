@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">GET (files)</h3>
+            <pre>
+                <code>
+                    <b>GET</b> [<b>#</b>] <var>file_number</var> [<b>,</b> <var>record_number</var>]
+                </code>
+            </pre>
+       <p>
+            Read a record from the random-access file <code><var>file_number</var></code> at position
+            <code><var>record_number</var></code>.
+            The record can be accessed through the <code><a href="#FIELD">FIELD</a></code>
+            variables or through <code><a href="#INPUT%24">INPUT$</a></code>,
+            <code><a href="#INPUT">INPUT</a></code> or
+            <code><a href="#LINE-INPUT">LINE INPUT</a></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>file_number</var></code> is a numeric expression that yields the number
+                of an open random-access file. The <code>#</code> is optional and has no effect.
+            </li>
+            <li>
+                <code><var>record_number</var></code> is a numeric expression in <code>[1&#8212;33554432]</code> (<code>2^25</code>), and is interpreted as the record number.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If the record number is beyond the end of the file, the file buffer is
+                filled with null bytes.
+            </li>
+            <li>
+                The record number is stored as single-precision; this precision is not high enough to distinguish single
+                records near the maximum value of <code>2^25</code>.
+            </li>
+        </ul>
+            <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>record_number</var></code> is not in <code>[1&#8212;33554432]</code>: <samp>Bad record number</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not the number of an open file:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is open under a mode other than <code>RANDOM</code>:
+                <samp>Bad file mode</samp>.
+            </li>
+            <li>
+                <code><var>file_number</var></code> is not specified: <samp>Missing operand</samp>.
+            </li>
+        </ul>
+            <h3 id="definitions">GET (graphics)</h3>
+            <pre>
+                <code>
+                    <b>GET (</b><var>x0</var><b>,</b> <var>y0</var><b>) -</b> [<b>STEP</b>] <b>(</b><var>x1</var><b>,</b> <var>y1</var><b>),</b> <var>array_name</var>
+                </code>
+            </pre>
+       <p>
+            Stores a rectangular area of the graphics screen in an array.
+            The area stored is a rectangle parallel to the screen edges, bounded by the
+            top-left and bottom-right coordinates <code><var>x0</var></code>,<code><var>y0</var></code> and <code><var>x1</var></code>,<code><var>y1</var></code>. If <code>STEP</code> is
+            specified, <code><var>x1</var></code>,<code><var>y1</var></code> is an offset from <code><var>x0</var></code>,<code><var>y0</var></code>. The area is such that these
+            corner points are inside it.
+        </p>
+        <p>
+            The image stored in the array can then be put on the screen using PUT. For the
+            purposes of <code>GET</code>, any array is considered a string of bytes. The byte size of an
+            array can be calculated as <code><var>number_elements</var> * <var>byte_size</var></code> with <code><var>byte_size</var></code> equal to
+            <code>2</code> for integers (<code>%</code>), 4 for single (<code>!</code>) and 8 for double (<code>#</code>).
+            Array byte size for
+            string is 3, but string arrays are not allowed in <code>GET</code>. For calculating the
+            number of elements, keep in mind that <code><a href="#OPTION-BASE">OPTION BASE</a> 0</code> is the default; in which
+            case an array with maximum index 10 has 11 elements. This works through in
+            multidimensional arrays.
+        </p>
+        <p>
+            The array format is as follows:
+        </p>
+        <div class="scrollable">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Byte</th>
+                    <th>Contains</th>
+                </tr>
+                </thead>
+                <tbody><tr>
+                    <td>0, 1</td>
+                    <td>Number of x pixels, unsigned int. In <code>SCREEN 1</code>, this value is doubled.</td>
+                </tr><tr>
+                    <td>2, 3</td>
+                    <td>Number of y pixels, unsigned int.</td>
+                </tr><tr>
+                    <td>4&#8212;</td>
+                    <td>
+                        Pixel data. Data is arranged in 2-byte words. The first 16-bit word holds the bit 0 of
+                        the first 16 pixels on the top row. The second word holds the second bit,
+                        etc. Data is word-aligned at the end of each row. Thus, in a screen mode
+                        with 4 bits per pixel, the first row takes at least 8 bytes (4 words), even
+                        if it consists of only one pixel. The number of bits per pixel depends on
+                        the <code><a href="#SCREEN-statement">SCREEN</a></code> mode.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>array_name</var></code> is the name of a numeric array dimensioned with enough space to store the area.
+            </li>
+            <li>
+                <code><var>x0</var></code>, <code><var>y0</var></code>, <code><var>x1</var></code>, <code><var>y1</var></code> are numeric expressions.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                In PCjr/Tandy mode, in <code>SCREEN 6</code>, <code>GET</code> stores an area of <em>twice the width</em>
+                of the specified rectangle.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                The array does not exist: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>array_name</var></code> refers to a string array: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                The area is too large for the array: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, ... <code><var>y1</var></code> are string expressions: <samp>Type mismatch</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, ... <code><var>y1</var></code> are not in <code>[-32768&#8212;32767]</code>: <samp>Overflow</samp>.
+            </li>
+            <li>
+                <code><var>x0</var></code>, ... <code><var>y1</var></code> are outside the current <code>VIEW</code> or <code>WINDOW</code>:
+                <samp>Illegal function call</samp>
+            </li>
+        </ul>
+        <h3 id="definitions">GET (communications)</h3>
+            <pre>
+                <code>
+                    <b>GET</b> [<b>#</b>] <var>com_file_number</var> [<b>,</b> <var>number_bytes</var>]
+                </code>
+            </pre>
+       <p>
+            Read <code><var>number_bytes</var></code> bytes from the communications buffer opened under file
+            number <code><var>com_file_number</var></code>.
+            The record can be accessed through the <code><a href="#FIELD">FIELD</a></code>
+            variables or through <code><a href="#INPUT%24">INPUT$</a></code>,
+            <code><a href="#INPUT">INPUT</a></code> or
+            <code><a href="#LINE-INPUT">LINE INPUT</a></code>.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>file_number</var></code> is a numeric expression that yields the number
+                of a file open to a <code>COM</code> device. The <code>#</code> is optional and has no effect.
+            </li>
+            <li>
+                <code><var>number_bytes</var></code> is a numeric expression between <code>1</code>
+                and the <code>COM</code> buffer length, inclusive.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                If <code><var>bytes</var></code> is <code>32768</code> or greater, GW-BASIC hangs. This functionality is not implemented in PC-BASIC.
+            </li>
+            <li>
+                In GW-BASIC, <samp>Device I/O error</samp> is raised for overrun error, framing error,
+                and break interrupt. <samp>Device fault</samp> is raised if DSR is lost during I/O.
+                <samp>Parity error</samp> is raised if parity is enabled and incorrect parity is
+                encountered. This is according to the manual; it is untested.
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>bytes</var></code> is less than 1: <samp>Bad record number</samp>
+            </li>
+            <li>
+                <code><var>bytes</var></code> is less than <code>32768</code> and greater than the <code>COM</code> buffer length: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not specified: <samp>Missing operand</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not in <code>[0&#8212;255]</code>: <samp>Illegal function call</samp>.
+            </li>
+            <li>
+                <code><var>com_file_number</var></code> is not the number of an open file:
+                <samp>Bad file number</samp>.
+            </li>
+            <li>
+                If the serial input buffer is full, i.e. <code><a href="#LOF">LOF</a>(<var>com_file_number</var>) = 0</code>, and
+                <code><a href="#LOC">LOC</a>(<var>com_file_number</var>) = 255</code>: <samp>Communication buffer overflow</samp>
+            </li>
+            <li>
+                If the carrier drops during <code>GET</code>, hangs until the <kbd>Ctrl</kbd>+<kbd>Break</kbd> key is pressed.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>

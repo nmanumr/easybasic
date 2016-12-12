@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GwBasic.Net</title>
+
+		 <!-- Styles -->
+        <link href='../assets/fonts/googlefont.css' rel='stylesheet' type='text/css'>
+        <link id="pagestyle" href="" rel="stylesheet" type="text/css"/>
+        <link href="../assets/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link id="codestyle" rel="stylesheet" href="">
+        <script src="../monaco-editor/min/vs/loader.js"></script>
+        
+<link id='DocStyle' href='' rel='stylesheet' type='text/css'>
+	</head>
+    <body id="doc-body">
+        <div style="padding:20px;">
+            <h3 id="definitions">GOTO</h3>
+            <pre>
+                <code>
+                    <b>GO</b>[ ]<b>TO</b> <var>line_number</var> [<var>anything</var>]
+                </code>
+            </pre>
+       <p>
+            Jumps to <code><var>line_number</var></code>.  Anything after <code><var>line_number</var></code> until the end of the
+            statement is ignored. If executed from a direct line, <code>GOTO</code> starts execution of the program at the specified line.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+            <li>
+                <code><var>line_number</var></code> is an existing line number literal.
+            </li>
+            <li>
+                Further characters on
+                the line are ignored until end of statement.
+            </li>
+        </ul>
+        <h4>Notes</h4>
+        <ul>
+            <li>
+                Any number of optional spaces is allowed between <code>GO</code> and <code>TO</code>, but they will
+                not be retained in the program.
+            </li>
+            <li>
+                If <code><var>line_number</var></code> is greater than <code>65529</code>, only the first 4 characters are
+                read (e.g. <code>GOTO 65530</code> is executed as <code>GOTO 6553</code>)
+            </li>
+        </ul>
+        <h4>Errors</h4>
+        <ul>
+            <li>
+                <code><var>line_number</var></code> does not exist: <samp>Undefined line number</samp>.
+            </li>
+        </ul>
+        </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/jquery.slimscroll.min.js"></script>
+        <script src="Docs.js"></script>
+    </body>
+</html>
