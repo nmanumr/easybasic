@@ -1,0 +1,6 @@
+test/
+examples/
+node_modules/
+
+./app/shell/node_modules
+./app/shell/src/node_nodemodules

@@ -1,28 +1,33 @@
 {
   "name": "easybasic",
-  "productName": "Easy Basic",
-  "description": "An IDE for gwbasic",
+  "description": "An IDE for GwBasic",
   "version": "1.0.0",
-  "homepage": "https://naumanumer.github.io/easybasic",
   "author": {
     "name": "Nauman Umer",
-    "email": "u.nauman@outlook.com.com",
-    "url": "https://naumanumer.github.io/easybasic"
+    "email": "u.nauman@outlook.com",
+    "url": "https://naumanumer.github.io/"
   },
   "license": "GPL-3.0",
-  "main": "main.js",
-  "electronVersion": "1.4.12",
-  "dependencies": {
-    "devtron": "^1",
-    "electron-debug": "^1",
-    "electron-is-dev": "^0.1",
-    "electron-window-state": "^3",
-    "lodash": "^4"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naumanumer/easybasic.git"
   },
   "config": {
-    "url": "index.html",
-    "update": {
-      "url": false
-    }
+    "shell_port": "http://localhost:4201",
+    "ide_port": "http://localhost:4202",
+    "home_port": "http://localhost:4200"
+  },
+  "main": "main.js",
+  "scripts": {
+    "shell": "ng serve --host foo.bar --port 4200",
+    "ide": "ng serve --host foo.bar --port 4201",
+    "electron": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.4.15"
+  },
+  "dependencies": {
+    "electron-is-dev": "^0.1.2",
+    "electron-window-manager": "^1.0.4"
   }
 }

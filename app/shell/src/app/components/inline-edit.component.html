@@ -1,0 +1,12 @@
+<div class="inline-edit">
+    <span class="text" [hidden]="!isDisplay" (click)="beginEdit(editText)" style="position: absolute; z-index: 2;">
+        {{ text }}
+    </span>
+    <span [hidden]="isDisplay">
+        <input #editText type="text"
+            [value]="text" (keyup.enter)="editDone(editText.value)"
+            (keyup.esc)="editCancel()"
+            style="position: absolute; z-index: 2;">
+
+    </span>
+</div>

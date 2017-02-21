@@ -1,0 +1,38 @@
+<header class="toolbar toolbar-header">
+    <h1 class="title">{{ this.titleService.getTitle() }}</h1>
+
+    <div class="toolbar-actions">
+        <div class="btn-group">
+            <button class="btn btn-default">
+                <span class="icon icon-cancel-squared" ></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="icon icon-docs"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="icon icon-clipboard"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="icon icon-floppy"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="icon icon-shuffle"></span>
+            </button>
+        </div>
+
+        <!--<button class="btn btn-default">
+            <span class="icon icon-home icon-text"></span>
+            Filters
+        </button>-->
+
+        <div class="ctrl-btn">
+            <button id="min" (click)="minimizeWindow()">
+                <span class="icon icon-minus"></span>
+            </button>
+
+            <button id="close" (click)="closeWindow()">
+                <span class="icon icon-cancel"></span>
+            </button>
+        </div>
+    </div>
+</header>

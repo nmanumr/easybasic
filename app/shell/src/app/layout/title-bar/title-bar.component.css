@@ -1,0 +1,35 @@
+.title{
+  margin-top: 8px;
+  -webkit-app-region: drag;
+}
+
+header{
+  -webkit-app-region: drag;
+}
+
+header button{
+  -webkit-app-region: no-drag;
+}
+
+
+.ctrl-btn button:hover {
+    opacity: .7;
+}
+.ctrl-btn button span{
+  font-size: 14px;
+  text-shadow: 0 1px 0 #000;
+}
+
+.ctrl-btn{
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.ctrl-btn button{
+  background: transparent;
+  -webkit-appearance: none;
+  border: 0;
+  text-shadow: 0 1px 0 #000;
+  opacity: .5;
+}
