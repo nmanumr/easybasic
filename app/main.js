@@ -30,10 +30,6 @@ app.on('ready', function () {
         'resizable': true
     });
     homeWindow.open();
-
-  
-  
-
 });
 
 function getWindowURL(window){

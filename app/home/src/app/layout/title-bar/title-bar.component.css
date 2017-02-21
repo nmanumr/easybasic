@@ -1,0 +1,81 @@
+.window__titlebar {
+  overflow: hidden;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  cursor: default;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.window__titlebar:after {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  filter: blur(5px);
+  opacity: 0.35;
+}
+
+.window__title {
+  position: relative;
+  line-height: 32px;
+  z-index: 10;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.window__controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.window__controls > a {
+  display: block;
+  float: left;
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  transition: all 100ms;
+  cursor: default;
+  color: rgba(0, 0, 0, 0.5);
+}
+.window__controls > a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.window__controls > .window__close {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.window__controls > .window__close:hover {
+  background-color: rgba(229, 57, 53, .7);
+}
+
+.window__controls--left {
+  left: 0;
+}
+
+.window__controls--right {
+  right: 0;
+}
+
+.window__maximize {
+  position: relative;
+}
+.window__maximize > i {
+  box-sizing: content-box;
+  width: 6px;
+  height: 6px;
+}
+.window__maximize > i {
+  margin-bottom: -1px;
+  margin-left: -4px;
+  width: 5px;
+  height: 5px;
+  transition: all 100ms 350ms;
+}
+.window__controls i{
+  font-size: 14px;
+}
