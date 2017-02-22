@@ -1,0 +1,14 @@
+.mini-pane{
+    width: 39px;
+}
+span.icon.icon-cancel.icon-close-tab:hover {
+    background: rgba(0,0,0,.1);
+}
+.panel.panel-default.dropup{
+    display: block;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+}

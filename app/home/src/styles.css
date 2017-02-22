@@ -1,3 +1,5 @@
+@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+
 /* You can add global styles to this file, and also import other style files */
 *, *:before, *:after {
   box-sizing: border-box;
@@ -143,3 +145,18 @@ body {
 }
 
 
+
+.cdk-overlay-pane{
+    width: 170px!important;
+}
+
+split-area{
+  box-shadow: 0 4px 4px rgba(0,0,0,0.001), 0 1px 4px rgba(0,0,0,0.35);
+}
+.mini-pane .mat-list-item-content{
+    padding: 0 6px!important;
+    color: rgba(0, 0, 0, .5);
+}
+.expansion-panel__content{
+    margin-left: 0px !important;
+}

@@ -2,12 +2,84 @@
 
   <title-bar></title-bar>
 
-  <!--<tabs></tabs>-->
+  <doc-bar></doc-bar>
 
-  <div class="window-content">
+  <div class="window-content" style="background: #fefefe">
     <div class="pane-group">
+      <div class="mini-pane">
+        <md-list>
+          <md-list-item>
+            <md-icon>home</md-icon>
+          </md-list-item>
+          <md-list-item>
+            <md-icon>home</md-icon>
+          </md-list-item>
+          <md-list-item>
+            <md-icon>home</md-icon>
+          </md-list-item>
+        </md-list>
+      </div>
       <div class="pane">
-      <!--<console [rows]='25' [cols]='80' [backcolor]="'#333'" [forecolor]="'#eee'" caretText="█"></console>-->
+        <split direction="horizontal">
+          <split-area [size]="25">
+            <expansion-panels-container>
+              <expansion-panel>
+                <expansion-panel-title>
+                  Title
+                </expansion-panel-title>
+                <expansion-panel-content>
+                  <md-list>
+ <md-list-item> Pepper </md-list-item>
+ <md-list-item> Salt </md-list-item>
+ <md-list-item> Paprika </md-list-item>
+</md-list>
+                </expansion-panel-content>
+              </expansion-panel>
+
+              <expansion-panel>
+                <expansion-panel-title>
+                  Title
+                </expansion-panel-title>
+                <expansion-panel-content>
+                  Content
+                </expansion-panel-content>
+              </expansion-panel>
+              <expansion-panel>
+                <expansion-panel-title>
+                  Title
+                </expansion-panel-title>
+
+                <expansion-panel-content>
+                  Content
+                </expansion-panel-content>
+              </expansion-panel>
+            </expansion-panels-container>
+          </split-area>
+          <split-area [size]="75">
+            <split direction="vertical">
+              <split-area [size]="75">
+                <md-tab-group>
+                  <md-tab>
+                    <template md-tab-label>
+                      <span>Tab Label</span>
+                      <span class="icon icon-cancel icon-close-tab" style="position: relative;right: -30px;padding:0 4px;"></span>
+                    </template>
+                  </md-tab>
+                </md-tab-group>
+              </split-area>
+              <split-area [size]="25">
+                <md-tab-group>
+                  <md-tab>
+                    <template md-tab-label>
+                      <span>Tab Label</span>
+                      <span class="icon icon-cancel icon-close-tab" style="position: relative;right: -30px;padding:0 4px;"></span>
+                    </template>
+                  </md-tab>
+                </md-tab-group>
+              </split-area>
+            </split>
+          </split-area>
+        </split>
       </div>
     </div>
   </div>

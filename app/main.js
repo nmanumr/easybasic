@@ -27,7 +27,8 @@ app.on('ready', function () {
         'height': 450,
         'position': 'center',
         'layout': 'simple',
-        'resizable': true
+        'resizable': true,
+        'frame': false
     });
     homeWindow.open();
 });

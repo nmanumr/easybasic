@@ -6,7 +6,7 @@
   right: 0;
   height: 32px;
   cursor: default;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(200, 200, 200, 0.4);
 }
 .window__titlebar:after {
   position: absolute;
@@ -30,6 +30,7 @@
   top: 0;
   bottom: 0;
   z-index: 10;
+  height: 32px;
 }
 .window__controls > a {
   display: block;
@@ -43,14 +44,7 @@
   color: rgba(0, 0, 0, 0.5);
 }
 .window__controls > a:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-.window__controls > .window__close {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.window__controls > .window__close:hover {
-  background-color: rgba(229, 57, 53, .7);
+  background-color: rgba(200, 200, 200, 0.35);
 }
 
 .window__controls--left {
