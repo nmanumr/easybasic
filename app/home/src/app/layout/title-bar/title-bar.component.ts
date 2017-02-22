@@ -41,4 +41,10 @@ export class TitleBarComponent implements OnInit {
     window.minimize();
   }
 
+  public maximizeWindow(){
+    var window =electron.remote.getCurrentWindow();
+    var maximized = window.isMaximized();
+    (maximized)? window.unmaximize(): window.maximize(); 
+  }
+
 }

@@ -160,3 +160,7 @@ split-area{
 .expansion-panel__content{
     margin-left: 0px !important;
 }
+
+footer{
+  -webkit-app-region: no-drag!important;
+}

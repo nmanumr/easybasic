@@ -1,3 +1,10 @@
+.window__titlebar{
+  -webkit-app-region: drag;
+}
+.window__controls{
+  -webkit-app-region: no-drag;
+}
+
 .window__titlebar {
   overflow: hidden;
   text-align: center;
@@ -32,7 +39,7 @@
   z-index: 10;
   height: 32px;
 }
-.window__controls > a {
+.window__controls > span {
   display: block;
   float: left;
   height: 32px;
@@ -43,7 +50,7 @@
   cursor: default;
   color: rgba(0, 0, 0, 0.5);
 }
-.window__controls > a:hover {
+.window__controls > span:hover {
   background-color: rgba(200, 200, 200, 0.35);
 }
 
@@ -72,4 +79,8 @@
 }
 .window__controls i{
   font-size: 14px;
+}
+
+i.icon.icon-cancel {
+    font-size: 15px!important;
 }
