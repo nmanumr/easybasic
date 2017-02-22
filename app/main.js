@@ -23,14 +23,14 @@ app.on('ready', function () {
   });
 
   var homeWindow = windowManager.createNew('home', 'Welcome', getWindowURL('home'), false, {
-        'width': 600,
-        'height': 450,
+        'width': 740,
+        'height': 640,
         'position': 'center',
-        'layout': 'simple',
         'resizable': true,
         'frame': false
     });
     homeWindow.open();
+    homeWindow.maximize();
 });
 
 function getWindowURL(window){
