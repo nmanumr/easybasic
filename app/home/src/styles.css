@@ -164,3 +164,24 @@ split-area{
 footer{
   -webkit-app-region: no-drag!important;
 }
+
+.pane {
+  border: none;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+  border: 1px solid rgba(10,10,10,.15);
+    background: transparent
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: rgba(10,10,10,.2) 
+}
+::-webkit-scrollbar-thumb:hover{
+    background: rgba(10,10,10,.25) 
+}
