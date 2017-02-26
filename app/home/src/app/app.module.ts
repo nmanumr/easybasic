@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { TitleBarComponent } from './layout/title-bar/title-bar.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
+import { LinksServiceService } from './services/links-service.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { StatusbarComponent } from './layout/statusbar/statusbar.component';
     HttpModule,
     MaterialModule.forRoot(),
   ],
-  providers: [],
+  providers: [LinksServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

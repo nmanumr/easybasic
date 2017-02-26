@@ -10,29 +10,26 @@
             <div class="section start">
               <h2>Start</h2>
               <ul>
-                <li><a href="command:workbench.action.files.openFileFolder">New file</a></li>
-                <li><a href="command:workbench.action.files.openFolder">Open file</a></li>
-                <li><a href="command:workbench.action.files.openFolder">Open terminal</a></li>
-                <li><a href="command:workbench.action.files.openFolder">Open help</a></li>
+                <li *ngFor="let link of startLinks">
+                  <a (click)="openLink(link.url)" title="{{ link.subtitle }}">{{ link.title }}</a>
+                </li>
               </ul>
             </div>
             <div class="section recent">
               <h2>Recent</h2>
-              <ul class="list">
-                <!-- Filled programmatically -->
-                <li>
-                  <a title="D:\Projects\Easy Basic\2nd attempt" href="javascript:void(0)">2nd attempt</a>
-                  <span class="path" title="D:\Projects\Easy Basic\2nd attempt">D:\Projects\Easy Basic</span>
+              <ul>
+                <li *ngFor="let link of recentLinks">
+                  <a title="{{ link.subtitle }}" href="javascript:void(0)" (click)="openLink(link.url)">{{ link.title }}</a>
+                  <span class="path" title="{{ link.subtitle }}">{{ link.subtitle }}</span>
                 </li>
               </ul>
             </div>
             <div class="section help">
               <h2>Web Resources</h2>
               <ul>
-                <li><a href="command:workbench.action.openDocumentationUrl">View blog</a></li>
-                <li><a href="command:workbench.action.openDocumentationUrl">Open an issuse</a></li>
-                <li><a href="command:workbench.action.openDocumentationUrl">Ask a question</a></li>
-                <li><a href="https://github.com/Microsoft/vscode">GitHub repository</a></li>
+                <li *ngFor="let link of webLinks">
+                  <a title="{{ link.subtitle }}" (click)="openLink(link.url)">{{ link.title }}</a>
+                </li>
               </ul>
             </div>
             <div class="showOnStartup">
@@ -42,13 +39,12 @@
           <div class="commands">
             <h2>Quick links</h2>
             <ul>
-              <li><button data-href="command:workbench.action.showInteractivePlayground"><h3>Interactive playground</h3> <span>Try essential editor features out in a short walkthrough</span></button></li>
-              <li><button data-href="command:workbench.action.showInterfaceOverview"><h3>Interface overview</h3> <span>Get a visual overlay highlighting the major components of the UI</span></button></li>
-              <li><button data-href="command:workbench.action.selectTheme"><h3>Color theme</h3> <span>Make the editor and your code look the way you love</span></button></li>
-              <li><button data-href="command:workbench.action.keybindingsReference"><h3>Keyboard shortcuts</h3> <span>A printable PDF with the most common keyboard shortcuts</span></button></li>
-              <li><button data-href="command:workbench.action.showCommands"><h3>Show all commands</h3> <span>Rapidly access and search commands from the control panel (<span class="shortcut" data-command="workbench.action.showCommands">Ctrl+Shift+P</span>)</span></button></li>
-              <li><button data-href="command:workbench.action.openGlobalSettings"><h3>Configure settings</h3> <span>Unlock the full power of VS Code by tweaking the settings</span></button></li>
-              <li><button data-href="command:workbench.extensions.action.showRecommendedKeymapExtensions"><h3>Change Default Keyboard Shortcuts</h3> <span>Install an extension to adopt the keyboard shortcuts from another tool</span></button></li>
+              <li *ngFor="let link of quickLinks">
+                <button (click)="openLink(link.url)">
+                  <h3>{{ link.title }}</h3>
+                  <span>{{ link.subtitle }}</span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
