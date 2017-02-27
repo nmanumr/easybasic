@@ -21,9 +21,8 @@ export class DocBarComponent implements OnInit {
         ]
       }],
       onload: function () {
-        // callback
+        console.log('done')
       }
     });
   }
-
 }
