@@ -1,3 +1,4 @@
+import { SplitComponent } from './components/spliter/spliter/split.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,18 +9,21 @@ import 'hammerjs';
 import { TitleBarComponent } from './layout/title-bar/title-bar.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
 import { LinksServiceService } from './services/links-service.service';
+import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TitleBarComponent,
-    StatusbarComponent
+    StatusbarComponent,
+    SplitComponent,
+    DocBarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule.forRoot()
   ],
   providers: [LinksServiceService],
   bootstrap: [AppComponent]

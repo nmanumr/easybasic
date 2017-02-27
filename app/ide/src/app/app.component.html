@@ -2,54 +2,20 @@
 
   <title-bar></title-bar>
 
+
+
   <div class="window-content">
-    <div class="welcomePageContainer">
-      <div class="welcomePage">
-        <div class="row">
-          <div class="splash">
-            <div class="section start">
-              <h2>Start</h2>
-              <ul>
-                <li *ngFor="let link of startLinks">
-                  <a (click)="openLink(link.url)" title="{{ link.subtitle }}">{{ link.title }}</a>
-                </li>
-              </ul>
-            </div>
-            <div class="section recent">
-              <h2>Recent</h2>
-              <ul>
-                <li *ngFor="let link of recentLinks">
-                  <a title="{{ link.subtitle }}" href="javascript:void(0)" (click)="openLink(link.url)">{{ link.title }}</a>
-                  <span class="path" title="{{ link.subtitle }}">{{ link.subtitle }}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="section help">
-              <h2>Web Resources</h2>
-              <ul>
-                <li *ngFor="let link of webLinks">
-                  <a title="{{ link.subtitle }}" (click)="openLink(link.url)">{{ link.title }}</a>
-                </li>
-              </ul>
-            </div>
-            <div class="showOnStartup">
-              <md-checkbox>Always open IDE on startup.</md-checkbox>
-            </div>
-          </div>
-          <div class="commands">
-            <h2>Quick links</h2>
-            <ul>
-              <li *ngFor="let link of quickLinks">
-                <button (click)="openLink(link.url)">
-                  <h3>{{ link.title }}</h3>
-                  <span>{{ link.subtitle }}</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="pane-group">
+      <div class="pane-mini sidebar">
+        <doc-bar></doc-bar>
+      </div>
+      <div class="pane">
+        <layout style="width: 100%; height: 100%;">
+        </layout>
       </div>
     </div>
   </div>
 
+
+  <statusbar></statusbar>
 </div>

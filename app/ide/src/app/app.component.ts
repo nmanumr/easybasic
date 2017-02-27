@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
   recentLinks = this.linksService.recentLinks;
   webLinks = this.linksService.webLinks;
   quickLinks = this.linksService.quickLinks;
-  ipc: any = electron.ipcRenderer;
+  //ipc: any = electron.ipcRenderer;
+  ipc:any;
   ngOnInit() {
 
   }
