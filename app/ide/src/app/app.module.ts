@@ -10,6 +10,7 @@ import { TitleBarComponent } from './layout/title-bar/title-bar.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
 import { LinksServiceService } from './services/links-service.service';
 import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
     TitleBarComponent,
     StatusbarComponent,
     SplitComponent,
-    DocBarComponent
+    DocBarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
