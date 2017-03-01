@@ -10,6 +10,10 @@ import { TitleBarComponent } from './layout/title-bar/title-bar.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
 import { LinksServiceService } from './services/links-service.service';
 import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
+import { LeftPaneComponent } from './components/left-pane/left-pane.component';
+import { MiniPaneComponent } from './components/mini-pane/mini-pane.component';
+import { EditorPaneComponent } from './components/editor-pane/editor-pane.component';
+import { MonacoEditorComponent } from 'ng2-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
     TitleBarComponent,
     StatusbarComponent,
     SplitComponent,
-    DocBarComponent
+    DocBarComponent,
+    LeftPaneComponent,
+    MiniPaneComponent,
+    EditorPaneComponent,
+    MonacoEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+.icon-cancel {
+    position: absolute;
+    right: 17px;
+    cursor: pointer;
+    top: 15px;
+    height: 15px;
+    width: 15px;
+}
+
+.icon-cancel::before {
+    left: 4px;
+    position: absolute;
+}
+
+.icon-cancel:hover {
+    background: rgba(0, 0, 0, .1)
+}

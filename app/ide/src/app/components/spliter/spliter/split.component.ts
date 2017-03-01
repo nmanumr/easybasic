@@ -7,15 +7,18 @@ declare var dhtmlXLayoutObject: any;
     templateUrl: './split.component.html'
 })
 export class SplitComponent {
+    myLayout: any;
+    editorLayout: any = null;
     ngOnInit() {
-        var myLayout = new dhtmlXLayoutObject({
+        this.myLayout = new dhtmlXLayoutObject({
             parent: "layoutObj",
-            pattern: "3L",
+            pattern: "2U",
             cells: [
-                { id: "a", text: "", header: false},
-                { id: "b", text: "", height: 100, header: false },
-                { id: "c", text: "Bottom Pane", collapse: true}
+                { id: "a", text: "", header: false, width: "210" },
+                { id: "b", text: "", header: false }
             ]
         });
+        this.myLayout.cells("a").attachObject("left-pane");
+        this.myLayout.cells("b").attachObject("main-editor");
     }
 }
