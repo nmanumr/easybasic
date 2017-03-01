@@ -1,3 +1,4 @@
+import { MiniPaneService } from './../../services/mini-pane.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MiniPaneComponent implements OnInit {
 
-  constructor() { }
+  miniPaneItems:any;
+  constructor(private miniPaneService: MiniPaneService) { }
 
   ngOnInit() {
+    this.miniPaneItems = this.miniPaneService.miniPaneItems;
   }
 
+  setActive(item){
+    this.miniPaneService.setActive(item);
+  }
 }

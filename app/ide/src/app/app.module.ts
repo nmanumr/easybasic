@@ -8,12 +8,12 @@ import { MaterialModule } from '@angular/material';
 import 'hammerjs';
 import { TitleBarComponent } from './layout/title-bar/title-bar.component';
 import { StatusbarComponent } from './layout/statusbar/statusbar.component';
-import { LinksServiceService } from './services/links-service.service';
+import { MenuService } from './services/menu.service';
+import { MiniPaneService } from './services/mini-pane.service';
 import { DocBarComponent } from './layout/doc-bar/doc-bar.component';
 import { LeftPaneComponent } from './components/left-pane/left-pane.component';
 import { MiniPaneComponent } from './components/mini-pane/mini-pane.component';
 import { EditorPaneComponent } from './components/editor-pane/editor-pane.component';
-import { MonacoEditorComponent } from 'ng2-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { MonacoEditorComponent } from 'ng2-monaco-editor';
     LeftPaneComponent,
     MiniPaneComponent,
     EditorPaneComponent,
-    MonacoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +32,7 @@ import { MonacoEditorComponent } from 'ng2-monaco-editor';
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [LinksServiceService],
+  providers: [MiniPaneService, MenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

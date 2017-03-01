@@ -40,3 +40,11 @@
 .header-row {
     margin-left: 50px;
 }
+
+h2 {
+    margin: 0px;
+    font-size: 20px;
+    font-weight: 100;
+    padding-left: 12px;
+    padding-top: 4px;
+}

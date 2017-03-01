@@ -15,7 +15,7 @@ export class SplitComponent {
             parent: "layoutObj",
             pattern: "2U",
             cells: [
-                { id: "a", text: "", header: false, width: "210" },
+                { id: "a", text: "", width: "210" },
                 { id: "b", text: "", header: false }
             ]
         });

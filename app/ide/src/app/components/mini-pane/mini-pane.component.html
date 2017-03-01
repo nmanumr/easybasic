@@ -1,3 +1,8 @@
-<p>
-  mini-pane works!
-</p>
+<div class="minipane-items">
+    <div class="item" *ngFor="let item of miniPaneItems" [ngClass]="{'active': item.isActive }" (click)="setActive(item)">
+        <span class="icon-{{item.icon}}"></span>
+        <span style="display: none">{{ item.text }}</span>
+        <span class="badge" [hidden]="!item.notification">{{item.notification}}</span>
+        <div [ngClass]="{'arrow_box': item.isActive }"></div>
+    </div>
+</div>

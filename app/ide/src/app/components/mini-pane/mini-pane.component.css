@@ -1,0 +1,80 @@
+.item span {
+    font-size: 18px;
+}
+
+.item {
+    height: 40px;
+    padding: 12px 0 0 15px;
+    color: rgba(0, 0, 0, 0.4);
+    display: block;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.minipane-items {
+    padding-top: 10px;
+}
+
+.item,
+.item * {
+    cursor: pointer;
+    transition: color .15s;
+}
+
+.item:hover {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.item.active {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.badge {
+    position: absolute;
+    right: 6px;
+    top: 23px;
+    padding-top: 1px!important;
+    font-size: 11px;
+    min-width: 8px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #39c;
+}
+
+.arrow_box {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    top: 23px;
+}
+
+.arrow_box:after,
+.arrow_box:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 5px;
+    margin-top: -5px;
+}
+
+.arrow_box:before {
+    border-color: rgba(170, 170, 170, 0);
+    border-right-color: #aaa;
+    border-width: 6px;
+    margin-top: -6px;
+}
