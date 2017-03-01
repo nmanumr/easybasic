@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 declare var dhtmlXLayoutObject: any;
 
 @Component({
@@ -9,6 +9,7 @@ declare var dhtmlXLayoutObject: any;
 export class SplitComponent {
     myLayout: any;
     editorLayout: any = null;
+
     ngOnInit() {
         this.myLayout = new dhtmlXLayoutObject({
             parent: "layoutObj",
@@ -20,5 +21,9 @@ export class SplitComponent {
         });
         this.myLayout.cells("a").attachObject("left-pane");
         this.myLayout.cells("b").attachObject("main-editor");
+    }
+
+    ngAfterViewChecked() {
+        this.myLayout.setSizes();
     }
 }
