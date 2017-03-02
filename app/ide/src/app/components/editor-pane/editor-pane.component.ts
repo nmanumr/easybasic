@@ -50,7 +50,10 @@ export class EditorPaneComponent implements OnInit {
         '\tconsole.log("Hello world!");',
         '}'
       ].join('\n'),
-      language: 'javascript'
+      language: 'javascript',
+      automaticLayout: true,
+      renderControlCharacters: true,
+      renderWhitespace: "boundary"
     });
   }
 }
