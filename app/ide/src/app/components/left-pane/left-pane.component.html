@@ -1,3 +1,6 @@
-<p>
-  left-pane works!
-</p>
+<div *ngIf='Tabs[0].isActive'>
+    {{ Tabs[0].text }}
+</div>
+<div *ngIf='Tabs[1].isActive'>
+    {{ Tabs[1].text }}
+</div>

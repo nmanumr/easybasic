@@ -8,8 +8,8 @@ export class MiniPaneService {
 
   constructor() {
     this.miniPaneItems = [
-      { id: 'home', icon: "home", text: "Home" },
-      { id: 'editor', icon: "note", text: "Editor", isActive: true }
+      { id: 'home', icon: "home", text: "Home", isActive: true },
+      { id: 'editor', icon: "note", text: "Editor" }
     ]
   }
 

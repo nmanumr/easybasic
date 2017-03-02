@@ -1,3 +1,4 @@
+import { MiniPaneService } from './../../services/mini-pane.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftPaneComponent implements OnInit {
 
-  constructor() { }
+  Tabs;
+
+  constructor(private miniPaneService: MiniPaneService) { }
 
   ngOnInit() {
+    this.Tabs = this.miniPaneService.miniPaneItems;
+  }
+
+  ngDoCheck(){
+    if(this.Tabs != this.miniPaneService.miniPaneItems){
+      this.Tabs = this.miniPaneService.miniPaneItems;
+    }
+
   }
 
 }
