@@ -1,0 +1,44 @@
+#newsletter {
+    background: #24C0D9;
+    background-size: cover;
+    background-position: 0% 80%;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+#newsletter .form-control {
+    border: none;
+    height: 50px;
+    margin: 20px 0;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+#newsletter h2 {
+    margin-top: 50px;
+    color: #fff;
+}
+
+#newsletter p {
+    color: #fff;
+    margin: 20px 0;
+}
+
+#newsletter input {
+    display: inline-block;
+}
+
+.newsletter {
+    position: relative;
+    top: -70px;
+    right: -1px;
+    border: none;
+    background: #222;
+    color: #fff;
+    height: 50px;
+}
+
+.newsletter:hover {
+    background: #454545;
+    color: #fff;
+}

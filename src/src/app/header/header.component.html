@@ -1,0 +1,48 @@
+<header>
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                <!-- LOGO -->
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <b style="position: relative; top: 10px;"><span>Easy</span><span style="color: rgba(43, 191, 217, 0.90)">Basic</span></b>
+                </a>
+                <!-- END LOGO -->
+
+            </div>
+
+            <!-- TOGGLE NAV -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li [class.active]="isActive('/')">
+                        <a routerLink="/">Home</a>
+                    </li>
+                    <li [class.active]="isActive('/services')">
+                        <a routerLink="/services">Services</a>
+                    </li>
+                    <li [class.active]="isActive('/blog')">
+                        <a routerLink="/blog">Blog</a>
+                    </li>
+                    <li class="hidden">
+                        <a>Contact</a>
+                    </li>
+                    <li [class.active]="isActive('/downloads')">
+                        <a routerLink="/downloads">Download</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- TOGGLE NAV -->
+
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!-- END NAVIGATION -->
+</header>

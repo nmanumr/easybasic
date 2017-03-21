@@ -1,0 +1,24 @@
+/* NAVIGATION
+================================================ */
+
+.navbar-default {
+    background: #fff;
+    border-color: transparent;
+    padding: 10px 0;
+    -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    padding: 5px 15px;
+    max-width: 220px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #949494;
+    margin-right: 8px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #24C0D9;
+}

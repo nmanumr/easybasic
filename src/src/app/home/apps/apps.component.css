@@ -1,0 +1,54 @@
+.feature1 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.feature1 p {
+    padding-top: 10px;
+}
+
+.feature1 span {
+    float: left;
+}
+
+.feature1 .fa {
+    background: #28a7e9;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.feature {
+    background: #f8f8f8;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.feature p {
+    padding-top: 10px;
+}
+
+.feature span {
+    float: left;
+}
+
+.feature .fa {
+    background: #28a7e9;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.img-responsive {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+}
