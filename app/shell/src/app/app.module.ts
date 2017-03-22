@@ -1,3 +1,4 @@
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { ConsoleService } from './services/console.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,8 @@ import { StatusbarComponent } from './layout/statusbar/statusbar.component'
     TabsComponent,
     InlineEdit,
     ConsoleComponent,
-    StatusbarComponent
+    StatusbarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

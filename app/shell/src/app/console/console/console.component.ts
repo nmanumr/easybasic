@@ -30,56 +30,121 @@ export class ConsoleComponent implements OnInit {
     this.consoleData = this.consoleService.consoleData;
     this.consoleService.currentPos;
 
+    // top bar
+    this.consoleService.write('┌' + '─'.repeat(25) + '┬' + '─'.repeat(23) + '┬' + '─'.repeat(28) + '┐');
+    this.consoleService.insertLine();
 
-    this.consoleService.write('BASIC console');
-    this.consoleService.insertLine();
-    this.consoleService.write('Written by: Nauman Umer');
-    this.consoleService.insertLine();
-    this.consoleService.insertLine();
-    this.consoleService.write('abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-    this.consoleService.insertLine();
-    this.consoleService.write('1234567890.:,;\'"(!?)+-*/=');
-    this.consoleService.insertLine();
-    this.consoleService.write('The quick brown fox jumps over a lazy dog. 1234567890');
+    // body
+    for (var i = 1; i < 24; i++) {
+      this.consoleService.write('│ ' + '█'.repeat(23) + ' │' + ' '.repeat(23) + '│ ' + '█'.repeat(26) + ' │');
+      this.consoleService.insertLine();
+    }
+
+    // last line
+    this.consoleService.write('└' + '─'.repeat(25) + '┴' + '─'.repeat(23) + '┴' + '─'.repeat(27) + '┘');
+
+    // draw road lines
+    for (var i = 1; i < 24; i++) {
+      if (Math.floor(i / 3) != i / 3) {
+        this.consoleService.changeLocation({ cell: 27 + 11, row: i });
+        this.consoleService.write('│');
+      }
+    }
+
+    // write text
+    this.consoleService.changeLocation({ cell: 9, row: 3 });
+    this.consoleService.write(' Driver ');
+    this.consoleService.changeLocation({ cell: 50 + 11, row: 3 });
+    this.consoleService.write(' Donkey ');
+
+    this.consoleService.changeLocation({ cell: 11, row: 5 });
+    this.consoleService.write(' 4 ');
+    this.consoleService.changeLocation({ cell: 50 + 13, row: 5 });
+    this.consoleService.write(' 0 ');
+
+    this.consoleService.changeLocation({ cell: 50 + 4, row: 19 });
+    this.consoleService.write(' Press Space bar     ');
+    this.consoleService.changeLocation({ cell: 50 + 4, row: 20 });
+    this.consoleService.write(' to switch lane      ');
+
+    this.consoleService.changeLocation({ cell: 50 + 4, row: 22 });
+    this.consoleService.write(' Press ESC to exit   ');
+
+    // draw car
+    var carData = ['    ▄    ', '   ███   ', '▐█■███■█▌', '   ███   ', '██■◘█◘■██', '   ███   ', '    ▀    '],
+      i = 25 -1 - carData.length;
+    for (var car of carData) {
+      this.consoleService.changeLocation({ cell: 28, row: i });
+      this.consoleService.write(car);
+      i++;
+    }
+
+    // draw donkey
+    var donkeyData = ['      ▄ ▄','▄█████◘█◘','▌█████▀█▀',' ▐▐ ▐▐   '],
+    i =3;
+    for (var donkey of donkeyData) {
+      this.consoleService.changeLocation({ cell: 28+12, row: i });
+      this.consoleService.write(donkey);
+      i++;
+    }
+
+    this.consoleService.toggleCaret();
+
   }
 
-  getBackcolor(pos:pos){
-    var isHighlighted= this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
+  getBackcolor(pos: pos) {
+    var isHighlighted = this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
     return (isHighlighted) ? this.consoleService.consoleData[pos.row].data[pos.cell].forecolor
       : this.consoleService.consoleData[pos.row].data[pos.cell].backcolor;
   }
 
-  getForecolor(pos:pos){
-    var isHighlighted= this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
+  getForecolor(pos: pos) {
+    var isHighlighted = this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
     return (isHighlighted) ? this.consoleService.consoleData[pos.row].data[pos.cell].backcolor
       : this.consoleService.consoleData[pos.row].data[pos.cell].forecolor;
   }
 
   handleKeyboardEvents(event: KeyboardEvent) {
     var keycode = event.keyCode;
-    var charCode = event.char;
-    if ((keycode > 47 && keycode < 58) ||
-      (keycode > 64 && keycode < 91) ||
-      (keycode > 95 && keycode < 112) ||
-      (keycode > 185 && keycode < 193) ||
-      (keycode > 218 && keycode < 223) || keycode == 32) {
-      var char = String.fromCharCode(event.charCode);
-        console.log(char);
+    var charCode = event.charCode;
+
+    if ((charCode >= 48 && charCode <= 57) || // 0-9
+      (charCode >= 65 && charCode <= 90) || // A-Z
+      (charCode >= 97 && charCode <= 122) || // a-z
+      (charCode >= 123 && charCode <= 126) || // {|}~
+      (charCode >= 91 && charCode <= 96) || //[\]^_`
+      (charCode >= 58 && charCode <= 64) || // :;<=>?@
+      (charCode >= 32 && charCode <= 47) //
+    ) {
+      var char = String.fromCharCode(charCode);
       this.consoleService.write(char);
       event.preventDefault();
     }
-    else if (keycode == 13) {
+    else if (charCode == 13) {
       this.consoleService.insertLine();
       event.preventDefault();
-
     }
+
+    // if ((keycode > 47 && keycode < 58) || // 0-9
+    //   (keycode > 64 && keycode < 91) || // A-Z
+    //   (keycode > 95 && keycode < 112) || // NUMPAD 0-9 *+/.-
+    //   (keycode > 185 && keycode < 193) || // ;=,-./
+    //   (keycode > 218 && keycode < 223) || keycode == 32) {
+    //   var char = String.fromCharCode(event.charCode);
+    //   this.consoleService.write(char);
+    //   event.preventDefault();
+    // }
+    // else if (keycode == 13) {
+    //   this.consoleService.insertLine();
+    //   event.preventDefault();
+    // }
 
 
 
   }
 
   moveCaret(event: KeyboardEvent) {
-    
+
     var keycode = event.which;
     if (!event.ctrlKey && !event.altKey && !event.shiftKey) {
       switch (keycode) {
@@ -131,14 +196,14 @@ export class ConsoleComponent implements OnInit {
       this.consoleService.dehighlightAll();
 
     }
-    
+
     else if ((keycode == 67) && event.ctrlKey && event.shiftKey) { // Ctrl+Shift+C
       this.consoleService.clearScreen();
       event.preventDefault();
       return;
     }
 
-    else if(event.shiftKey){
+    else if (event.shiftKey) {
       switch (keycode) {
         case 35: // end
           var start = this.consoleService.currentPos;

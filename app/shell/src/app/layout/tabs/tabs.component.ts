@@ -15,6 +15,7 @@ export class TabsComponent implements OnInit {
 
   getTabs(): void {
     this.tabsService.getTabs().then(tabs => this.tabs = tabs);
+    this.newTab();
   }
 
   ngOnInit() {
@@ -43,6 +44,10 @@ export class TabsComponent implements OnInit {
   changeTabTitle(text, tab){
     console.log(text);
 
+  }
+
+  tabChanged(event){
+    console.log(event.index);
   }
 
 }

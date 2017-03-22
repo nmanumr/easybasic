@@ -1,7 +1,8 @@
 /// <reference path="./../../../assets/monaco/monaco.d.ts" />
+
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
-declare const monaco: any;
+//declare const monaco: any;
 declare const require: any;
 
 @Component({
@@ -14,6 +15,7 @@ export class EditorPaneComponent implements OnInit {
   @ViewChild('editor') editorContent: ElementRef;
   code: string = 'function x() {\nconsole.log("Hello world!");\n}';
   language: string = 'javascript';
+  editor;
 
   constructor() { }
 
@@ -23,7 +25,9 @@ export class EditorPaneComponent implements OnInit {
   ngAfterViewInit() {
     var onGotAmdLoader = () => {
       // Load monaco
-      (<any>window).require.config({ paths: { 'vs': 'assets/monaco/vs' } });
+      (<any>window).require.config({ paths: 
+        { 'vs': 'assets/monaco/vs', 'vs/language/basic': './../../editorServices/dist/', }
+      });
       (<any>window).require(['vs/editor/editor.main'], () => {
         this.initMonaco();
       });
@@ -44,7 +48,7 @@ export class EditorPaneComponent implements OnInit {
   // Will be called once monaco library is available
   initMonaco() {
     var myDiv: HTMLDivElement = this.editorContent.nativeElement;
-    var editor = monaco.editor.create(myDiv, {
+    this.editor = monaco.editor.create(myDiv, {
       value: [
         'function x() {',
         '\tconsole.log("Hello world!");',
@@ -55,5 +59,10 @@ export class EditorPaneComponent implements OnInit {
       renderControlCharacters: true,
       renderWhitespace: "boundary"
     });
+
+    
+    
+
   }
+
 }

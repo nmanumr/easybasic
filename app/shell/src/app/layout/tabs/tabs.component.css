@@ -1,0 +1,17 @@
+.close-tab {
+    position: absolute;
+    right: 15px;
+    z-index: 100;
+    width: 15px;
+    height: 15px;
+    top: 16px;
+    cursor: pointer;
+}
+
+.close-tab:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.close-tab::before {
+    top: -16px;
+}

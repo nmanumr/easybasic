@@ -1,0 +1,50 @@
+<div class="toolbar-container">
+
+    <button class="green small-btn" mdTooltip="Add files" (click)="addfiles()">
+        <i class="material-icons">add</i>
+    </button>
+
+    <button mdTooltip="Add folder" class="small-btn" (click)="addfolder()">
+        <i class="material-icons" style="color: #00796b">create_new_folder</i>
+    </button>
+
+    <div class="divider">
+        <span>|</span>
+    </div>
+
+    <button mdTooltip="Select All" class="small-btn" (click)="select('a')">
+        <i class="material-icons">select_all</i>
+    </button>
+
+    <button mdTooltip="Select None" class="small-btn" (click)="select('n')">
+        <i class="material-icons">border_clear</i>
+    </button>
+
+    <button mdTooltip="Select Invert" class="small-btn" (click)="select('i')">
+        <i class="material-icons">flip_to_back</i>
+    </button>
+
+    <div class="divider">
+        <span>|</span>
+    </div>
+
+    <button mdTooltip="Remove Completed or Selected" class="small-btn" (click)="delete()">
+        <i class="material-icons">delete</i>
+    </button>
+
+    <div class="divider">
+        <span>|</span>
+    </div>
+
+    <button class="drop-down">
+      <i class="material-icons teal" style="margin-right: 8px;">playlist_play</i><span>Convert All</span>
+    </button>
+    <button class="drop-down">
+      <i class="material-icons teal" style="margin-right: 8px;">playlist_add_check</i><span>Convert Selected</span>
+    </button>
+
+    <div class="divider">
+        <span>|</span>
+    </div>
+
+</div>

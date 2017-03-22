@@ -14,9 +14,14 @@ export class ConsoleService {
     currentPos: pos;
     rowNum: number;
     colNum: number;
+    showCaret: boolean = true;
 
     getConsoleData(): row[] {
         return this.consoleData;
+    }
+
+    toggleCaret(){
+        this.showCaret = !this.showCaret;
     }
 
     initConsoleData(rowNum: number, colNum: number, backcolor: string, forecolor: string): void {
@@ -60,7 +65,7 @@ export class ConsoleService {
         for (var i = 0, len = text.length; i < len; i++) {
 
             this.writeChar(text[i], pos);
-            if (pos.cell < this.colNum - 1) {
+            if (pos.cell < this.colNum-1) {
                 pos.cell++;
             } else {
                 pos.cell = 0;
@@ -70,6 +75,10 @@ export class ConsoleService {
             }
 
         }
+    }
+
+    changeLocation(pos: pos){
+        this.currentPos = pos;
     }
 
     clearScreen() {
@@ -153,6 +162,11 @@ export class ConsoleService {
     }
 
     insertLine() {
+        // check if previous line is wraped but empty
+        if(this.getTextFromRange({cell: 0, row: this.currentPos.row}, {cell: 1, row: this.currentPos.row}).charCodeAt(0) == '\u2000'.charCodeAt(0) &&
+            this.getTextFromRange({cell: 1, row: this.currentPos.row}, {cell: 2, row: this.currentPos.row}).charCodeAt(0) == '\u2007'.charCodeAt(0)){
+                this.currentPos.row--;
+        }
         if (this.currentPos.row + 1 < this.rowNum) {
             this.currentPos = { cell: 0, row: this.currentPos.row + 1 }
         }

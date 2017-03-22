@@ -1,10 +1,9 @@
 td {
-    width: 8px;
-    height: 17px;
-    margin: 0px;
+    width: 7px!important;
+    height: 15px;
     font-family: freedos;
     font-size: 16px;
-    line-height:0;
+    line-height: 0;
     border-collapse: collapse;
     overflow: hidden;
 }
@@ -12,34 +11,37 @@ td {
 table {
     table-layout: fixed;
     border-collapse: collapse;
-    
     line-height: 0;
     all: initial;
     all: unset;
     position: absolute;
     overflow: hidden;
 }
+
 td:last-child {
     padding-right: 3px!important;
 }
+
 td:first-child {
     padding-left: 3px!important;
 }
+
 .blinking-cursor {
     font-weight: 100;
     font-size: 14px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     position: absolute;
     margin-left: -8px;
     margin-top: 1px;
-    -webkit-animation: 1s blink step-end infinite;
+    -webkit-animation: .3s blink step-end infinite;
 }
+
 @keyframes "blink" {
-		from,
-		to {
-			color: white;
-		}
-		50% {
-			color: transparent;
-		}
-	}
+    from,
+    to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
