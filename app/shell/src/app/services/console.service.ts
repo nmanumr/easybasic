@@ -1,3 +1,4 @@
+import { basicColors } from './consoleServices/colors';
 import { row, cell } from './consoleCell';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +9,11 @@ export class ConsoleService {
     // /s : \u00A0
     // /r : \u2000
 
-    constructor() { }
+    private _colors: basicColors;
+
+    constructor() {
+        this._colors = new basicColors('text');
+    }
 
     consoleData: row[] = [];
     currentPos: pos;
@@ -24,7 +29,7 @@ export class ConsoleService {
         this.showCaret = !this.showCaret;
     }
 
-    initConsoleData(rowNum: number, colNum: number, backcolor: string, forecolor: string): void {
+    initConsoleData(rowNum: number, colNum: number): void {
         this.currentPos = { cell: 0, row: 0 };
         for (var y = 0; y < rowNum; y++) {
 
@@ -34,9 +39,10 @@ export class ConsoleService {
                 var Cell: cell = {
                     id: x,
                     text: "\u2007",
-                    backcolor: backcolor,
-                    forecolor: forecolor,
-                    isHighlighted: false
+                    backcolor: this._colors.getBackcolor(10),
+                    forecolor: this._colors.getForecolor(0).color,
+                    isHighlighted: false,
+                    isBlinkingColor: false
                 };
                 row.data.push(Cell);
 
@@ -49,7 +55,7 @@ export class ConsoleService {
 
     }
 
-    writeChar(char: string, pos: pos): void {
+    writeChar(char: string, pos: pos, forecolor: number = 15, backcolor: number = 0): void {
         var endPos = this.getEndofLine(pos.row);
         if (endPos.cell < pos.cell) {
             this.convertFromNullToSpace(endPos, pos);
@@ -57,14 +63,19 @@ export class ConsoleService {
         if (char == ' ')
             char = '\u00A0';
         this.consoleData[pos.row].data[pos.cell].text = char;
+        // set text color
+        var foreground =this._colors.getForecolor(forecolor);
+        this.consoleData[pos.row].data[pos.cell].backcolor = this._colors.getBackcolor(backcolor);
+        this.consoleData[pos.row].data[pos.cell].isBlinkingColor = foreground.isBlinking;
+        this.consoleData[pos.row].data[pos.cell].forecolor = foreground.color;
     }
 
     //TODO: check for enpty region between text
-    write(text, pos: pos = this.currentPos) {
-
+    write(text, forecolor: number = 15, backcolor: number = 0) {
+        var pos = this.currentPos;
         for (var i = 0, len = text.length; i < len; i++) {
 
-            this.writeChar(text[i], pos);
+            this.writeChar(text[i], pos, forecolor, backcolor);
             if (pos.cell < this.colNum-1) {
                 pos.cell++;
             } else {

@@ -5,6 +5,7 @@ export class cell {
   text: string;
   id: number;
   isHighlighted: boolean;
+  isBlinkingColor: boolean;
 }
 
 export class row {

@@ -26,22 +26,23 @@ td:first-child {
     padding-left: 3px!important;
 }
 
-.blinking-cursor {
+.cursor {
     font-weight: 100;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
     position: absolute;
     margin-left: -8px;
     margin-top: 1px;
-    -webkit-animation: .3s blink step-end infinite;
 }
 
-@keyframes "blink" {
-    from,
-    to {
-        color: white;
-    }
-    50% {
-        color: transparent;
-    }
+.blink{
+    -webkit-animation: blink 1s linear 0s infinite;
+    transition: opacity 1s linear;
+}
+
+@-webkit-keyframes blink {
+  0%   { opacity: 1 }
+  47%  { opacity: 1 }
+  50%  { opacity: 0 }
+  97%  { opacity: 0 }
+  100% { opacity: 1 }
 }

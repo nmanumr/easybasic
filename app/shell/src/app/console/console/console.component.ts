@@ -15,8 +15,6 @@ export class ConsoleComponent implements OnInit {
 
   @Input('rows') rowNum: number;
   @Input('cols') colNum: number;
-  @Input('backcolor') backcolor: string;
-  @Input('forecolor') forecolor: string;
   @Input('caretText') caretText: string;
 
 
@@ -26,7 +24,7 @@ export class ConsoleComponent implements OnInit {
   constructor(private consoleService: ConsoleService) { }
 
   ngOnInit() {
-    this.consoleService.initConsoleData(this.rowNum, this.colNum, this.backcolor, this.forecolor);
+    this.consoleService.initConsoleData(this.rowNum, this.colNum);
     this.consoleData = this.consoleService.consoleData;
     this.consoleService.currentPos;
 
@@ -36,7 +34,12 @@ export class ConsoleComponent implements OnInit {
 
     // body
     for (var i = 1; i < 24; i++) {
-      this.consoleService.write('│ ' + '█'.repeat(23) + ' │' + ' '.repeat(23) + '│ ' + '█'.repeat(26) + ' │');
+      this.consoleService.write('│ ');
+      this.consoleService.write('█'.repeat(23), 11)
+       this.consoleService.write(' │')
+       this.consoleService.write(' '.repeat(23) + '│ ')
+       this.consoleService.write('█'.repeat(26), 11)
+       this.consoleService.write(' │');
       this.consoleService.insertLine();
     }
 
@@ -88,8 +91,9 @@ export class ConsoleComponent implements OnInit {
       i++;
     }
 
-    this.consoleService.toggleCaret();
-
+    //this.consoleService.toggleCaret();
+    this.consoleService.write('nauman', 17);
+    console.log(this.consoleData);
   }
 
   getBackcolor(pos: pos) {

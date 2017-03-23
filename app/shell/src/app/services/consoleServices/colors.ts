@@ -13,6 +13,23 @@ export class basicColors {
     }
 
     /**
+     * Change screen mood
+     * @param mood specify screen mood e.g. text, cga, ega
+     */
+    public changeMood(mood: 'text' | 'cga' | 'ega'){
+        this._screen = mood;
+    }
+
+    /**
+     * Change screen mood (only for text mood)
+     * @param palette specify palette for screen 1 e.g. 0, 1, alt
+     */
+    public changePalette(palette: '0' | '1' | 'alt'){
+        if(this._screen == 'cga')
+            this._palette = palette;
+    }
+
+    /**
      * Returns EGA or CGA color code from BASIC color number (only for screen 1-9)
      * @param index BASIC color number
      */
@@ -34,22 +51,23 @@ export class basicColors {
     }
 
     /**
-     * Returns text forecolor from BASIC forecolor number (only for screen 0)
-     * @param index BASIC color number
-     */
-    public getForecolor(index: number): string {
-        if(this._screen == 'text'){
-            return this.textForecolor[index];
-        }
-    }
-
-    /**
      * Returns text backcolor from BASIC backcolor number (only for screen 0)
      * @param index BASIC color number
      */
     public getBackcolor(index: number): string {
         if(this._screen == 'text'){
             return this.textBackcolor[index];
+        }
+    }
+
+    /**
+     * Returns text forecolor from BASIC forecolor number (only for screen 0)
+     * @param index BASIC color number
+     */
+    public getForecolor(index: number): {color: string, isBlinking: boolean} {
+        if(this._screen == 'text'){
+            var colorindex = (index <= 15)? index: index -15;
+            return {color: this.textForecolor[colorindex], isBlinking: (index > 15)};
         }
     }
 
