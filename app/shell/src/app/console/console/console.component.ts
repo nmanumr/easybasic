@@ -28,72 +28,44 @@ export class ConsoleComponent implements OnInit {
     this.consoleData = this.consoleService.consoleData;
     this.consoleService.currentPos;
 
-    // top bar
-    this.consoleService.write('┌' + '─'.repeat(25) + '┬' + '─'.repeat(23) + '┬' + '─'.repeat(28) + '┐');
+    this.consoleService.write("   Forecolors   Forecolors Blink   Backcolors")
+    this.consoleService.insertLine();
+    this.consoleService.write("┌──────┬───────┐┌──────┬───────┐┌──────┬───────┐")
+    this.consoleService.insertLine();
+    this.consoleService.write("│ Code │ Color ││ Code │ Color ││ Code │ Color │")
+    this.consoleService.insertLine();
+    this.consoleService.write("├──────┼───────┤├──────┼───────┤├──────┼───────┤")
     this.consoleService.insertLine();
 
-    // body
-    for (var i = 1; i < 24; i++) {
-      this.consoleService.write('│ ');
-      this.consoleService.write('█'.repeat(23), 11)
-       this.consoleService.write(' │')
-       this.consoleService.write(' '.repeat(23) + '│ ')
-       this.consoleService.write('█'.repeat(26), 11)
-       this.consoleService.write(' │');
+    // forecolors
+    for (var i = 0; i < 16; i++) {
+      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
+      this.consoleService.write("██", i);
+      this.consoleService.write("  │");
       this.consoleService.insertLine();
     }
+    this.consoleService.write("└──────┴───────┘└──────┴───────┘")
 
-    // last line
-    this.consoleService.write('└' + '─'.repeat(25) + '┴' + '─'.repeat(23) + '┴' + '─'.repeat(27) + '┘');
-
-    // draw road lines
-    for (var i = 1; i < 24; i++) {
-      if (Math.floor(i / 3) != i / 3) {
-        this.consoleService.changeLocation({ cell: 27 + 11, row: i });
-        this.consoleService.write('│');
-      }
+    // blinking forecolors
+    for (var i = 16; i < 32; i++) {
+      this.consoleService.changeLocation({row: 4 + i -16, cell: 16})
+      this.consoleService.write(`│  ${i}  │   `);
+      this.consoleService.write("██", i);
+      this.consoleService.write("  │");
     }
 
-    // write text
-    this.consoleService.changeLocation({ cell: 9, row: 3 });
-    this.consoleService.write(' Driver ');
-    this.consoleService.changeLocation({ cell: 50 + 11, row: 3 });
-    this.consoleService.write(' Donkey ');
-
-    this.consoleService.changeLocation({ cell: 11, row: 5 });
-    this.consoleService.write(' 4 ');
-    this.consoleService.changeLocation({ cell: 50 + 13, row: 5 });
-    this.consoleService.write(' 0 ');
-
-    this.consoleService.changeLocation({ cell: 50 + 4, row: 19 });
-    this.consoleService.write(' Press Space bar     ');
-    this.consoleService.changeLocation({ cell: 50 + 4, row: 20 });
-    this.consoleService.write(' to switch lane      ');
-
-    this.consoleService.changeLocation({ cell: 50 + 4, row: 22 });
-    this.consoleService.write(' Press ESC to exit   ');
-
-    // draw car
-    var carData = ['    ▄    ', '   ███   ', '▐█■███■█▌', '   ███   ', '██■◘█◘■██', '   ███   ', '    ▀    '],
-      i = 25 -1 - carData.length;
-    for (var car of carData) {
-      this.consoleService.changeLocation({ cell: 28, row: i });
-      this.consoleService.write(car);
-      i++;
+    // back colors
+    for (var i = 0; i < 8; i++) {
+      this.consoleService.changeLocation({row: 4 + i, cell: 32})
+      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
+      this.consoleService.write("  ", 15, i);
+      this.consoleService.write("  │");
     }
+    this.consoleService.changeLocation({row: 12, cell: 32})
+    this.consoleService.write("└──────┴───────┘");
 
-    // draw donkey
-    var donkeyData = ['      ▄ ▄','▄█████◘█◘','▌█████▀█▀',' ▐▐ ▐▐   '],
-    i =3;
-    for (var donkey of donkeyData) {
-      this.consoleService.changeLocation({ cell: 28+12, row: i });
-      this.consoleService.write(donkey);
-      i++;
-    }
 
     //this.consoleService.toggleCaret();
-    this.consoleService.write('nauman', 17);
-    console.log(this.consoleData);
   }
 
   getBackcolor(pos: pos) {

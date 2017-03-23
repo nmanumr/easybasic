@@ -39,8 +39,8 @@ export class ConsoleService {
                 var Cell: cell = {
                     id: x,
                     text: "\u2007",
-                    backcolor: this._colors.getBackcolor(10),
-                    forecolor: this._colors.getForecolor(0).color,
+                    backcolor: this._colors.getBackcolor(0),
+                    forecolor: this._colors.getForecolor(15).color,
                     isHighlighted: false,
                     isBlinkingColor: false
                 };

@@ -8,7 +8,7 @@
                     [style.background]='getBackcolor({row:row.id, cell: cell.id})'
                     [style.padding.px]="'0'">
                     <span [ngClass]="{'blink': cell.isBlinkingColor }">{{ cell.text }}</span>
-                    <span class="blink cursor" *ngIf="this.consoleService.showCaret && this.consoleService.currentPos.cell == cell.id && this.consoleService.currentPos.row == row.id">{{ caretText }}</span>
+                    <span class="cursor" *ngIf="this.consoleService.showCaret && this.consoleService.currentPos.cell == cell.id && this.consoleService.currentPos.row == row.id">{{ caretText }}</span>
                 </td>
             </tr>
 

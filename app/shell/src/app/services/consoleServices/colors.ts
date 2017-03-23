@@ -66,7 +66,7 @@ export class basicColors {
      */
     public getForecolor(index: number): {color: string, isBlinking: boolean} {
         if(this._screen == 'text'){
-            var colorindex = (index <= 15)? index: index -15;
+            var colorindex = (index <= 15)? index: index -16;
             return {color: this.textForecolor[colorindex], isBlinking: (index > 15)};
         }
     }
