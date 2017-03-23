@@ -1,3 +1,4 @@
+import { text } from './consoleServices/text';
 import { basicColors } from './consoleServices/colors';
 import { row, cell } from './consoleCell';
 import { Injectable } from '@angular/core';
@@ -10,28 +11,21 @@ export class ConsoleService {
     // /r : \u2000
 
     private _colors: basicColors;
+    private _text: text;
 
-    constructor() {
-        this._colors = new basicColors('text');
-    }
-
-    consoleData: row[] = [];
+    TextData: row[] = [];
     currentPos: pos;
     rowNum: number;
-    colNum: number;
+    colNum: 40 |80;
     showCaret: boolean = true;
 
-    getConsoleData(): row[] {
-        return this.consoleData;
-    }
+    constructor() {}
 
-    toggleCaret(){
-        this.showCaret = !this.showCaret;
-    }
+    initConsoleData(colNum: 40 |80): void {
+        this._colors = new basicColors('text');
 
-    initConsoleData(rowNum: number, colNum: number): void {
         this.currentPos = { cell: 0, row: 0 };
-        for (var y = 0; y < rowNum; y++) {
+        for (var y = 0; y < 25; y++) {
 
             var row: row = { id: y, data: [] };
             for (var x = 0; x < colNum; x++) {
@@ -47,45 +41,29 @@ export class ConsoleService {
                 row.data.push(Cell);
 
             }
-            this.consoleData.push(row);
+            this.TextData.push(row);
         }
 
         this.colNum = colNum;
-        this.rowNum = rowNum;
-
+        this.rowNum = 25;
+        this._text= new text(this.TextData, this.colNum)
     }
 
-    writeChar(char: string, pos: pos, forecolor: number = 15, backcolor: number = 0): void {
-        var endPos = this.getEndofLine(pos.row);
-        if (endPos.cell < pos.cell) {
-            this.convertFromNullToSpace(endPos, pos);
-        }
-        if (char == ' ')
-            char = '\u00A0';
-        this.consoleData[pos.row].data[pos.cell].text = char;
-        // set text color
-        var foreground =this._colors.getForecolor(forecolor);
-        this.consoleData[pos.row].data[pos.cell].backcolor = this._colors.getBackcolor(backcolor);
-        this.consoleData[pos.row].data[pos.cell].isBlinkingColor = foreground.isBlinking;
-        this.consoleData[pos.row].data[pos.cell].forecolor = foreground.color;
+    
+
+    getConsoleData(): row[] {
+        return this.TextData;
     }
 
-    //TODO: check for enpty region between text
+    toggleCaret(){
+        this.showCaret = !this.showCaret;
+    }
+
     write(text, forecolor: number = 15, backcolor: number = 0) {
-        var pos = this.currentPos;
-        for (var i = 0, len = text.length; i < len; i++) {
-
-            this.writeChar(text[i], pos, forecolor, backcolor);
-            if (pos.cell < this.colNum-1) {
-                pos.cell++;
-            } else {
-                pos.cell = 0;
-                pos.row++;
-                this.writeChar('\u2000', pos);
-                pos.cell++;
-            }
-
-        }
+        var foreground = this._colors.getForecolor(forecolor);
+        var background = this._colors.getBackcolor(backcolor);
+        var pos = this._text.write(text,this.currentPos, foreground.color, background, foreground.isBlinking);
+        this.currentPos = pos;
     }
 
     changeLocation(pos: pos){
@@ -93,80 +71,21 @@ export class ConsoleService {
     }
 
     clearScreen() {
-        for (var y = 0; y < this.rowNum; y++) {
-            for (var x = 0; x < this.colNum; x++) {
-                this.consoleData[y].data[x].text = '\u2007';
-            }
-        }
+        this._text.clearText();
         this.currentPos = { cell: 0, row: 0 };
     }
 
     deleteLeft() {
-        if (this.currentPos.cell - 1 < 0) {
-            if (!(this.consoleData[this.currentPos.row].data[this.currentPos.cell].text == '\u2000'))
-                this.moveLineLeft(this.currentPos);
-            else {
-                this.currentPos = { cell: this.colNum - 1, row: this.currentPos.row - 1 };
-                this.moveLineLeft(this.currentPos);
-            }
-        } else if (this.currentPos.cell == 1) {
-            if (this.consoleData[this.currentPos.row].data[0].text == '\u2000') {
-                this.currentPos = { cell: this.colNum - 1, row: this.currentPos.row - 1 };
-                this.moveLineLeft(this.currentPos);
-            }
-            else {
-                this.currentPos.cell--;
-                this.moveLineLeft(this.currentPos)
-            }
-        }
-        else {
-            this.currentPos.cell--;
-            this.moveLineLeft(this.currentPos)
-        }
+        this.currentPos = this._text.deleteLeft(this.currentPos);
     }
     deleteRight() {
-        if (this.currentPos.cell == 0 && this.consoleData[this.currentPos.row].data[0].text == '\u2000') {
-            this.currentPos.cell++;
-        }
-        this.moveLineLeft(this.currentPos);
+        this.currentPos = this._text.deleteRight(this.currentPos);
     }
 
-    moveLineLeft(pos: pos) {
-        for (var i = pos.cell; i < this.colNum - 1; i++) {
-            this.consoleData[pos.row].data[i].text = this.consoleData[pos.row].data[i + 1].text;
-        }
-        if (this.consoleData[pos.row + 1].data[0].text == '\u2000') {
-            this.consoleData[pos.row].data[this.colNum - 1].text = this.consoleData[pos.row + 1].data[1].text;
-            this.moveLineLeft({ cell: 1, row: pos.row + 1 });
-            if (this.consoleData[pos.row + 1].data[1].text == '\u2007') {
-                this.consoleData[pos.row + 1].data[0].text = '\u2007';
-            }
-        }
-        else {
-            this.consoleData[pos.row].data[this.colNum - 1].text = '\u2007';
-        }
-        var lastSpace = this.getLastSpace(pos.row);
-        if (pos.cell > lastSpace.cell) {
-            this.convertFromSpaceToNull(lastSpace, pos);
-        }
-    }
-
-    getLastSpace(row: number): pos {
-        for (var i = this.colNum - 1; i > 0; i--) {
-            if (this.consoleData[row].data[i].text == '\u2007' || this.consoleData[row].data[i].text == '\u00A0') {
-                continue;
-            }
-            else {
-                break;
-            }
-        }
-        return { row: row, cell: i + 1 };
-    }
-
-    //TODO: send text to parser for execution
+    //TODO: send text for execution
     pushLine() {
-        var start = this.getStartofLine(this.currentPos.row);
-        var end = this.getEndofLine(this.currentPos.row);
+        var start = this._text.getStartofLine(this.currentPos.row);
+        var end = this._text.getEndofLine(this.currentPos.row);
         var text = this.getTextFromRange(start, end);
         console.log(text);
         this.insertLine();
@@ -191,67 +110,14 @@ export class ConsoleService {
         var text = '';
         for (var y = start.row; y <= end.row; y++) {
             for (var x = start.cell; x <= end.cell; x++) {
-                text += this.consoleData[y].data[x].text;
+                text += this.TextData[y].data[x].text;
             }
             text += '\n';
         }
         return text;
     }
 
-    /**
-     * Replace \u2007 to \u00A0
-     * Useful when written text after long spaces
-     */
-    convertFromNullToSpace(start: pos, end: pos) {
-        for (var y = start.row; y <= end.row; y++) {
-            for (var x = start.cell; x <= end.cell; x++) {
-                var text = this.consoleData[y].data[x].text;
-                if (text == '\u2007' || text == '\u2000')
-                    this.consoleData[y].data[x].text = '\u00A0'
-            }
-        }
-    }
-
-    /**
-     * Replace \u00A0 to \u2007
-     * Useful when deleted text after long spaces
-     */
-    convertFromSpaceToNull(start: pos, end: pos) {
-        for (var y = start.row; y <= end.row; y++) {
-            for (var x = start.cell; x <= end.cell; x++) {
-                var text = this.consoleData[y].data[x].text;
-                if (text = '\u00A0')
-                    this.consoleData[y].data[x].text = '\u2007'
-            }
-        }
-    }
-
-    getStartofLine(row): pos {
-        var i;
-        for (i = row; i > -1; i--) {
-            if (this.consoleData[i].data[0].text != '\u2000') {
-                break;
-            }
-        }
-        return { cell: 0, row: i };
-    }
-    getEndofLine(row): pos {
-        var i;
-        for (i = 0; i < this.colNum; i++) {
-            if (this.consoleData[row].data[i].text == '\u2007') {
-                break;
-            }
-            else if (i + 1 == this.colNum) {
-                if (this.consoleData[row + 1].data[0].text == '\u2000') {
-                    var pos = this.getEndofLine(row + 1);
-                    i = pos.cell;
-                    row = pos.row;
-                    break;
-                }
-            }
-        }
-        return { cell: i, row: row };
-    }
+    
 
     moveCaretUp(): pos {
         if (this.currentPos.row > 0)
@@ -278,11 +144,11 @@ export class ConsoleService {
         return this.currentPos;
     }
     moveCaretToHome(): pos {
-        this.currentPos = this.getStartofLine(this.currentPos.row);
+        this.currentPos = this._text.getStartofLine(this.currentPos.row);
         return this.currentPos;
     }
     moveCaretToEnd(): pos {
-        this.currentPos = this.getEndofLine(this.currentPos.row);
+        this.currentPos = this._text.getEndofLine(this.currentPos.row);
         return this.currentPos;
     }
     moveCaretToEndOfChar(): pos {
@@ -292,7 +158,7 @@ export class ConsoleService {
         for (i = this.currentPos.row; i < this.rowNum; i++) {
             var found = false
             for (j = (i == this.currentPos.row) ? this.currentPos.cell : 0; j < this.colNum; j++) {
-                var matchedPos = this.consoleData[i].data[j].text.search(letters);
+                var matchedPos = this.TextData[i].data[j].text.search(letters);
                 if ((matchedPos != -1) && charEnded) {
                     found = true;
                     break;
@@ -319,7 +185,7 @@ export class ConsoleService {
         var x, y, found;
         for (y = this.currentPos.row; y > -1; y--) {
             for (x = this.currentPos.cell - 1; x > -1; x--) {
-                var text: string = this.consoleData[y].data[x].text;
+                var text: string = this.TextData[y].data[x].text;
                 console.log(text.match(/^[a-z0-9]+$/i), text);
                 if (text.match(/^[a-z0-9]+$/i) && text != '\u00A0')
                     continue;
@@ -345,7 +211,7 @@ export class ConsoleService {
     cloneLine(row: number) {
         var Line = [];
         for (var x = 0; x < this.colNum - 1; x++) {
-            var text = this.consoleData[row].data[x].text;
+            var text = this.TextData[row].data[x].text;
             Line.push(text);
         }
         return Line;
@@ -353,7 +219,7 @@ export class ConsoleService {
 
     writeAtLine(line, num) {
         for (var i = 0; i < this.colNum - 1; i++) {
-            this.consoleData[num].data[i].text = line[i];
+            this.TextData[num].data[i].text = line[i];
         }
     }
 
@@ -369,7 +235,7 @@ export class ConsoleService {
     highlightRange(start:pos, end: pos){
         for (var y = start.row; y <= end.row; y++) {
             for (var x = start.cell; x <= end.cell; x++) {
-                this.consoleData[y].data[x].isHighlighted = true;
+                this.TextData[y].data[x].isHighlighted = true;
             }
         }
     }
@@ -377,7 +243,7 @@ export class ConsoleService {
     dehighlightAll(){
         for (var y = 0; y <= this.rowNum-1; y++) {
             for (var x = 0; x <= this.colNum-1; x++) {
-                this.consoleData[y].data[x].isHighlighted = false;
+                this.TextData[y].data[x].isHighlighted = false;
             }
         }
     }

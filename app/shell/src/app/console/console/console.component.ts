@@ -14,70 +14,58 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ConsoleComponent implements OnInit {
 
   @Input('rows') rowNum: number;
-  @Input('cols') colNum: number;
+  @Input('cols') colNum: 40 | 80;
   @Input('caretText') caretText: string;
 
 
-  consoleData: row[];
+  textData: row[];
 
 
   constructor(private consoleService: ConsoleService) { }
 
   ngOnInit() {
-    this.consoleService.initConsoleData(this.rowNum, this.colNum);
-    this.consoleData = this.consoleService.consoleData;
+    this.consoleService.initConsoleData(this.colNum);
+    this.textData = this.consoleService.TextData;
     this.consoleService.currentPos;
 
-    this.consoleService.write("   Forecolors   Forecolors Blink   Backcolors")
+
     this.consoleService.insertLine();
-    this.consoleService.write("┌──────┬───────┐┌──────┬───────┐┌──────┬───────┐")
     this.consoleService.insertLine();
-    this.consoleService.write("│ Code │ Color ││ Code │ Color ││ Code │ Color │")
+    this.consoleService.write("   oOOOOOOo   OO   oOo   ");
     this.consoleService.insertLine();
-    this.consoleService.write("├──────┼───────┤├──────┼───────┤├──────┼───────┤")
+    this.consoleService.write("  oO      Oo  OO  oOo    ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  OO      OO  OO oOo     ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  OO      OO  OOoOo      ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  OO      OO  OOOo       ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  OO      OO  OOoOo      ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  OO      OO  OO oOo     ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("  oO      Oo  OO  oOo    ████████");
+    this.consoleService.insertLine();
+    this.consoleService.write("   oOOOOOOo   OO   oOo   ████████ ");
     this.consoleService.insertLine();
 
-    // forecolors
-    for (var i = 0; i < 16; i++) {
-      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
-      this.consoleService.write("██", i);
-      this.consoleService.write("  │");
-      this.consoleService.insertLine();
-    }
-    this.consoleService.write("└──────┴───────┘└──────┴───────┘")
-
-    // blinking forecolors
-    for (var i = 16; i < 32; i++) {
-      this.consoleService.changeLocation({row: 4 + i -16, cell: 16})
-      this.consoleService.write(`│  ${i}  │   `);
-      this.consoleService.write("██", i);
-      this.consoleService.write("  │");
-    }
-
-    // back colors
-    for (var i = 0; i < 8; i++) {
-      this.consoleService.changeLocation({row: 4 + i, cell: 32})
-      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
-      this.consoleService.write("  ", 15, i);
-      this.consoleService.write("  │");
-    }
-    this.consoleService.changeLocation({row: 12, cell: 32})
-    this.consoleService.write("└──────┴───────┘");
+    
 
 
     //this.consoleService.toggleCaret();
   }
 
   getBackcolor(pos: pos) {
-    var isHighlighted = this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
-    return (isHighlighted) ? this.consoleService.consoleData[pos.row].data[pos.cell].forecolor
-      : this.consoleService.consoleData[pos.row].data[pos.cell].backcolor;
+    var isHighlighted = this.consoleService.TextData[pos.row].data[pos.cell].isHighlighted;
+    return (isHighlighted) ? this.consoleService.TextData[pos.row].data[pos.cell].forecolor
+      : this.consoleService.TextData[pos.row].data[pos.cell].backcolor;
   }
 
   getForecolor(pos: pos) {
-    var isHighlighted = this.consoleService.consoleData[pos.row].data[pos.cell].isHighlighted;
-    return (isHighlighted) ? this.consoleService.consoleData[pos.row].data[pos.cell].backcolor
-      : this.consoleService.consoleData[pos.row].data[pos.cell].forecolor;
+    var isHighlighted = this.consoleService.TextData[pos.row].data[pos.cell].isHighlighted;
+    return (isHighlighted) ? this.consoleService.TextData[pos.row].data[pos.cell].backcolor
+      : this.consoleService.TextData[pos.row].data[pos.cell].forecolor;
   }
 
   handleKeyboardEvents(event: KeyboardEvent) {
@@ -100,22 +88,6 @@ export class ConsoleComponent implements OnInit {
       this.consoleService.insertLine();
       event.preventDefault();
     }
-
-    // if ((keycode > 47 && keycode < 58) || // 0-9
-    //   (keycode > 64 && keycode < 91) || // A-Z
-    //   (keycode > 95 && keycode < 112) || // NUMPAD 0-9 *+/.-
-    //   (keycode > 185 && keycode < 193) || // ;=,-./
-    //   (keycode > 218 && keycode < 223) || keycode == 32) {
-    //   var char = String.fromCharCode(event.charCode);
-    //   this.consoleService.write(char);
-    //   event.preventDefault();
-    // }
-    // else if (keycode == 13) {
-    //   this.consoleService.insertLine();
-    //   event.preventDefault();
-    // }
-
-
 
   }
 
