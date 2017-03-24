@@ -1,3 +1,4 @@
+import { ConsoleService } from './../../services/console.service';
 import { Component, OnInit } from '@angular/core';
 declare var electron: any;
 declare var fs: any;
@@ -12,7 +13,7 @@ export class ToolbarComponent implements OnInit {
   private dialog = electron.remote.dialog;
   private currentWindow = electron.remote.getCurrentWindow()
 
-  constructor() { }
+  constructor(private consoleService: ConsoleService) { }
 
   ngOnInit() {
   }

@@ -1,3 +1,5 @@
+import { selection } from './consoleServices/selection';
+import { caret } from './consoleServices/Caret';
 import { text } from './consoleServices/text';
 import { basicColors } from './consoleServices/colors';
 import { row, cell } from './consoleCell';
@@ -12,19 +14,18 @@ export class ConsoleService {
 
     private _colors: basicColors;
     private _text: text;
+    public caret: caret;
 
     TextData: row[] = [];
-    currentPos: pos;
     rowNum: number;
-    colNum: 40 |80;
-    showCaret: boolean = true;
+    colNum: 40 | 80;
 
-    constructor() {}
+    constructor() { }
 
-    initConsoleData(colNum: 40 |80): void {
+    initConsoleData(colNum: 40 | 80): void {
         this._colors = new basicColors('text');
+        this.caret = new caret('block', colNum);
 
-        this.currentPos = { cell: 0, row: 0 };
         for (var y = 0; y < 25; y++) {
 
             var row: row = { id: y, data: [] };
@@ -46,118 +47,62 @@ export class ConsoleService {
 
         this.colNum = colNum;
         this.rowNum = 25;
-        this._text= new text(this.TextData, this.colNum)
+        this._text = new text(this.TextData, this.colNum)
     }
 
-    
+
 
     getConsoleData(): row[] {
         return this.TextData;
     }
 
-    toggleCaret(){
-        this.showCaret = !this.showCaret;
-    }
 
     write(text, forecolor: number = 15, backcolor: number = 0) {
         var foreground = this._colors.getForecolor(forecolor);
         var background = this._colors.getBackcolor(backcolor);
-        var pos = this._text.write(text,this.currentPos, foreground.color, background, foreground.isBlinking);
-        this.currentPos = pos;
-    }
-
-    changeLocation(pos: pos){
-        this.currentPos = pos;
+        var pos = this._text.write(text, this.caret.position, foreground.color, background, foreground.isBlinking);
+        this.caret.position = pos;
     }
 
     clearScreen() {
         this._text.clearText();
-        this.currentPos = { cell: 0, row: 0 };
+        this.caret.position = { cell: 0, row: 0 };
     }
 
     deleteLeft() {
-        this.currentPos = this._text.deleteLeft(this.currentPos);
-    }
-    deleteRight() {
-        this.currentPos = this._text.deleteRight(this.currentPos);
+        this.caret.position = this._text.deleteLeft(this.caret.position);
     }
 
-    //TODO: send text for execution
-    pushLine() {
-        var start = this._text.getStartofLine(this.currentPos.row);
-        var end = this._text.getEndofLine(this.currentPos.row);
-        var text = this.getTextFromRange(start, end);
-        console.log(text);
-        this.insertLine();
+    deleteRight() {
+        this.caret.position = this._text.deleteRight(this.caret.position);
     }
 
     insertLine() {
-        // check if previous line is wraped but empty
-        if(this.getTextFromRange({cell: 0, row: this.currentPos.row}, {cell: 1, row: this.currentPos.row}).charCodeAt(0) == '\u2000'.charCodeAt(0) &&
-            this.getTextFromRange({cell: 1, row: this.currentPos.row}, {cell: 2, row: this.currentPos.row}).charCodeAt(0) == '\u2007'.charCodeAt(0)){
-                this.currentPos.row--;
-        }
-        if (this.currentPos.row + 1 < this.rowNum) {
-            this.currentPos = { cell: 0, row: this.currentPos.row + 1 }
-        }
-        else {
-            this.scrollUp();
-            this.currentPos = { cell: 0, row: this.currentPos.row + 1 }
-        }
+        var start = this._text.getStartofLine(this.caret.position.row);
+        var end = this._text.getEndofLine(this.caret.position.row);
+        var text = this._text.getTextFromRange(start, end);
+        //console.log(text);
+
+        this.caret.position = this._text.BreakLine(this.caret.position);
     }
 
-    getTextFromRange(start: pos, end: pos): string {
-        var text = '';
-        for (var y = start.row; y <= end.row; y++) {
-            for (var x = start.cell; x <= end.cell; x++) {
-                text += this.TextData[y].data[x].text;
-            }
-            text += '\n';
-        }
-        return text;
-    }
 
-    
 
-    moveCaretUp(): pos {
-        if (this.currentPos.row > 0)
-            this.currentPos.row--;
-        return this.currentPos;
-    }
-    moveCaretDown(): pos {
-        if (this.currentPos.row + 1 < this.rowNum)
-            this.currentPos.row++;
-        return this.currentPos;
-    }
-    moveCaretRight(): pos {
-        if (this.currentPos.cell + 1 < this.colNum)
-            this.currentPos.cell++;
-        else
-            this.currentPos = { row: this.currentPos.row + 1, cell: 0 }
-        return this.currentPos;
-    }
-    moveCaretLeft(): pos {
-        if (this.currentPos.cell > 0)
-            this.currentPos.cell--;
-        else
-            this.currentPos = { row: this.currentPos.row - 1, cell: this.colNum - 1 }
-        return this.currentPos;
-    }
     moveCaretToHome(): pos {
-        this.currentPos = this._text.getStartofLine(this.currentPos.row);
-        return this.currentPos;
+        this.caret.position = this._text.getStartofLine(this.caret.position.row);
+        return this.caret.position;
     }
     moveCaretToEnd(): pos {
-        this.currentPos = this._text.getEndofLine(this.currentPos.row);
-        return this.currentPos;
+        this.caret.position = this._text.getEndofLine(this.caret.position.row);
+        return this.caret.position;
     }
     moveCaretToEndOfChar(): pos {
         var letters = /[a-z0-9]/i;
         var charEnded = false, i, j;
 
-        for (i = this.currentPos.row; i < this.rowNum; i++) {
+        for (i = this.caret.position.row; i < this.rowNum; i++) {
             var found = false
-            for (j = (i == this.currentPos.row) ? this.currentPos.cell : 0; j < this.colNum; j++) {
+            for (j = (i == this.caret.position.row) ? this.caret.position.cell : 0; j < this.colNum; j++) {
                 var matchedPos = this.TextData[i].data[j].text.search(letters);
                 if ((matchedPos != -1) && charEnded) {
                     found = true;
@@ -175,64 +120,39 @@ export class ConsoleService {
 
         }
         else {
-            this.currentPos.cell = j;
-            this.currentPos.row = i;
+            this.caret.position.cell = j;
+            this.caret.position.row = i;
         }
-        return this.currentPos;
+        return this.caret.position;
     }
-    //TODO: Fix it
     moveCaretToStartOfChar(): pos {
-        var x, y, found;
-        for (y = this.currentPos.row; y > -1; y--) {
-            for (x = this.currentPos.cell - 1; x > -1; x--) {
+        var x = this.caret.position.cell - 1, y, charEnded, found;
+        for (y = this.caret.position.row; y > -1; y--) {
+            for (x; x > 0; x--) {
                 var text: string = this.TextData[y].data[x].text;
-                console.log(text.match(/^[a-z0-9]+$/i), text);
-                if (text.match(/^[a-z0-9]+$/i) && text != '\u00A0')
+                var previousChar = this.TextData[y].data[x - 1].text;
+                if (text == '\u00A0' || text == '\u2000' || text == '\u2007') {
+                    charEnded = true;
                     continue;
-                else {
+                }
+                if (previousChar == '\u00A0' && charEnded && text.match(/^[a-z0-9]+/i)) {
                     found = true;
                     break;
                 }
             }
             if (found)
                 break;
+            else
+                x = this.colNum - 1;
         }
-        console.log(y, x);
-        if (y == 0 && x == 0) {
-
-        }
-        else {
-            this.currentPos.cell = x;
-            this.currentPos.row = y;
-        }
-        return this.currentPos;
+        this.caret.position.cell = x;
+        this.caret.position.row = y;
+        return this.caret.position;
     }
 
-    cloneLine(row: number) {
-        var Line = [];
-        for (var x = 0; x < this.colNum - 1; x++) {
-            var text = this.TextData[row].data[x].text;
-            Line.push(text);
-        }
-        return Line;
-    }
 
-    writeAtLine(line, num) {
-        for (var i = 0; i < this.colNum - 1; i++) {
-            this.TextData[num].data[i].text = line[i];
-        }
-    }
 
-    scrollUp(): void {
-        var nextLine = [];
-        for (var i = 0; i < this.rowNum - 1; i++) {
-            nextLine = this.cloneLine(i + 1);
-            this.writeAtLine(nextLine, i);
-        }
-        this.currentPos.row--;
-    }
-
-    highlightRange(start:pos, end: pos){
+    highlightRange(start: pos, end: pos) {
         for (var y = start.row; y <= end.row; y++) {
             for (var x = start.cell; x <= end.cell; x++) {
                 this.TextData[y].data[x].isHighlighted = true;
@@ -240,9 +160,9 @@ export class ConsoleService {
         }
     }
 
-    dehighlightAll(){
-        for (var y = 0; y <= this.rowNum-1; y++) {
-            for (var x = 0; x <= this.colNum-1; x++) {
+    dehighlightAll() {
+        for (var y = 0; y <= this.rowNum - 1; y++) {
+            for (var x = 0; x <= this.colNum - 1; x++) {
                 this.TextData[y].data[x].isHighlighted = false;
             }
         }

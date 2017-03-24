@@ -5,6 +5,10 @@ export class text {
 
     private _data: row[]
     private _colNum: 40 | 80;
+    private lineWrapChar: string = '\u2000';
+    private spaceChar: string = '\u00A0';
+    private nullChar: string = '\u2007';
+    public isLast: boolean;
 
     constructor(text: row[], colNum: 40 | 80) {
         this._data = text;
@@ -17,7 +21,7 @@ export class text {
     public clearText() {
         for (var y = 0; y < 25; y++) {
             for (var x = 0; x < this._colNum; x++) {
-                this._data[y].data[x].text = '\u2007';
+                this._data[y].data[x].text = this.nullChar;
             }
         }
     }
@@ -36,14 +40,14 @@ export class text {
      */
     public deleteLeft(pos: pos): pos {
         if (pos.cell - 1 < 0) {
-            if (!(this._data[pos.row].data[pos.cell].text == '\u2000'))
+            if (!(this._data[pos.row].data[pos.cell].text == this.lineWrapChar))
                 this._moveLineLeft(pos);
             else {
                 pos = { cell: this._colNum - 1, row: pos.row - 1 };
                 this._moveLineLeft(pos);
             }
         } else if (pos.cell == 1) {
-            if (this._data[pos.row].data[0].text == '\u2000') {
+            if (this._data[pos.row].data[0].text == this.lineWrapChar) {
                 pos = { cell: this._colNum - 1, row: pos.row - 1 };
                 this._moveLineLeft(pos);
             }
@@ -64,7 +68,7 @@ export class text {
      * @param pos position to delete
      */
     public deleteRight(pos: pos): pos {
-        if (pos.cell == 0 && this._data[pos.row].data[0].text == '\u2000') {
+        if (pos.cell == 0 && this._data[pos.row].data[0].text == this.lineWrapChar) {
             pos.cell++;
         }
         this._moveLineLeft(pos);
@@ -79,15 +83,15 @@ export class text {
         for (var i = pos.cell; i < this._colNum - 1; i++) {
             this._data[pos.row].data[i].text = this._data[pos.row].data[i + 1].text;
         }
-        if (this._data[pos.row + 1].data[0].text == '\u2000') {
+        if (this._data[pos.row + 1].data[0].text == this.lineWrapChar) {
             this._data[pos.row].data[this._colNum - 1].text = this._data[pos.row + 1].data[1].text;
             this._moveLineLeft({ cell: 1, row: pos.row + 1 });
-            if (this._data[pos.row + 1].data[1].text == '\u2007') {
-                this._data[pos.row + 1].data[0].text = '\u2007';
+            if (this._data[pos.row + 1].data[1].text == this.nullChar) {
+                this._data[pos.row + 1].data[0].text = this.nullChar;
             }
         }
         else {
-            this._data[pos.row].data[this._colNum - 1].text = '\u2007';
+            this._data[pos.row].data[this._colNum - 1].text = this.nullChar;
         }
         var lastSpace = this._getLastSpace(pos.row);
         if (pos.cell > lastSpace.cell) {
@@ -101,7 +105,7 @@ export class text {
      */
     private _getLastSpace(row: number): pos {
         for (var i = this._colNum - 1; i > 0; i--) {
-            if (this._data[row].data[i].text == '\u2007' || this._data[row].data[i].text == '\u00A0') {
+            if (this._data[row].data[i].text == this.nullChar || this._data[row].data[i].text == this.spaceChar) {
                 continue;
             }
             else {
@@ -121,20 +125,55 @@ export class text {
      */
     public write(text, pos: pos, forecolor: string, backcolor: string, isBlinking: boolean = false): pos {
         for (var i = 0, len = text.length; i < len; i++) {
-            this._writeChar(text[i], pos, forecolor, backcolor, isBlinking);
-            if (pos.cell < this._colNum - 1) {
-                pos.cell++;
-            } else {
-                pos.cell = 0;
-                pos.row++;
-                this._writeChar('\u2000', pos, forecolor, backcolor);
-                pos.cell++;
+            var currentChar = this.getNextChars(pos, 1);
+            if (this.isLast) {
+                this.getNextPos(pos, forecolor, backcolor)
             }
+            this._writeChar(text[i], pos, forecolor, backcolor, isBlinking);
+            if (pos.cell == this._colNum - 1) {
+                this.isLast = true;
+            }
+            if (this.isLast && currentChar == this.nullChar) {
+                continue;
+            }
+            this.getNextPos(pos, forecolor, backcolor)
         }
         return pos;
     }
 
 
+    private getNextPos(pos: pos, forecolor, backcolor): pos {
+        if (pos.cell < this._colNum - 1) {
+            pos.cell++;
+        } else {
+            pos.cell = 0;
+            pos.row++;
+            this._writeChar(this.lineWrapChar, pos, forecolor, backcolor);
+            pos.cell++;
+        }
+        return pos
+    }
+
+
+    /**
+     * Insert new line scroll text if required also check for empty line wraped and remove it
+     * @param pos current position
+     */
+    public BreakLine(pos: pos): pos {
+        // check if previous line is wraped but empty
+        if(this.getNextChars({cell: 0, row: pos.row}, 1).charCodeAt(0) == '\u2000'.charCodeAt(0) &&
+            this.getNextChars({cell: 1, row: pos.row}, 1).charCodeAt(0) == '\u2007'.charCodeAt(0)){
+                pos.row--;
+        }
+        if (pos.row + 1 < 25) {
+            pos = { cell: 0, row: pos.row + 1 }
+        }
+        else {
+            this.scrollUp(pos);
+            pos = { cell: 0, row: pos.row + 1 }
+        }
+        return pos
+    }
 
 
     /**
@@ -151,7 +190,7 @@ export class text {
             this._convertFromNullToSpace(endPos, pos);
         }
         if (char == ' ')
-            char = '\u00A0';
+            char = this.spaceChar;
         this._data[pos.row].data[pos.cell].text = char;
         // set text color
         this._data[pos.row].data[pos.cell].backcolor = backcolor;
@@ -170,8 +209,8 @@ export class text {
         for (var y = start.row; y <= end.row; y++) {
             for (var x = start.cell; x <= end.cell; x++) {
                 var text = this._data[y].data[x].text;
-                if (text == '\u2007' || text == '\u2000')
-                    this._data[y].data[x].text = '\u00A0'
+                if (text == this.nullChar || text == this.lineWrapChar)
+                    this._data[y].data[x].text = this.spaceChar
             }
         }
     }
@@ -184,8 +223,8 @@ export class text {
         for (var y = start.row; y <= end.row; y++) {
             for (var x = start.cell; x <= end.cell; x++) {
                 var text = this._data[y].data[x].text;
-                if (text = '\u00A0')
-                    this._data[y].data[x].text = '\u2007'
+                if (text = this.spaceChar)
+                    this._data[y].data[x].text = this.nullChar
             }
         }
     }
@@ -198,7 +237,7 @@ export class text {
     public getStartofLine(row): pos {
         var i;
         for (i = row; i > -1; i--) {
-            if (this._data[i].data[0].text != '\u2000') {
+            if (this._data[i].data[0].text != this.lineWrapChar) {
                 break;
             }
         }
@@ -212,11 +251,11 @@ export class text {
     public getEndofLine(row): pos {
         var i;
         for (i = 0; i < this._colNum; i++) {
-            if (this._data[row].data[i].text == '\u2007') {
+            if (this._data[row].data[i].text == this.nullChar) {
                 break;
             }
             else if (i + 1 == this._colNum) {
-                if (this._data[row + 1].data[0].text == '\u2000') {
+                if (this._data[row + 1].data[0].text == this.lineWrapChar) {
                     var pos = this.getEndofLine(row + 1);
                     i = pos.cell;
                     row = pos.row;
@@ -225,5 +264,85 @@ export class text {
             }
         }
         return { cell: i, row: row };
+    }
+
+    /**
+     * Scroll the console text by one line
+     * @param pos current position
+     */
+    public scrollUp(pos: pos): pos {
+        var nextLine = [];
+        for (var i = 0; i < 25 - 1; i++) {
+            nextLine = this._cloneLine(i + 1);
+            this._replaceLine(nextLine, i);
+        }
+        pos.row--;
+        return pos;
+    }
+
+    /**
+     * Replace Line
+     * @param line New line text in string array
+     * @param lineNum index of line to be replaced
+     */
+    private _replaceLine(line: string[], lineNum: number) {
+        for (var i = 0; i < this._colNum - 1; i++) {
+            this._data[lineNum].data[i].text = line[i];
+        }
+    }
+
+    /**
+     * Copy the txt of given line to a string array
+     * @param row index of line to be copied
+     */
+    private _cloneLine(row: number) {
+        var Line = [];
+        for (var x = 0; x < this._colNum - 1; x++) {
+            var text = this._data[row].data[x].text;
+            Line.push(text);
+        }
+        return Line;
+    }
+
+    /**
+     * Return text of console by given range
+     * @param start start position of range
+     * @param end end position of range
+     */
+    public getTextFromRange(start: pos, end: pos): string {
+        var text = '';
+        for (var y = start.row; y <= end.row; y++) {
+            for (var x = start.cell; x <= end.cell; x++) {
+                text += this._data[y].data[x].text;
+            }
+            text += '\n';
+        }
+        return text;
+    }
+
+    /**
+     * Return n chars from given position
+     * @param pos position to start lokking for
+     * @param length length of chars to get
+     */
+    public getNextChars(pos: pos, length: number): string {
+        var text = '',
+            completed = false;
+
+        for (var y = pos.row; y < 25; y++) {
+            for (var x = pos.cell; x <= this._colNum - 1; x++) {
+                text += this._data[y].data[x].text;
+                length--;
+                if (length == 0) {
+                    completed = true;
+                    break;
+                }
+            }
+            if (completed) {
+                break;
+            }
+            text += '\n';
+        }
+        return text;
     }
 }

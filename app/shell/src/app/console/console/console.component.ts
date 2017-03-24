@@ -26,29 +26,44 @@ export class ConsoleComponent implements OnInit {
   ngOnInit() {
     this.consoleService.initConsoleData(this.colNum);
     this.textData = this.consoleService.TextData;
-    this.consoleService.currentPos;
+    this.consoleService.caret.position;
 
 
+    this.consoleService.write("   Forecolors   Forecolors Blink   Backcolors")
     this.consoleService.insertLine();
+    this.consoleService.write("┌──────┬───────┐┌──────┬───────┐┌──────┬───────┐")
     this.consoleService.insertLine();
-    this.consoleService.write("   oOOOOOOo   OO   oOo   ");
+    this.consoleService.write("│ Code │ Color ││ Code │ Color ││ Code │ Color │")
     this.consoleService.insertLine();
-    this.consoleService.write("  oO      Oo  OO  oOo    ████████");
+    this.consoleService.write("├──────┼───────┤├──────┼───────┤├──────┼───────┤")
     this.consoleService.insertLine();
-    this.consoleService.write("  OO      OO  OO oOo     ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("  OO      OO  OOoOo      ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("  OO      OO  OOOo       ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("  OO      OO  OOoOo      ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("  OO      OO  OO oOo     ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("  oO      Oo  OO  oOo    ████████");
-    this.consoleService.insertLine();
-    this.consoleService.write("   oOOOOOOo   OO   oOo   ████████ ");
-    this.consoleService.insertLine();
+
+    // forecolors
+    for (var i = 0; i < 16; i++) {
+      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
+      this.consoleService.write("██", i);
+      this.consoleService.write("  │");
+      this.consoleService.insertLine();
+    }
+    this.consoleService.write("└──────┴───────┘└──────┴───────┘")
+
+    // blinking forecolors
+    for (var i = 16; i < 32; i++) {
+      this.consoleService.caret.changeLocation({ row: 4 + i - 16, cell: 16 })
+      this.consoleService.write(`│  ${i}  │   `);
+      this.consoleService.write("██", i);
+      this.consoleService.write("  │");
+    }
+
+    // back colors
+    for (var i = 0; i < 8; i++) {
+      this.consoleService.caret.changeLocation({ row: 4 + i, cell: 32 })
+      this.consoleService.write(`│  ${(i < 10) ? '0' + i.toString() : i.toString()}  │   `);
+      this.consoleService.write("  ", 15, i);
+      this.consoleService.write("  │");
+    }
+    this.consoleService.caret.changeLocation({ row: 12, cell: 32 })
+    this.consoleService.write("└──────┴───────┘");
 
     
 
@@ -107,24 +122,24 @@ export class ConsoleComponent implements OnInit {
           break;
 
         case 37: // left
-          this.consoleService.moveCaretLeft();
+          this.consoleService.caret.moveCaretLeft();
           event.preventDefault();
           break;
 
 
         case 38: // up
-          this.consoleService.moveCaretUp();
+          this.consoleService.caret.moveCaretUp();
           event.preventDefault();
           break;
 
         case 39: // right
-          this.consoleService.moveCaretRight();
+          this.consoleService.caret.moveCaretRight();
           event.preventDefault();
           break;
 
 
         case 40: // down
-          this.consoleService.moveCaretDown();
+          this.consoleService.caret.moveCaretDown();
           event.preventDefault();
           break;
 
@@ -154,29 +169,29 @@ export class ConsoleComponent implements OnInit {
     else if (event.shiftKey) {
       switch (keycode) {
         case 35: // end
-          var start = this.consoleService.currentPos;
+          var start = this.consoleService.caret.position;;
           var end = this.consoleService.moveCaretToEnd();
           this.consoleService.highlightRange(start, end);
           event.preventDefault();
           break;
 
         case 36: // home
-          var end = this.consoleService.currentPos;
+          var end = this.consoleService.caret.position;;
           var start = this.consoleService.moveCaretToHome();
           this.consoleService.highlightRange(start, end);
           event.preventDefault();
           break;
 
         case 37: // left
-          var end = this.consoleService.currentPos;
-          var start = this.consoleService.moveCaretLeft();
+          var end = this.consoleService.caret.position;;
+          var start = this.consoleService.caret.moveCaretLeft();
           this.consoleService.highlightRange(start, end);
           event.preventDefault();
           break;
 
         case 39: // right
-          var start = this.consoleService.currentPos;
-          var end = this.consoleService.moveCaretRight();;
+          var start = this.consoleService.caret.position;;
+          var end = this.consoleService.caret.moveCaretRight();;
           this.consoleService.highlightRange(start, end);
           event.preventDefault();
           break;
