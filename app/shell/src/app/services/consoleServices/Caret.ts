@@ -50,6 +50,9 @@ export class caret {
      * Moves caret to right
      */
     public moveCaretRight(): pos {
+        if(this.position.cell ==this._colNum-1 && this.position.row == 24){
+            return this.position;
+        }
         if (this.position.cell  < this._colNum-1)
             this.position.cell++;
         else
@@ -61,6 +64,9 @@ export class caret {
      * Moves caret to left
      */
     public moveCaretLeft(): pos {
+        if(this.position.cell ==0 && this.position.row == 0){
+            return this.position;
+        }
         if (this.position.cell > 0)
             this.position.cell--;
         else
