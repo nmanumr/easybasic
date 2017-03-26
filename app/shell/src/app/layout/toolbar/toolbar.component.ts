@@ -19,18 +19,28 @@ export class ToolbarComponent implements OnInit {
   }
 
   public addfiles() {
-    
+
   }
 
   public addfolder() {
-    
+
   }
 
   public select(type: 'a' | 'i' | 'n') {
-    
+    switch (type) {
+      case 'a':
+        this.consoleService.TextData = this.consoleService.selections.selectAll(this.consoleService.TextData);
+        break;
+      case 'i':
+        this.consoleService.TextData = this.consoleService.selections.selectInverse(this.consoleService.TextData);
+        break;
+      case 'n':
+        this.consoleService.TextData = this.consoleService.selections.selectNone(this.consoleService.TextData);
+        break;
+    }
   }
 
   public delete() {
-    
+
   }
 }
