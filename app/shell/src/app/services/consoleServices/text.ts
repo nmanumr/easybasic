@@ -22,6 +22,10 @@ export class text {
         for (var y = 0; y < 25; y++) {
             for (var x = 0; x < this._colNum; x++) {
                 this._data[y].data[x].text = this.nullChar;
+                this._data[y].data[x].backcolor = '#000'
+                this._data[y].data[x].forecolor = '#fff'
+                this._data[y].data[x].isHighlighted = false
+                this._data[y].data[x].isBlinkingColor = false
             }
         }
     }
@@ -127,7 +131,7 @@ export class text {
         for (var i = 0, len = text.length; i < len; i++) {
             var currentChar = this.getNextChars(pos, 1);
             if (this.isLast) {
-                this.getNextPos(pos, forecolor, backcolor)
+                pos = this.getNextPos(pos, forecolor, backcolor)
             }
             this._writeChar(text[i], pos, forecolor, backcolor, isBlinking);
             if (pos.cell == this._colNum - 1) {
@@ -136,7 +140,7 @@ export class text {
             if (this.isLast && currentChar == this.nullChar) {
                 continue;
             }
-            this.getNextPos(pos, forecolor, backcolor)
+            pos = this.getNextPos(pos, forecolor, backcolor)
         }
         return pos;
     }
@@ -146,10 +150,21 @@ export class text {
         if (pos.cell < this._colNum - 1) {
             pos.cell++;
         } else {
-            pos.cell = 0;
-            pos.row++;
+            if (pos.row == 24) {
+                pos = this.scrollUp(pos);
+                pos.cell = 0;
+                pos.row++;
+                this._writeChar(this.lineWrapChar, pos, forecolor, backcolor);
+                pos.cell++;
+            }
+            else {
+                pos.cell = 0;
+                pos.row++;
+            }
             this._writeChar(this.lineWrapChar, pos, forecolor, backcolor);
             pos.cell++;
+
+            this.isLast = false;
         }
         return pos
     }
@@ -161,9 +176,9 @@ export class text {
      */
     public BreakLine(pos: pos): pos {
         // check if previous line is wraped but empty
-        if(this.getNextChars({cell: 0, row: pos.row}, 1).charCodeAt(0) == '\u2000'.charCodeAt(0) &&
-            this.getNextChars({cell: 1, row: pos.row}, 1).charCodeAt(0) == '\u2007'.charCodeAt(0)){
-                pos.row--;
+        if (this.getNextChars({ cell: 0, row: pos.row }, 1).charCodeAt(0) == '\u2000'.charCodeAt(0) &&
+            this.getNextChars({ cell: 1, row: pos.row }, 1).charCodeAt(0) == '\u2007'.charCodeAt(0)) {
+            pos.row--;
         }
         if (pos.row + 1 < 25) {
             pos = { cell: 0, row: pos.row + 1 }
@@ -266,6 +281,33 @@ export class text {
         return { cell: i, row: row };
     }
 
+    public getEndOfWord(pos: pos): pos {
+        var letters = /[a-z0-9]/i;
+        var found = false, i, j;
+
+        for (i = pos.row; i < 25; i++) {
+            for (j = (i == pos.row) ? pos.cell : 0; j < this._colNum; j++) {
+                var text = this._data[i].data[j].text;
+                if (text == this.lineWrapChar) {
+                    continue;
+                }
+                var matchedPos = text.search(letters);
+                if ((matchedPos == -1)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+        return { cell: j, row: i };
+    }
+
+    public getStartOfWord(pos: pos): pos {
+        return null;
+    }
+
     /**
      * Scroll the console text by one line
      * @param pos current position
@@ -277,7 +319,18 @@ export class text {
             this._replaceLine(nextLine, i);
         }
         pos.row--;
+        this.cleanLine(24);
         return pos;
+    }
+
+    private cleanLine(lineNum: number){
+        for(var cell of this._data[lineNum].data){
+            cell.text = this.nullChar;
+            cell.forecolor = '#fff';
+            cell.backcolor = '#000';
+            cell.isBlinkingColor = false;
+            cell.isHighlighted = false;
+        }
     }
 
     /**
@@ -285,9 +338,13 @@ export class text {
      * @param line New line text in string array
      * @param lineNum index of line to be replaced
      */
-    private _replaceLine(line: string[], lineNum: number) {
-        for (var i = 0; i < this._colNum - 1; i++) {
-            this._data[lineNum].data[i].text = line[i];
+    private _replaceLine(line, lineNum: number) {
+        for (var i = 0; i < this._colNum; i++) {
+            this._data[lineNum].data[i].text = line[i].text;
+            this._data[lineNum].data[i].backcolor = line[i].backcolor;
+            this._data[lineNum].data[i].forecolor = line[i].forecolor;
+            this._data[lineNum].data[i].isBlinkingColor = line[i].isBlinkingColor;
+            this._data[lineNum].data[i].isHighlighted = line[i].isHighlighted;
         }
     }
 
@@ -297,9 +354,14 @@ export class text {
      */
     private _cloneLine(row: number) {
         var Line = [];
-        for (var x = 0; x < this._colNum - 1; x++) {
-            var text = this._data[row].data[x].text;
-            Line.push(text);
+        for (var x = 0; x < this._colNum; x++) {
+            Line.push({
+                text: this._data[row].data[x].text,
+                backcolor: this._data[row].data[x].backcolor,
+                forecolor: this._data[row].data[x].forecolor,
+                isHighlighted: this._data[row].data[x].isHighlighted,
+                isBlinkingColor: this._data[row].data[x].isBlinkingColor
+            });
         }
         return Line;
     }
