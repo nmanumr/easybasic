@@ -9,6 +9,10 @@ export class selection {
         this._colNum = colNum;
     }
 
+    /**
+     * Return Text data with all the cells marked as selected
+     * @param text Text data of console
+     */
     public selectAll(text: row[]): row[] {
         for (var row of text) {
             for (var cell of row.data) {
@@ -18,6 +22,10 @@ export class selection {
         return text;
     }
 
+    /**
+     * Return Text data with all the cells marked as deselected
+     * @param text Text data of console
+     */
     public selectNone(text: row[]): row[] {
         for (var row of text) {
             for (var cell of row.data) {
@@ -27,6 +35,10 @@ export class selection {
         return text;
     }
 
+    /**
+     * Return Text data with inversed selection
+     * @param text Text data of console
+     */
     public selectInverse(text: row[]): row[] {
         for (var row of text) {
             for (var cell of row.data) {
@@ -36,13 +48,22 @@ export class selection {
         return text;
     }
 
+    /**
+     * Return Text data with selected a specific range
+     * @param text Text data of console
+     * @param start Start position of selection
+     * @param end Ending position of selection
+     */
     public selectRange(text: row[], start: pos, end: pos): row[] {
         var cellStart = (start.cell < end.cell) ? start.cell : end.cell,
             cellEnd = (start.cell > end.cell) ? start.cell : end.cell,
             rowStart = (start.row < end.row) ? start.row : end.row,
-            rowEnd = (start.row > end.row) ? start.row : end.row;
+            rowEnd = (start.row > end.row) ? start.row : end.row,
+            ranges = [{ start: { cell: cellStart, row: rowStart }, end: { cell: cellEnd, row: rowEnd } }];
 
-        var ranges = this.splitRange({ cell: cellStart, row: rowStart }, { cell: cellEnd, row: rowEnd });
+        if (rowStart != rowEnd) {
+            ranges = this.splitRange({ cell: cellStart, row: rowStart }, { cell: cellEnd, row: rowEnd });
+        }
 
         for (var range of ranges) {
             for (var y = range.start.row; y <= range.end.row; y++) {
@@ -55,7 +76,12 @@ export class selection {
         return text;
     }
 
-    private splitRange(start: pos, end: pos): range[] {
+    /**
+     * Break range from new line and return new ranges
+     * @param start start of range
+     * @param end end of range
+     */
+    public splitRange(start: pos, end: pos): range[] {
         var ranges = [],
             rowStart = (start.row < end.row) ? start.row : end.row,
             rowEnd = (start.row > end.row) ? start.row : end.row;
@@ -68,16 +94,53 @@ export class selection {
         return ranges;
     }
 
-    public selectWord() {
-
+    /**
+     * Return selected text of text
+     * @param text console text data
+     */
+    public getSelectedText(text:row[]){
+        var selectedRange = this.getSelection(text),
+            startRow = selectedRange[0].start.row,
+            endRow= selectedRange[0].end.row,
+            outString = "";
+        
+        if(startRow != endRow){
+            selectedRange = this.splitRange(selectedRange[0].start, selectedRange[0].end);
+        }
+        console.log(selectedRange);
+        for (var line of selectedRange) {
+            for (var y = line.start.cell; y < line.end.cell; y++) {
+                outString +=text[line.start.row].data[y].text
+            }
+            outString += "\n";
+        }
+        return outString;
     }
 
-    public selectLine() {
+    /**
+     * Return a range of selections
+     * @param text Console Text data
+     */
+    public getSelection(text: row[]): range[]{
+        var start: pos, end: pos, started: boolean =false, found=false;
 
-    }
-
-    public getSelectionText() {
-
+        for (var row of text) {
+            for (var cell of row.data) {
+                if(cell.isHighlighted && !started){
+                    started = true;
+                    start = {cell: cell.id, row: row.id}
+                }
+                else if(!cell.isHighlighted && started){
+                    end = {cell: cell.id, row: row.id}
+                    found = true;
+                    break;
+                }
+            }
+            if(found){
+                break;
+            }
+        }
+        return [{start: start, end: end}]
     }
 }
 

@@ -1,6 +1,6 @@
 import { ConsoleService, pos } from './../../services/console.service';
 import { row, cell } from './../../services/consoleCell';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'console',
@@ -16,9 +16,12 @@ export class ConsoleComponent implements OnInit {
   @Input('rows') rowNum: number;
   @Input('cols') colNum: 40 | 80;
   @Input('caretText') caretText: string;
+  @ViewChild('copytextarea') copytextarea: any;
 
 
   textData: row[];
+  shiftPressed: boolean = false;
+  selectionStartIndex: pos;
 
 
   constructor(private consoleService: ConsoleService) { }
@@ -65,10 +68,20 @@ export class ConsoleComponent implements OnInit {
     this.consoleService.caret.changeLocation({ row: 12, cell: 32 })
     this.consoleService.write("└──────┴───────┘");
 
-    
+
 
 
     //this.consoleService.toggleCaret();
+  }
+
+  selectWord(pos: pos) {
+    var endPosition = this.consoleService.text.getEndOfWord(pos);
+    var startPosition = this.consoleService.text.getStartOfWord(pos);
+    this.consoleService.TextData = this.consoleService.selections.selectRange(this.consoleService.TextData, startPosition, endPosition);
+  }
+
+  deselectAll(pos: pos, e?) {
+    this.consoleService.TextData = this.consoleService.selections.selectNone(this.consoleService.TextData);
   }
 
   getBackcolor(pos: pos) {
@@ -107,56 +120,137 @@ export class ConsoleComponent implements OnInit {
   }
 
   moveCaret(event: KeyboardEvent) {
-
     var keycode = event.which;
-    if (!event.ctrlKey && !event.altKey && !event.shiftKey) {
+
+    if ((keycode == 67) && event.ctrlKey) { // Ctrl+C
+      var text = this.consoleService.selections.copySelectedText(this.consoleService.TextData);
+      let _copytextarea = this.copytextarea.nativeElement;
+      _copytextarea.value = text;
+      _copytextarea.select();
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+    }
+
+    if ( (keycode == 46 ||  keycode == 8) && this.consoleService.selections.getSelection(this.consoleService.TextData)[0].start){
+      this.consoleService.deleteSelected();
+    }
+
+    if (event.shiftKey && !this.shiftPressed) {
+      this.shiftPressed = true;
+      this.selectionStartIndex = JSON.parse(JSON.stringify(this.consoleService.caret.position));
+    }
+    else if (!event.shiftKey && this.shiftPressed) {
+      this.shiftPressed = false;
+    }
+    this.consoleService.TextData = this.consoleService.selections.selectNone(this.consoleService.TextData);
+
+    if (!event.ctrlKey && !event.altKey) {
       switch (keycode) {
         case 35: // end
           this.consoleService.moveCaretToEnd();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
         case 36: // home
           this.consoleService.moveCaretToHome();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.consoleService.caret.position,
+              this.selectionStartIndex
+            );
+          }
           event.preventDefault();
           break;
 
         case 37: // left
           this.consoleService.caret.moveCaretLeft();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
 
         case 38: // up
           this.consoleService.caret.moveCaretUp();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
         case 39: // right
           this.consoleService.caret.moveCaretRight();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
 
         case 40: // down
           this.consoleService.caret.moveCaretDown();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.consoleService.caret.position,
+              this.selectionStartIndex
+            );
+          }
           event.preventDefault();
           break;
 
         case 8: // backspace
           this.consoleService.deleteLeft();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
         case 46: // delete
           this.consoleService.deleteRight();
+          if (this.shiftPressed) {
+            this.consoleService.TextData = this.consoleService.selections.selectRange(
+              this.consoleService.TextData,
+              this.selectionStartIndex,
+              this.consoleService.caret.position
+            );
+          }
           event.preventDefault();
           break;
 
         default:
           break;
       }
-      this.consoleService.dehighlightAll();
 
     }
 
@@ -166,48 +260,13 @@ export class ConsoleComponent implements OnInit {
       return;
     }
 
-    else if (event.shiftKey) {
-      switch (keycode) {
-        case 35: // end
-          var start = this.consoleService.caret.position;;
-          var end = this.consoleService.moveCaretToEnd();
-          this.consoleService.highlightRange(start, end);
-          event.preventDefault();
-          break;
-
-        case 36: // home
-          var end = this.consoleService.caret.position;;
-          var start = this.consoleService.moveCaretToHome();
-          this.consoleService.highlightRange(start, end);
-          event.preventDefault();
-          break;
-
-        case 37: // left
-          var end = this.consoleService.caret.position;;
-          var start = this.consoleService.caret.moveCaretLeft();
-          this.consoleService.highlightRange(start, end);
-          event.preventDefault();
-          break;
-
-        case 39: // right
-          var start = this.consoleService.caret.position;;
-          var end = this.consoleService.caret.moveCaretRight();;
-          this.consoleService.highlightRange(start, end);
-          event.preventDefault();
-          break;
-
-        default:
-          break;
-      }
-    }
-
     else if ((keycode == 39) && event.ctrlKey) { // Ctrl+Right
-      this.consoleService.moveCaretToEndOfChar();
+      this.consoleService.moveCaretToNextChar();
       event.preventDefault();
       return;
     }
     else if ((keycode == 37) && event.ctrlKey) { // Ctrl+left
-      this.consoleService.moveCaretToStartOfChar();
+      this.consoleService.moveCaretToPreviousChar();
       event.preventDefault();
       return;
     }

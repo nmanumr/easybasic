@@ -13,8 +13,9 @@ export class ConsoleService {
     // /r : \u2000
 
     private _colors: basicColors;
-    private _text: text;
+    public text: text;
     public caret: caret;
+    public selections: selection;
 
     TextData: row[] = [];
     rowNum: number;
@@ -25,6 +26,7 @@ export class ConsoleService {
     initConsoleData(colNum: 40 | 80): void {
         this._colors = new basicColors('text');
         this.caret = new caret('block', colNum);
+        this.selections = new selection(colNum);
 
         for (var y = 0; y < 25; y++) {
 
@@ -47,7 +49,7 @@ export class ConsoleService {
 
         this.colNum = colNum;
         this.rowNum = 25;
-        this._text = new text(this.TextData, this.colNum)
+        this.text = new text(this.TextData, this.colNum)
     }
 
 
@@ -60,43 +62,43 @@ export class ConsoleService {
     write(text, forecolor: number = 15, backcolor: number = 0) {
         var foreground = this._colors.getForecolor(forecolor);
         var background = this._colors.getBackcolor(backcolor);
-        var pos = this._text.write(text, this.caret.position, foreground.color, background, foreground.isBlinking);
+        var pos = this.text.write(text, this.caret.position, foreground.color, background, foreground.isBlinking);
         this.caret.position = pos;
     }
 
     clearScreen() {
-        this._text.clearText();
+        this.text.clearText();
         this.caret.position = { cell: 0, row: 0 };
     }
 
     deleteLeft() {
-        this.caret.position = this._text.deleteLeft(this.caret.position);
+        this.caret.position = this.text.deleteLeft(this.caret.position);
     }
 
     deleteRight() {
-        this.caret.position = this._text.deleteRight(this.caret.position);
+        this.caret.position = this.text.deleteRight(this.caret.position);
     }
 
     insertLine() {
-        var start = this._text.getStartofLine(this.caret.position.row);
-        var end = this._text.getEndofLine(this.caret.position.row);
-        var text = this._text.getTextFromRange(start, end);
+        var start = this.text.getStartofLine(this.caret.position.row);
+        var end = this.text.getEndofLine(this.caret.position.row);
+        var text = this.text.getTextFromRange(start, end);
         //console.log(text);
 
-        this.caret.position = this._text.BreakLine(this.caret.position);
+        this.caret.position = this.text.BreakLine(this.caret.position);
     }
 
 
 
     moveCaretToHome(): pos {
-        this.caret.position = this._text.getStartofLine(this.caret.position.row);
+        this.caret.position = this.text.getStartofLine(this.caret.position.row);
         return this.caret.position;
     }
     moveCaretToEnd(): pos {
-        this.caret.position = this._text.getEndofLine(this.caret.position.row);
+        this.caret.position = this.text.getEndofLine(this.caret.position.row);
         return this.caret.position;
     }
-    moveCaretToEndOfChar(): pos {
+    moveCaretToNextChar(): pos {
         var letters = /[a-z0-9]/i;
         var charEnded = false, i, j;
 
@@ -125,7 +127,7 @@ export class ConsoleService {
         }
         return this.caret.position;
     }
-    moveCaretToStartOfChar(): pos {
+    moveCaretToPreviousChar(): pos {
         var x = this.caret.position.cell - 1, y, charEnded, found;
         for (y = this.caret.position.row; y > -1; y--) {
             for (x; x > 0; x--) {
@@ -150,23 +152,24 @@ export class ConsoleService {
         return this.caret.position;
     }
 
+    deleteSelected() {
+        var selectedRange = this.selections.getSelection(this.TextData),
+            startRow = selectedRange[0].start.row,
+            endRow= selectedRange[0].end.row;
+        
+         if(startRow != endRow){
+            selectedRange = this.selections.splitRange(selectedRange[0].start, selectedRange[0].end);
+        }
 
-
-    highlightRange(start: pos, end: pos) {
-        for (var y = start.row; y <= end.row; y++) {
-            for (var x = start.cell; x <= end.cell; x++) {
-                this.TextData[y].data[x].isHighlighted = true;
+        for(var line of selectedRange){
+            var i = line.start.cell;
+            while(i != line.end.cell+1){
+                this.text.deleteLeft({cell: line.start.cell, row: line.start.row});
+                i++;
             }
         }
     }
 
-    dehighlightAll() {
-        for (var y = 0; y <= this.rowNum - 1; y++) {
-            for (var x = 0; x <= this.colNum - 1; x++) {
-                this.TextData[y].data[x].isHighlighted = false;
-            }
-        }
-    }
 }
 
 export class pos {

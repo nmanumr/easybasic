@@ -6,12 +6,16 @@
                 <td *ngFor="let cell of row.data" [id]="'col-'+cell.id"
                     [style.color]='getForecolor({row:row.id, cell: cell.id})'
                     [style.background]='getBackcolor({row:row.id, cell: cell.id})'
-                    [style.padding.px]="'0'">
-                    <span [ngClass]="{'blink': cell.isBlinkingColor }">{{ cell.text }}</span>
-                    <span class="cursor" *ngIf="this.consoleService.caret.isVisible && this.consoleService.caret.position.cell == cell.id && this.consoleService.caret.position.row == row.id">{{ caretText }}</span>
+                    [style.padding.px]="'0'" (dblclick)="selectWord({row:row.id, cell: cell.id})"
+                    (click)="deselectAll({row:row.id, cell: cell.id}, $event)"
+                    (dragstart)="alert('started')">
+                    <span style="cursor:text" [ngClass]="{'blink': cell.isBlinkingColor }">{{ cell.text }}</span>
+                    <span style="cursor:text" class="cursor" *ngIf="this.consoleService.caret.isVisible && this.consoleService.caret.position.cell == cell.id && this.consoleService.caret.position.row == row.id">{{ caretText }}</span>
                 </td>
             </tr>
 
         </tbody>
     </table>
+
+    <textarea #copytextarea></textarea>
 </div>

@@ -86,9 +86,15 @@ export class text {
     private _moveLineLeft(pos: pos) {
         for (var i = pos.cell; i < this._colNum - 1; i++) {
             this._data[pos.row].data[i].text = this._data[pos.row].data[i + 1].text;
+            this._data[pos.row].data[i].forecolor = this._data[pos.row].data[i + 1].forecolor;
+            this._data[pos.row].data[i].backcolor = this._data[pos.row].data[i + 1].backcolor;
+            this._data[pos.row].data[i].isBlinkingColor = this._data[pos.row].data[i + 1].isBlinkingColor;
         }
         if (this._data[pos.row + 1].data[0].text == this.lineWrapChar) {
             this._data[pos.row].data[this._colNum - 1].text = this._data[pos.row + 1].data[1].text;
+            this._data[pos.row].data[this._colNum - 1].forecolor = this._data[pos.row + 1].data[1].forecolor;
+            this._data[pos.row].data[this._colNum - 1].backcolor = this._data[pos.row + 1].data[1].backcolor;
+            this._data[pos.row].data[this._colNum - 1].isBlinkingColor = this._data[pos.row + 1].data[1].isBlinkingColor;
             this._moveLineLeft({ cell: 1, row: pos.row + 1 });
             if (this._data[pos.row + 1].data[1].text == this.nullChar) {
                 this._data[pos.row + 1].data[0].text = this.nullChar;
@@ -301,11 +307,30 @@ export class text {
                 break;
             }
         }
-        return { cell: j, row: i };
+        return { cell: j-1, row: i };
     }
 
     public getStartOfWord(pos: pos): pos {
-        return null;
+         var letters = /[a-z0-9]/i;
+        var found = false, i, j;
+
+        for (i = pos.row; i < 25; i--) {
+            for (j = (i == pos.row) ? pos.cell : this._colNum-1; j < this._colNum; j--) {
+                var text = this._data[i].data[j].text;
+                if (text == this.lineWrapChar) {
+                    continue;
+                }
+                var matchedPos = text.search(letters);
+                if ((matchedPos == -1)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+        return { cell: j+1, row: i };
     }
 
     /**
