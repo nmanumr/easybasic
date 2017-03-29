@@ -96,6 +96,19 @@ export class ConsoleComponent implements OnInit {
       : this.consoleService.TextData[pos.row].data[pos.cell].forecolor;
   }
 
+  copySelection() {
+    var text = this.consoleService.selections.getSelectedText(this.consoleService.TextData);
+    let _copytextarea = this.copytextarea.nativeElement;
+    _copytextarea.value = text;
+    _copytextarea.select();
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+  }
+
   handleKeyboardEvents(event: KeyboardEvent) {
     var keycode = event.keyCode;
     var charCode = event.charCode;
@@ -123,19 +136,23 @@ export class ConsoleComponent implements OnInit {
     var keycode = event.which;
 
     if ((keycode == 67) && event.ctrlKey) { // Ctrl+C
-      var text = this.consoleService.selections.copySelectedText(this.consoleService.TextData);
-      let _copytextarea = this.copytextarea.nativeElement;
-      _copytextarea.value = text;
-      _copytextarea.select();
-      try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-      } catch (err) {
-        console.log('Oops, unable to copy');
+      this.copySelection();
+    }
+    else if ((keycode == 88) && event.ctrlKey) { // Ctrl+X
+      this.copySelection();
+      if (this.consoleService.selections.getSelection(this.consoleService.TextData)[0].start) {
+        this.consoleService.deleteSelected();
       }
     }
-
-    if ( (keycode == 46 ||  keycode == 8) && this.consoleService.selections.getSelection(this.consoleService.TextData)[0].start){
+    else if((keycode == 86) && event.ctrlKey){ // CTRL + V
+      let _copytextarea = this.copytextarea.nativeElement;
+      _copytextarea.focus();
+      _copytextarea.select();
+      document.execCommand('Paste');
+      this.consoleService.write(_copytextarea.value);
+    }
+    else if ((keycode == 46 || keycode == 8) && this.consoleService.selections.getSelection(this.consoleService.TextData)[0].start) {
+      //delete seletion
       this.consoleService.deleteSelected();
     }
 
