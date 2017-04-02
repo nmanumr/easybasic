@@ -1,9 +1,10 @@
 import { selection } from './consoleServices/selection';
 import { caret } from './consoleServices/Caret';
+import { Drawings } from './consoleServices/drawing';
 import { text } from './consoleServices/text';
 import { basicColors } from './consoleServices/colors';
 import { row, cell } from './consoleCell';
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable()
 export class ConsoleService {
@@ -16,6 +17,7 @@ export class ConsoleService {
     public text: text;
     public caret: caret;
     public selections: selection;
+    public drawing: Drawings;
 
     TextData: row[] = [];
     rowNum: number;
@@ -23,10 +25,11 @@ export class ConsoleService {
 
     constructor() { }
 
-    initConsoleData(colNum: 40 | 80): void {
+    initConsoleData(colNum: 40 | 80, canvas: ElementRef): void {
         this._colors = new basicColors('text');
         this.caret = new caret('block', colNum);
         this.selections = new selection(colNum);
+        this.drawing = new Drawings(canvas, colNum, 'cga')
 
         for (var y = 0; y < 25; y++) {
 

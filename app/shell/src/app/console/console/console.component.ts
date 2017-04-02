@@ -17,6 +17,8 @@ export class ConsoleComponent implements OnInit {
   @Input('cols') colNum: 40 | 80;
   @Input('caretText') caretText: string;
   @ViewChild('copytextarea') copytextarea: any;
+  @ViewChild('drawingCanvas') drawingCanvas: ElementRef;
+  
 
 
   textData: row[];
@@ -27,7 +29,8 @@ export class ConsoleComponent implements OnInit {
   constructor(private consoleService: ConsoleService) { }
 
   ngOnInit() {
-    this.consoleService.initConsoleData(this.colNum);
+    let drawingCanvas: ElementRef = this.drawingCanvas;
+    this.consoleService.initConsoleData(this.colNum, drawingCanvas);
     this.textData = this.consoleService.TextData;
     this.consoleService.caret.position;
 
@@ -135,16 +138,16 @@ export class ConsoleComponent implements OnInit {
   moveCaret(event: KeyboardEvent) {
     var keycode = event.which;
 
-    if ((keycode == 67) && event.ctrlKey) { // Ctrl+C
+    if ((keycode == 67) && event.ctrlKey && !event.shiftKey) { // Ctrl+C
       this.copySelection();
     }
-    else if ((keycode == 88) && event.ctrlKey) { // Ctrl+X
+    else if ((keycode == 88) && event.ctrlKey && !event.shiftKey) { // Ctrl+X
       this.copySelection();
       if (this.consoleService.selections.getSelection(this.consoleService.TextData)[0].start) {
         this.consoleService.deleteSelected();
       }
     }
-    else if((keycode == 86) && event.ctrlKey){ // CTRL + V
+    else if((keycode == 86) && event.ctrlKey && !event.shiftKey){ // CTRL + V
       let _copytextarea = this.copytextarea.nativeElement;
       _copytextarea.focus();
       _copytextarea.select();

@@ -1,6 +1,6 @@
 <div>
     <table>
-        <tbody>
+        <tbody #consoleTable>
 
             <tr *ngFor="let row of textData" [id]="'line-'+row.id">
                 <td *ngFor="let cell of row.data" [id]="'col-'+cell.id"
@@ -16,6 +16,6 @@
 
         </tbody>
     </table>
-
+    <canvas [style.width.px]="textData[0].data.length * 8.075" #drawingCanvas></canvas>
     <textarea #copytextarea></textarea>
 </div>

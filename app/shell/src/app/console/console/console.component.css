@@ -49,3 +49,9 @@ td:first-child {
   97%  { opacity: 0 }
   100% { opacity: 1 }
 }
+canvas{
+    position: absolute;
+    height: 375px;
+    pointer-events: none;
+    background: #333;
+}
