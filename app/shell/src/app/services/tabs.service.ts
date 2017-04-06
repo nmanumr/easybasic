@@ -24,7 +24,6 @@ export class TabsService {
 
         this.lastActive = activeObject;
 
-
       activeObject['active'] = false;
     }
     var object = this.tabs[this.tabs.indexOf(tab)];

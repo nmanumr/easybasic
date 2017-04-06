@@ -42,12 +42,11 @@ export class TabsComponent implements OnInit {
   }
 
   changeTabTitle(text, tab){
-    console.log(text);
 
   }
 
   tabChanged(event){
-    console.log(event.index);
+
   }
 
 }

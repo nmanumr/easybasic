@@ -1,4 +1,6 @@
 import { ElementRef } from "@angular/core";
+import * as utils from "app/services/consoleServices/utils";
+
 
 export class Drawings {
 
@@ -13,12 +15,16 @@ export class Drawings {
         this._canvas.nativeElement.height = resolution[1]
         this.canvasContext = this._canvas.nativeElement.getContext('2d');
         this.canvasContext.imageSmoothingEnabled = false;
-        this.line({ xCord: 1, yCord: 1 }, { xCord: 637, yCord: 100 }, "#fff", null, null, 10); // line
-        this.line({ xCord: 0, yCord: 200 }, { xCord: 640, yCord: 100 }, "#fff"); // line
-        this.circle(0, { xCord: 57, yCord: 100 }, 50, "#fff", 0, Math.PI); // upper arc
-        this.circle(0, { xCord: 165, yCord: 100 }, 50, "#fff", Math.PI, 2 * Math.PI); // lower arc
-        this.circle(0, { xCord: 265, yCord: 100 }, 50, "#fff", 0, 2 * Math.PI, 2.5); // verticle arc
-        this.circle(0, { xCord: 365, yCord: 100 }, 50, "#fff", 0, 2 * Math.PI, 0.1); // horizontal arc
+
+        //this.paint({ xCord: 0, yCord: 0 }, "#fff", "#333", "Ç@ ►◘♦☻", null, "Ç@ ►◘♦☻");
+
+        //this.getUntil(1,639,1,this.hexToRgb("#000"));
+        // this.line({ xCord: 1, yCord: 1 }, { xCord: 637, yCord: 100 }, "#fff", null, null, 10); // line
+        // this.line({ xCord: 0, yCord: 200 }, { xCord: 640, yCord: 100 }, "#fff"); // line
+        // this.circle(0, { xCord: 57, yCord: 100 }, 50, "#fff", 0, Math.PI); // upper arc
+        // this.circle(0, { xCord: 165, yCord: 100 }, 50, "#fff", Math.PI, 2 * Math.PI); // lower arc
+        // this.circle(0, { xCord: 265, yCord: 100 }, 50, "#fff", 0, 2 * Math.PI, 2.5); // verticle arc
+        // this.circle(0, { xCord: 365, yCord: 100 }, 50, "#fff", 0, 2 * Math.PI, 0.1); // horizontal arc
     }
 
     private getResolution(screen: 'text' | 'cga' | 'ega', colnum: 40 | 80) {
@@ -32,22 +38,141 @@ export class Drawings {
         }
     }
 
+    ////////////
+    // PAINT //
+    ///////////
+
+    public paint(initPoint: Point, c: string, border?: string, pattren?: string, step?: number, background?: string) {
+        this.floodFill(initPoint, c, pattren, this.hexToRgb(border), background)
+    }
+
+    private floodFill(startPoint: Point, c: string, pattern: string = null, border: Color, background: string) {
+        var isSolid = (pattern == null)
+        var tile, back;
+        if (!isSolid) {
+            tile = (pattern) ? utils.buildCgaTiles(utils.toByteArray(pattern)) : null;
+            back = (pattern) ? utils.buildCgaTiles(utils.toByteArray(background)) : null;
+        }
+        else {
+            tile = [utils.repeatArray([c], 8)]
+        }
+
+        var boundx0 = 1, boundx1 = this.resolution[0],
+            boundy0 = 1, boundy1 = this.resolution[1];
+        var x = startPoint.xCord + 1, y = startPoint.yCord + 1;
+        var line_seed = [[x, x, y, 0]]
+        // paint nothing if seed is out of bounds
+        if (x < boundx0 || x > boundx1 || y < boundy0 || y > boundy1) {
+            return;
+        }
+        // paint nothing if we start on border attrib
+        if (this.getPixelColor(x, y) == border) {
+            return;
+        }
+        while (line_seed.length > 0) {
+            // consider next interval
+            var ydir = line_seed[0].pop(),
+                y = line_seed[0].pop(),
+                xStop = line_seed[0].pop(),
+                xStart = line_seed[0].pop();
+            line_seed.pop();
+
+            // extend interval as far as it goes to left and right
+            var xLeft = xStart - this.getUntil(xStart - 1, boundx0 - 1, y, border).length
+            var xRight = xStop + this.getUntil(xStop + 1, boundx1 + 1, y, border).length;
+
+            // check next scanlines and add intervals to the list
+            if (ydir == 0) {
+                if (y + 1 <= boundy1) {
+                    line_seed = this.checkScanLine(line_seed, xLeft, xRight, y + 1, c, tile, back, border, 1)
+                }
+                if (y - 1 >= boundy0) {
+                    line_seed = this.checkScanLine(line_seed, xLeft, xRight, y - 1, c, tile, back, border, -1)
+                }
+            }
+            else {
+                // check the same interval one scanline onward in the same direction
+                if (y + ydir <= boundy1 && y + ydir >= boundy0) {
+                    line_seed = this.checkScanLine(line_seed, xLeft, xRight, y + ydir, c, tile, back, border, ydir)
+                }
+                // check any bit of the interval that was extended one scanline backward
+                // this is where the flood fill goes around corners.
+                if (y - ydir <= boundy1 && y - ydir >= boundy0) {
+                    line_seed = this.checkScanLine(line_seed, xLeft, xStart - 1, y - ydir, c, tile, back, border, -ydir)
+                    line_seed = this.checkScanLine(line_seed, xStop + 1, xRight, y - ydir, c, tile, back, border, -ydir)
+                }
+            }
+
+            if (line_seed[0][0] == undefined) {
+                break;
+                //line_seed.shift();
+            }
+            // draw the pixels for the current interval
+            if (isSolid)
+                this._drawBoxFilled({ xCord: xLeft, yCord: y }, { xCord: xRight, yCord: y }, tile[0][0]);
+            else {
+                this.drawTile(tile);
+            //     var interval: (1|0)[] = this.tile_to_interval(xLeft, xRight, y, tile).splice(0,640);
+            //     var colorInterval = this.intervalToColor(interval, this.hexToRgb(c));
+            //     //this.drawPixel(xLeft, y, this.hexToRgb("#fff"));
+            //     this.put_interval(xLeft, y, colorInterval);
+            }
+            // allow interrupting the paint
+            // if y% 4 == 0:
+            //     self.input_methods.wait()
+        }
+    }
+
+    private checkScanLine(line_seed, x_start, x_stop, y, c, tile, back, border, ydir) {
+        if (x_stop < x_start)
+            return line_seed
+        var x_start_next = x_start
+        var x_stop_next = x_start_next - 1
+        var rtile = tile[y % tile.length]
+        if (back)
+            var rback = back[y % back.length]
+        var x = x_start
+        while (x <= x_stop) {
+            // scan horizontally until border colour found, then append interval & continue scanning
+            var pattern = this.getUntil(x, x_stop + 1, y, border)
+            x_stop_next = x + pattern.length - 1
+            x = x_stop_next + 1
+            // never match zero pattern (special case)
+            var has_same_pattern = (rtile != utils.repeatArray([0], 8))
+            for (var pat_x of utils.range(0, pattern.length)) {
+                if (!has_same_pattern)
+                    break
+                var tile_x = (x_start_next + pat_x) % 8
+                has_same_pattern = has_same_pattern && (pattern[pat_x] == rtile[tile_x])
+                has_same_pattern = has_same_pattern && (!back || pattern[pat_x] != rback[tile_x])
+            }
+            // we've reached a border colour, append our interval & start a new one
+            // don't append if same fill colour/pattern, to avoid infinite loops over bits already painted (eg. 00 shape)
+            if (x_stop_next >= x_start_next && !has_same_pattern)
+                line_seed.push([x_start_next, x_stop_next, y, ydir])
+            x_start_next = x + 1
+            x += 1
+        }
+        return line_seed
+
+    }
+
     ///////////////////
     // Pset & Preset //
     ///////////////////
 
     /** PSET: set a pixel to a given attribute, or foreground */
-    private pset(point: Point, color: string = "#fff", step?:number){
+    private pset(point: Point, color: string = "#fff", step?: number) {
         this._psetPreset(point, this.hexToRgb(color), step)
     }
 
     /** PRESET: set a pixel to a given attribute, or background */
-    private preset(point: Point, color: string = "#000", step?:number){
+    private preset(point: Point, color: string = "#000", step?: number) {
         this._psetPreset(point, this.hexToRgb(color), step)
     }
 
     /** Set a pixel to a given attribute */
-    private _psetPreset(point: Point, color: Color, step?: number){
+    private _psetPreset(point: Point, color: Color, step?: number) {
         // TODO: handle step
         this.drawPixel(point.xCord, point.yCord, color);
     }
@@ -60,7 +185,7 @@ export class Drawings {
     /** CIRCLE: circle, ellipse, sectors */
     public circle(step: number = 0, midPoint: Point, radius: number, color: string = "#fff", start?: number, end?: number, aspect?: number) {
         if (start > 2 * Math.PI || end > 2 * Math.PI) {
-            console.error("Overflow: start and end must be inside the range 0 - 6.28(2π)")
+            console.error("Overflow: start and end must be inside the utils.range 0 - 6.28(2π)")
             return;
         }
         var rx, ry;
@@ -113,9 +238,9 @@ export class Drawings {
         if (oct0 == -1)
             hide_oct = [];
         else if (oct0 < oct1 || oct0 == oct1 && this._octantGte(oct0, coo1, coo0))
-            hide_oct = this.range(0, oct0).concat(this.range(oct1 + 1, 8));
+            hide_oct = utils.range(0, oct0).concat(utils.range(oct1 + 1, 8));
         else
-            hide_oct = this.range(oct1 + 1, oct0);
+            hide_oct = utils.range(oct1 + 1, oct0);
 
 
         var x = radius,
@@ -123,7 +248,7 @@ export class Drawings {
             bres_error = 1 - radius;
 
         while (x >= y) {
-            for (var octant of this.range(0, 8)) {
+            for (var octant of utils.range(0, 8)) {
                 if (hide_oct.indexOf(octant) != -1) {
                     continue;
                 }
@@ -228,11 +353,11 @@ export class Drawings {
         var sx = (stopPoint.xCord > startPoint.yCord) ? 1 : -1,
             sy = (stopPoint.yCord > startPoint.yCord) ? 1 : -1,
             mask = 0x8000,
-            line_error = xDistance /2,
+            line_error = xDistance / 2,
             x = startPoint.xCord,
             y = startPoint.yCord;
 
-        for (var x of this.range(startPoint.xCord, stopPoint.xCord + sx, sx)) {
+        for (var x of utils.range(startPoint.xCord, stopPoint.xCord + sx, sx)) {
             if ((pattern & mask) != 0) {
                 if (steep) {
                     this.drawPixel(y, x, color);
@@ -312,7 +437,7 @@ export class Drawings {
         }
 
         var step = (point1 > point0) ? 1 : -1;
-        for (var point of this.range(point0, point1 + step, step)) {
+        for (var point of utils.range(point0, point1 + step, step)) {
             if ((pattern & mask) != 0) {
                 if (direction == 'x')
                     this.drawPixel(point, q, color);
@@ -359,8 +484,13 @@ export class Drawings {
         return result ? {
             red: parseInt(result[1], 16),
             green: parseInt(result[2], 16),
-            blue: parseInt(result[3], 16)
+            blue: parseInt(result[3], 16),
+            isVisible: true
         } : null;
+    }
+
+    private rgbaToHex(color: Color) {
+        return "#" + color.red.toString(16) + color.green.toString(16) + color.blue.toString(16);
     }
 
     /**
@@ -385,37 +515,7 @@ export class Drawings {
         }
     }
 
-    /**
-     * Return a array of numbers
-     * @param from first element of array
-     * @param to last element of array
-     */
-    private range(fromNum: number, toNum: number, step: number = 1): number[] {
-        if (!isFinite(fromNum) || toNum !== undefined &&
-            !isFinite(toNum) || !isFinite(step))
-            throw ('Wrong number value!');
 
-        if (typeof toNum === 'undefined') {
-            toNum = fromNum, fromNum = 0
-        }
-
-        if (step === 0) {
-            throw ('Step should not be 0');
-        }
-        else if (step === 1) {
-            fromNum > toNum && (step = -step);
-        }
-        else if (fromNum > toNum && step > 0 || fromNum < toNum && step < 0) {
-            return [];
-        }
-
-        let ln = Math.ceil(Math.abs((toNum - fromNum) / step)), i = 0;
-        let range = new Array(ln);
-
-        for (; i < ln; i++) range[i] = fromNum + step * i;
-
-        return range;
-    }
 
     /**
      * Return symmetrically reflected coordinates for a given pair
@@ -498,7 +598,7 @@ export class Drawings {
             comp += Math.PI / 4;
             octant += 1;
             if (octant >= 8) {
-                console.log('Invalid function call', f);
+                console.error('Invalid function call', f);
                 // Invalid function call
                 return;
             }
@@ -509,6 +609,123 @@ export class Drawings {
             coord = Math.abs(Math.floor(Math.round(rx * Math.cos(f))))
         }
         return [octant, coord, neg]
+    }
+
+    private getPixelColor(x: number, y: number): Color {
+        var color = this.canvasContext.getImageData(x, y, 1, 1).data;
+        return {
+            red: color[0],
+            green: color[1],
+            blue: color[2],
+            isVisible: color[3] == 0
+        }
+    }
+
+    private getUntil(x0: number, x1: number, y: number, color: Color): any[] {
+
+        if (x0 == x1)
+            return [];
+
+        var imgdata = this.canvasContext.getImageData(x0, y, x1, y).data;
+
+        var toright = x1 > x0;
+        if (toright) {
+            x0 = [x1 + 1, x1 = x0 + 1][0];
+        }
+
+        var index = 0;
+        try {
+            var x = x0
+            for (var pixel of imgdata) {
+                var curentPixelColor = this.getPixelColor(x, y);
+                if (curentPixelColor.red == color.red &&
+                    curentPixelColor.green == color.green &&
+                    curentPixelColor.blue == color.blue) {
+                    index = x;
+                }
+                x++;
+            }
+        } catch (ValueError) {
+            index = x1 - x0;
+        }
+        return this.flatenCanvasData(this.canvasContext.getImageData(x0, y, x0 + index, y).data);
+    }
+
+    private flatenCanvasData(data: number[]) {
+        if (data.length <= 0) {
+            return [];
+        }
+        var flatData = [];
+        for (var i = 0; i < data.length; i += 4) {
+            var color = {
+                red: data[i],
+                green: data[i + 1],
+                blue: data[i + 2],
+                isVisible: data[1 + 3] == 0
+            }
+            flatData.push(this.rgbaToHex(color));
+        }
+        return flatData;
+    }
+
+    /** Convert a tile to a list of attributes */
+    private tile_to_interval(x0, x1, y, tile) {
+        var dx = x1 - x0 + 1
+        var h = tile.length
+        var w = tile[0].length
+
+        var result = [];
+        for (var x of utils.range(x0, x1 + 1)) {
+            result.push(tile[y % h][x % 8])
+        }
+        return result;
+
+    }
+
+    /** Write a list of attributes to a scanline interval */
+    private put_interval(x, y, colours: Color[], mask = 0xff) {
+
+        var inv_mask = 0xff ^ mask;
+        var imgdata = this.canvasContext.getImageData(x, y, colours.length, y);
+        var j = 0;
+        for (var i = 0; i < imgdata.data.length; i += 4) {
+            if(colours[j] == undefined){
+                break;
+            }
+            imgdata.data[i] = colours[j].red
+            imgdata.data[i + 1] = colours[j].green
+            imgdata.data[i + 2] = colours[j].blue
+            imgdata.data[i + 3] = (colours[j].isVisible) ? 255 : 0;
+            j++;
+        }
+
+        this.canvasContext.putImageData(imgdata, x, y);
+
+        //     self.buffer[y][x:x+len(colours)] = [(c & mask) |
+        //                                     (self.buffer[y][x+i] & inv_mask)
+        //                                     for i,c in enumerate(colours)]
+        // return self.buffer[y][x:x+len(colours)]
+    }
+
+    private intervalToColor(interval: (1 | 0)[], color: Color) {
+        var colorInterval: Color[] = [];
+        for (var x of interval) {
+            if (x != 0) {
+                colorInterval.push(color);
+            }
+            else {
+                colorInterval.push({
+                        red: 0,
+                        green: 0,
+                        blue: 0,
+                        isVisible: false
+                    })
+            }
+        }
+        return colorInterval;
+    }
+
+    private drawTile(tile){
     }
 }
 
@@ -523,4 +740,5 @@ export class Color {
     red: number;
     green: number;
     blue: number;
+    isVisible: boolean;
 }

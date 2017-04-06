@@ -2,20 +2,21 @@
     <table>
         <tbody #consoleTable>
 
-            <tr *ngFor="let row of textData" [id]="'line-'+row.id">
+            <tr *ngFor="let row of text.data" [id]="'line-'+row.id">
                 <td *ngFor="let cell of row.data" [id]="'col-'+cell.id"
                     [style.color]='getForecolor({row:row.id, cell: cell.id})'
+                    [style.padding.px]="'0'"
                     [style.background]='getBackcolor({row:row.id, cell: cell.id})'
-                    [style.padding.px]="'0'" (dblclick)="selectWord({row:row.id, cell: cell.id})"
-                    (click)="deselectAll({row:row.id, cell: cell.id}, $event)"
                     (dragstart)="alert('started')">
                     <span style="cursor:text" [ngClass]="{'blink': cell.isBlinkingColor }">{{ cell.text }}</span>
-                    <span style="cursor:text" class="cursor" *ngIf="this.consoleService.caret.isVisible && this.consoleService.caret.position.cell == cell.id && this.consoleService.caret.position.row == row.id">{{ caretText }}</span>
+                    <span style="cursor:text" class="cursor" *ngIf="caret.isVisible && caret.position.cell == cell.id && caret.position.row == row.id">{{ caretText }}</span>
                 </td>
             </tr>
 
         </tbody>
     </table>
-    <canvas [style.width.px]="textData[0].data.length * 8.075" #drawingCanvas></canvas>
+    <canvas [style.width.px]="text.data[0].data.length * 8.075" #drawingCanvas></canvas>
     <textarea #copytextarea></textarea>
 </div>
+                    <!-- (dblclick)="selectWord({row:row.id, cell: cell.id})"
+                    (click)="deselectAll({row:row.id, cell: cell.id}, $event)"-->

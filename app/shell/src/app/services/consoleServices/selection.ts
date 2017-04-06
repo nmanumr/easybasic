@@ -1,6 +1,6 @@
 import { pos } from 'app/services/console.service';
 import { row, cell } from './../consoleCell';
-export class selection {
+export class Selection {
 
     private _colNum: number;
     public selectionStartIndex: pos;
@@ -107,7 +107,6 @@ export class selection {
         if(startRow != endRow){
             selectedRange = this.splitRange(selectedRange[0].start, selectedRange[0].end);
         }
-        console.log(selectedRange);
         for (var line of selectedRange) {
             for (var y = line.start.cell; y < line.end.cell; y++) {
                 outString +=text[line.start.row].data[y].text
