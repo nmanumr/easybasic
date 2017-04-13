@@ -9,8 +9,8 @@ export function CLSParser(scanner: Scanner, Console: Console): CLSStatement {
     var pos = scanner.stream.pos();
     var region = scanner.scan().text;
 
-    if(Constants.decimalDigits.indexOf(region.charCodeAt(0))> -1){
-        switch(region){
+    if (Constants.decimalDigits.indexOf(region.charCodeAt(0)) > -1) {
+        switch (region) {
             case "0":
                 cls.parameters.region = "whole";
                 break;
@@ -25,10 +25,13 @@ export function CLSParser(scanner: Scanner, Console: Console): CLSStatement {
                 break;
         }
     }
-    else{
-        scanner.stream.pos(pos);
-        scanner.scanTilEndofStatement();
+    else if(region[0] == '"'){
+
     }
+    else {
+        scanner.stream.pos(pos);
+    }
+    scanner.scanTilEndofStatement();
     console.log(cls);
     return cls;
 }

@@ -42,10 +42,9 @@ body {
     font-weight: 100;
     src: url(./assets/fonts/Roboto-Light.ttf) format('truetype');
 }
-
 @font-face {
-    font-family: freedos;
-    src: url(./assets/fonts/freedos_16.woff);
+  font-family: 'Inconsolata';
+  src: url("./assets/fonts/Inconsolata-Regular.ttf") format('ttf');
 }
 
 .material-icons {

@@ -1,3 +1,35 @@
+export const namedOperators = [
+    'mod',
+    'not',
+    'and',
+    'or',
+    'xor',
+    'eqv',
+    'imp'
+]
+
+export const doubleLengthOperators = [
+    '==',
+    '><',
+    '<>',
+    '<=',
+    '>=',
+    '=<',
+    '=>',
+]
+
+export const singleCharOperators = [
+    '+',
+    '-',
+    '=',
+    '/',
+    '\\',
+    '^',
+    '*',
+    '<',
+    '>',
+]
+
 export const octalDigits: number[] = [
     "0".charCodeAt(0),
     "1".charCodeAt(0),
@@ -13,6 +45,19 @@ export const decimalDigits: number[] = [
     "8".charCodeAt(0),
     "9".charCodeAt(0),
 ].concat(octalDigits)
+
+export const deciamlLiterals: number[] =[
+    ".".charCodeAt(0),
+    "E".charCodeAt(0),
+    "e".charCodeAt(0),
+    "d".charCodeAt(0),
+    "D".charCodeAt(0),
+    "+".charCodeAt(0),
+    "-".charCodeAt(0),
+    "#".charCodeAt(0),
+    "!".charCodeAt(0),
+    "%".charCodeAt(0)
+].concat(decimalDigits)
 
 export const hexaDigits: number[] = [
     "A".charCodeAt(0), "a".charCodeAt(0),
@@ -32,7 +77,10 @@ export const operators: number[] = [
     '^'.charCodeAt(0),
     '*'.charCodeAt(0),
     '<'.charCodeAt(0),
-    '>'.charCodeAt(0)
+    '>'.charCodeAt(0),
+    "~".charCodeAt(0),
+    "|".charCodeAt(0),
+    "&".charCodeAt(0)
 ]
 
 export const letters: number[] = [
@@ -64,7 +112,7 @@ export const letters: number[] = [
     'Z'.charCodeAt(0), 'z'.charCodeAt(0)
 ]
 
-export const expressionDelimiter : number[] =[
+export const expressionDelimiter: number[] = [
     "(".charCodeAt(0), ")".charCodeAt(0),
     "{".charCodeAt(0), "}".charCodeAt(0),
     "[".charCodeAt(0), "]".charCodeAt(0),
@@ -94,7 +142,7 @@ export const expressionTerminator: number[] = [
     ';'.charCodeAt(0)
 ].concat(lineTerminator)
 
-export const wordTerminator: number[]=[
+export const wordTerminator: number[] = [
     " ".charCodeAt(0),
     "!".charCodeAt(0),
     "#".charCodeAt(0),

@@ -44,10 +44,14 @@ export class Scanner {
 	public stream: StreamReader;
 	public lineStarted = true;
 
-	private console:Console
+	private console: Console
 
-	constructor(console){
+	constructor(console) {
 		this.console = console;
+	}
+
+	public pos(index: number = this.stream.pos()) {
+		return this.stream.pos(index);
 	}
 
 	public setSource(input: string): void {
@@ -115,9 +119,8 @@ export class Scanner {
 			}
 
 			// Number
-			else if (token == _AMP || token == _DOT || Constants.decimalDigits.indexOf(token) > -1) {
-				var number = this.readNumber();
-				return this.finishToken(offset, TokenType.Number, number);
+			else if (this.readNumber()) {
+				return this.finishToken(offset, TokenType.Number);
 			}
 
 			// Operators
@@ -126,13 +129,13 @@ export class Scanner {
 			}
 
 			// expression delimiter
-			else if (Constants.expressionDelimiter.indexOf(token)> -1) {
+			else if (Constants.expressionDelimiter.indexOf(token) > -1) {
 				this.stream.advance(1);
 				return this.finishToken(offset, TokenType.Delim);
 			}
 
 			// Statement lineTerminator
-			else if (token == ":".charCodeAt(0)){
+			else if (token == ":".charCodeAt(0)) {
 				this.stream.advance(1);
 				return this.finishToken(offset, TokenType.StatementTerminator);
 			}
@@ -153,14 +156,18 @@ export class Scanner {
 		}
 	}
 
-	public scanTilEndofStatement(){
+	public scanTilEndofStatement(): string {
+		var string = "", token, previousToken;
 		while (true) {
-			var token = this.stream.peekChar();
+			token = this.stream.peekChar();
 			if (Constants.statementTerminators.indexOf(token) > -1) {
 				break;
 			}
+			string += String.fromCharCode(token);
+			previousToken = token;
 			this.stream.advance(1);
 		}
+		return string;
 	}
 
 	private readKeyword(): string {
@@ -179,11 +186,10 @@ export class Scanner {
 		return word;
 	}
 
-	public readNumber(): string {
+	public readNumber(): boolean {
 		var token = this.stream.peekChar();
-		var number = "";
 		if (token == -1)
-			return;
+			return false;
 
 		if (token == _AMP) {
 			this.stream.advance(1);
@@ -192,64 +198,63 @@ export class Scanner {
 			this.stream.advance(1);
 			if (token == _H || token == _h) {
 				// read hexa number
-				number += this.readHexa();
+				this.readHexa();
+				return true; // because &h is also number
 			}
 			else if (token == _O || token == _o) {
 				// read octal number
-				number += this.readOctal();
+				this.readOctal();
+				return true; // because &o is also number
+			}
+			else {
+				this.stream.goBack(2);
+				return false
 			}
 		}
-		else if (Constants.decimalDigits.indexOf(token) > -1 ||
-			token == _DOT || token == _PLS || token == _MIN) {
-			number += this.readDecimal();
+		else if (Constants.deciamlLiterals.indexOf(token) > -1) {
+			this.readDecimal();
+			return true;
 		}
-		else {
-			this.stream.goBack(1);
-		}
-		return number;
+		
+		return false;
 	}
 
-	private readDecimal(): string {
-		var number = "";
+	private readDecimal() {
 		while (true) {
 			var token = this.stream.peekChar();
-			if (Constants.decimalDigits.indexOf(token) > -1) {
+			if (Constants.deciamlLiterals.indexOf(token) > -1) {
 				this.stream.advance(1);
-				number += String.fromCharCode(token);
 			}
 			else {
 				break;
 			}
 		}
-		return number;
 	}
 
-	private readHexa(): string {
-		var number = "&H";
+	private readHexa() {
+
 		while (true) {
 			var token = this.stream.peekChar();
-			if (Constants.hexaDigits.indexOf(token) > -1) {
-				number += String.fromCharCode(token);
-			}
-			else {
+			if (Constants.hexaDigits.indexOf(token) > -1)
+				this.stream.advance(1);
+
+			else
 				break;
-			}
+
 		}
-		return number;
 	}
 
-	private readOctal(): string {
-		var number = "&o";
+	private readOctal() {
+
 		while (true) {
 			var token = this.stream.peekChar();
 			if (Constants.octalDigits.indexOf(token) > -1) {
-				number += String.fromCharCode(token);
+				this.stream.advance(1);
 			}
 			else {
 				break;
 			}
 		}
-		return number;
 	}
 
 	public readString(): string {
@@ -280,11 +285,7 @@ export class Scanner {
 
 	private _isOperator(): boolean {
 		var token = this.stream.peekChar();
-		if (Constants.operators.indexOf(token) > -1) {
-			this.stream.advance(1);
-			return true;
-		}
-		else if (this.stream.advanceIfChars([_EQL, _LES]) || // =<
+		if (this.stream.advanceIfChars([_EQL, _LES]) || // =<
 			this.stream.advanceIfChars([_EQL, _GRT]) || // =>
 			this.stream.advanceIfChars([_LES, _GRT]) || // <>
 			this.stream.advanceIfChars([_GRT, _LES]) || // ><
@@ -303,6 +304,10 @@ export class Scanner {
 			this.stream.advanceIfChars([_E, _Q, _V]) ||
 			this.stream.advanceIfChars([_I, _M, _P])) {
 			// Triple Char Operator
+			return true;
+		}
+		else if (Constants.operators.indexOf(token) > -1) {
+			this.stream.advance(1);
 			return true;
 		}
 		return false;
@@ -340,6 +345,6 @@ export enum TokenType {
 	EOL = 29,
 	Sigil = 18,
 	Operator = 19,
-	StatementTerminator= 6,
+	StatementTerminator = 6,
 	CustomToken = 28,
 }

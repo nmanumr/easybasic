@@ -1,8 +1,11 @@
+/// <reference path="./../../../../../../node_modules/@types/mathjs/index.d.ts" />
+import { ExpressionParser } from './ExpressionParser';
 import { Console } from './../../Console';
 import * as Tokens from './Tokens';
 import * as Definitions from './Definitions';
 import { TokenType, Scanner, IToken } from './Scanner';
 import { StatementParser } from "app/services/consoleServices/Interpreter/Parser/Statements/Parser";
+declare var math;
 
 
 export class Parser {
@@ -10,14 +13,15 @@ export class Parser {
     private console: Console;
     public token: IToken;
     public prevToken: IToken;
-
     private lastErrorToken: IToken;
+    private expressionParse: ExpressionParser;
 
     constructor(console) {
         this.console = console;
         this.scanner = new Scanner(this.console);
         this.token = null;
         this.prevToken = null;
+        this.expressionParse = new ExpressionParser(console);
     }
 
 
@@ -75,7 +79,11 @@ export class Parser {
             this.console.text.BreakLine();
         }
 
-        statement.parameters.value = this.scanner.scan().text;
+        statement.parameters.value =  this.parseExpression(this.scanner.scanTilEndofStatement());
+        console.log(statement.parameters.value);
+    }
 
+    private parseExpression(expr: string){
+        console.log(this.expressionParse.toJsExpression(expr));
     }
 }

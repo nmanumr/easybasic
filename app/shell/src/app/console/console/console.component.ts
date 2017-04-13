@@ -2,7 +2,7 @@ import { Text } from './../../services/consoleServices/text';
 import { Sessions } from './../../services/consoleServices/session';
 import { ConsoleService, pos } from './../../services/console.service';
 import { row, cell } from './../../services/consoleCell';
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, Output } from '@angular/core';
 
 @Component({
   selector: 'console',

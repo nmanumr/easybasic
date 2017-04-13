@@ -1,6 +1,6 @@
 export class StreamReader {
 
-	private source: string;
+	public source: string;
 	private len: number;
 	private position: number;
 
