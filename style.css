@@ -115,3 +115,7 @@ footer a:hover{
 .mdl-mega-footer__link-list li{
     padding-bottom: 5px;
 }
+
+.img-responsive{
+    box-shadow: 0 0 7px rgba(0,0,0,.3)
+}
