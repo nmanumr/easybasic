@@ -1,0 +1,1 @@
+Easybasic shell console have 

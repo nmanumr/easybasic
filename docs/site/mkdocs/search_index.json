@@ -1,0 +1,139 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\n1\n2\n3\n4\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-mkdocs", 
+            "text": "For full documentation visit  mkdocs.org .", 
+            "title": "Welcome to MkDocs"
+        }, 
+        {
+            "location": "/#commands", 
+            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/#project-layout", 
+            "text": "1\n2\n3\n4 mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Project layout"
+        }, 
+        {
+            "location": "/shell/Layout/", 
+            "text": "Layout of Easybasic shell is much more different from GwBasic and PcBasic. Unlike these, Easybasic shell have proper GUI by following All \nMaterial Design Guidlines\n. It have following objects:\n\n\n1. Title bar\n\n\nTitle bar in Easybasic is customized and have just only control button and window title. Control button icons are not material design icons due to lack of these icon, but overall title bar seems to follow material design guidlines.\nMaximize and resizing functionality is still missing.\n\n\n2. Toolbar\n\n\nToolbar contain frequently used actions like clear screen copy text select text and much more. All the Toolbar icons are Material design icons and Toolbar also follow material design guidlines.\n\n\n3. Tabbar\n\n\nEasybasic also supports multiple console sessions at a time. You can easily switch between these sessions by using these tab. At least, one tab must be opened in a window. Close button is only available for when there are more than two tab opened. This bar also implements material design and uses angular material tab component.\n\n\n4. Console\n\n\nConsole is the main component any key pressed while focusing any element on the app it is automatically listened by console. Unlike, Gwbasic \n Pcbasic it has only two moods text mood and graphics mood (not too much screens). It is Colored by default and no monochrome support. All the colors are implemented same as Gwbasic \n Pcbasic. It has 25 rows and 40 or 80 cell. Text mode is presented by Tables and graphical mood is presented by html 5 canvas.\n\n\n5. Status bar\n\n\nStatus bar is the bottom most bar of layout it displays information about current caret position current work in progress and much more", 
+            "title": "Layout"
+        }, 
+        {
+            "location": "/shell/Layout/#1-title-bar", 
+            "text": "Title bar in Easybasic is customized and have just only control button and window title. Control button icons are not material design icons due to lack of these icon, but overall title bar seems to follow material design guidlines.\nMaximize and resizing functionality is still missing.", 
+            "title": "1. Title bar"
+        }, 
+        {
+            "location": "/shell/Layout/#2-toolbar", 
+            "text": "Toolbar contain frequently used actions like clear screen copy text select text and much more. All the Toolbar icons are Material design icons and Toolbar also follow material design guidlines.", 
+            "title": "2. Toolbar"
+        }, 
+        {
+            "location": "/shell/Layout/#3-tabbar", 
+            "text": "Easybasic also supports multiple console sessions at a time. You can easily switch between these sessions by using these tab. At least, one tab must be opened in a window. Close button is only available for when there are more than two tab opened. This bar also implements material design and uses angular material tab component.", 
+            "title": "3. Tabbar"
+        }, 
+        {
+            "location": "/shell/Layout/#4-console", 
+            "text": "Console is the main component any key pressed while focusing any element on the app it is automatically listened by console. Unlike, Gwbasic   Pcbasic it has only two moods text mood and graphics mood (not too much screens). It is Colored by default and no monochrome support. All the colors are implemented same as Gwbasic   Pcbasic. It has 25 rows and 40 or 80 cell. Text mode is presented by Tables and graphical mood is presented by html 5 canvas.", 
+            "title": "4. Console"
+        }, 
+        {
+            "location": "/shell/Layout/#5-status-bar", 
+            "text": "Status bar is the bottom most bar of layout it displays information about current caret position current work in progress and much more", 
+            "title": "5. Status bar"
+        }, 
+        {
+            "location": "/shell/colors/", 
+            "text": "Easybasic shell supports all the color of gwbasic. It have total 100 colors:\n\n\n\n\n24 text mood colors\n\n\n12 CGA mood colors\n\n\n64 EGA mood colors\n\n\n\n\nText Mood\n\n\nText mood have 8 background and 16 foreground colors. No monochrome color support.\n\n\nForeground Colors (Normal):\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nBlue\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nGreen\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n04\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n05\n\n\nMagenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n06\n\n\nBrown\n\n\n\u2588\u2588\n\n\n\n\n\n\n07\n\n\nLight Gray\n\n\n\u2588\u2588\n\n\n\n\n\n\n08\n\n\nGray\n\n\n\u2588\u2588\n\n\n\n\n\n\n09\n\n\nLight Blue\n\n\n\u2588\u2588\n\n\n\n\n\n\n10\n\n\nLight Green\n\n\n\u2588\u2588\n\n\n\n\n\n\n11\n\n\nLight Cyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n12\n\n\nLight Red\n\n\n\u2588\u2588\n\n\n\n\n\n\n13\n\n\nLight Magenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n14\n\n\nLight Yellow\n\n\n\u2588\u2588\n\n\n\n\n\n\n15\n\n\nWhite\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nForeground Colors (Blinking):\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n16\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n17\n\n\nBlue\n\n\n\u2588\u2588\n\n\n\n\n\n\n18\n\n\nGreen\n\n\n\u2588\u2588\n\n\n\n\n\n\n19\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n20\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n21\n\n\nMagenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n22\n\n\nBrown\n\n\n\u2588\u2588\n\n\n\n\n\n\n23\n\n\nLight Gray\n\n\n\u2588\u2588\n\n\n\n\n\n\n24\n\n\nGray\n\n\n\u2588\u2588\n\n\n\n\n\n\n25\n\n\nLight Blue\n\n\n\u2588\u2588\n\n\n\n\n\n\n26\n\n\nLight Green\n\n\n\u2588\u2588\n\n\n\n\n\n\n27\n\n\nLight Cyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n28\n\n\nLight Red\n\n\n\u2588\u2588\n\n\n\n\n\n\n29\n\n\nLight Magenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n30\n\n\nLight Yellow\n\n\n\u2588\u2588\n\n\n\n\n\n\n31\n\n\nWhite\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nBackground Colors:\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nBlue\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nGreen\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n04\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n05\n\n\nMagenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n06\n\n\nBrown\n\n\n\u2588\u2588\n\n\n\n\n\n\n07\n\n\nLight Gray\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nCGA Mood\n\n\nCGA Mood have 12 colors 3 palettes and 4 colors in each palette. No hi and low intensity color support.\n\n\nPalette 0\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nGreen\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nBrown\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nPalette 1\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nMagenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nWhite\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nAlt Palette\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nWhite\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nEGA Mood\n\n\nEGA Maood have total 64 colors but only 16 colors can be used as current palette. There is a default palette of 16 colors in which colors can be changed.\n\n\nDefault Palette\n\n\n\n\n\n\n\n\nColor Code\n\n\nColor Name\n\n\nPreview\n\n\n\n\n\n\n\n\n\n\n00\n\n\nBlack\n\n\n\u2588\u2588\n\n\n\n\n\n\n01\n\n\nBlue\n\n\n\u2588\u2588\n\n\n\n\n\n\n02\n\n\nGreen\n\n\n\u2588\u2588\n\n\n\n\n\n\n03\n\n\nCyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n04\n\n\nRed\n\n\n\u2588\u2588\n\n\n\n\n\n\n05\n\n\nMagenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n06\n\n\nBrown\n\n\n\u2588\u2588\n\n\n\n\n\n\n07\n\n\nLight Gray\n\n\n\u2588\u2588\n\n\n\n\n\n\n08\n\n\nGray\n\n\n\u2588\u2588\n\n\n\n\n\n\n09\n\n\nLight Blue\n\n\n\u2588\u2588\n\n\n\n\n\n\n10\n\n\nLight Green\n\n\n\u2588\u2588\n\n\n\n\n\n\n11\n\n\nLight Cyan\n\n\n\u2588\u2588\n\n\n\n\n\n\n12\n\n\nLight Red\n\n\n\u2588\u2588\n\n\n\n\n\n\n13\n\n\nLight Magenta\n\n\n\u2588\u2588\n\n\n\n\n\n\n14\n\n\nLight Yellow\n\n\n\u2588\u2588\n\n\n\n\n\n\n15\n\n\nWhite\n\n\n\u2588\u2588\n\n\n\n\n\n\n\n\nAll Colors\n\n\n\n    \n\n        \n0\n\n        \n\n        \n8\n\n        \n\n        \n16\n\n        \n\n        \n24\n\n        \n\n        \n32\n\n        \n\n        \n40\n\n        \n\n        \n48\n\n        \n\n        \n56\n\n        \n\n    \n\n    \n\n        \n1\n\n        \n\n        \n9\n\n        \n\n        \n17\n\n        \n\n        \n25\n\n        \n\n        \n33\n\n        \n\n        \n41\n\n        \n\n        \n49\n\n        \n\n        \n57\n\n        \n\n    \n\n    \n\n        \n2\n\n        \n\n        \n10\n\n        \n\n        \n18\n\n        \n\n        \n26\n\n        \n\n        \n34\n\n        \n\n        \n42\n\n        \n\n        \n50\n\n        \n\n        \n58\n\n        \n\n    \n\n    \n\n        \n3\n\n        \n\n        \n11\n\n        \n\n        \n19\n\n        \n\n        \n27\n\n        \n\n        \n35\n\n        \n\n        \n43\n\n        \n\n        \n51\n\n        \n\n        \n59\n\n        \n\n    \n\n    \n\n        \n4\n\n        \n\n        \n12\n\n        \n\n        \n20\n\n        \n\n        \n28\n\n        \n\n        \n36\n\n        \n\n        \n44\n\n        \n\n        \n52\n\n        \n\n        \n60\n\n        \n\n    \n\n    \n\n        \n5\n\n        \n\n        \n13\n\n        \n\n        \n21\n\n        \n\n        \n29\n\n        \n\n        \n37\n\n        \n\n        \n45\n\n        \n\n        \n53\n\n        \n\n        \n61\n\n        \n\n    \n\n    \n\n        \n6\n\n        \n\n        \n14\n\n        \n\n        \n22\n\n        \n\n        \n30\n\n        \n\n        \n38\n\n        \n\n        \n46\n\n        \n\n        \n54\n\n        \n\n        \n62\n\n        \n\n    \n\n    \n\n        \n7\n\n        \n\n        \n15\n\n        \n\n        \n23\n\n        \n\n        \n31\n\n        \n\n        \n39\n\n        \n\n        \n47\n\n        \n\n        \n55\n\n        \n\n        \n63", 
+            "title": "Colors"
+        }, 
+        {
+            "location": "/shell/colors/#text-mood", 
+            "text": "Text mood have 8 background and 16 foreground colors. No monochrome color support.", 
+            "title": "Text Mood"
+        }, 
+        {
+            "location": "/shell/colors/#foreground-colors-normal", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Blue  \u2588\u2588    02  Green  \u2588\u2588    03  Cyan  \u2588\u2588    04  Red  \u2588\u2588    05  Magenta  \u2588\u2588    06  Brown  \u2588\u2588    07  Light Gray  \u2588\u2588    08  Gray  \u2588\u2588    09  Light Blue  \u2588\u2588    10  Light Green  \u2588\u2588    11  Light Cyan  \u2588\u2588    12  Light Red  \u2588\u2588    13  Light Magenta  \u2588\u2588    14  Light Yellow  \u2588\u2588    15  White  \u2588\u2588", 
+            "title": "Foreground Colors (Normal):"
+        }, 
+        {
+            "location": "/shell/colors/#foreground-colors-blinking", 
+            "text": "Color Code  Color Name  Preview      16  Black  \u2588\u2588    17  Blue  \u2588\u2588    18  Green  \u2588\u2588    19  Cyan  \u2588\u2588    20  Red  \u2588\u2588    21  Magenta  \u2588\u2588    22  Brown  \u2588\u2588    23  Light Gray  \u2588\u2588    24  Gray  \u2588\u2588    25  Light Blue  \u2588\u2588    26  Light Green  \u2588\u2588    27  Light Cyan  \u2588\u2588    28  Light Red  \u2588\u2588    29  Light Magenta  \u2588\u2588    30  Light Yellow  \u2588\u2588    31  White  \u2588\u2588", 
+            "title": "Foreground Colors (Blinking):"
+        }, 
+        {
+            "location": "/shell/colors/#background-colors", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Blue  \u2588\u2588    02  Green  \u2588\u2588    03  Cyan  \u2588\u2588    04  Red  \u2588\u2588    05  Magenta  \u2588\u2588    06  Brown  \u2588\u2588    07  Light Gray  \u2588\u2588", 
+            "title": "Background Colors:"
+        }, 
+        {
+            "location": "/shell/colors/#cga-mood", 
+            "text": "CGA Mood have 12 colors 3 palettes and 4 colors in each palette. No hi and low intensity color support.", 
+            "title": "CGA Mood"
+        }, 
+        {
+            "location": "/shell/colors/#palette-0", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Green  \u2588\u2588    02  Red  \u2588\u2588    03  Brown  \u2588\u2588", 
+            "title": "Palette 0"
+        }, 
+        {
+            "location": "/shell/colors/#palette-1", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Cyan  \u2588\u2588    02  Magenta  \u2588\u2588    03  White  \u2588\u2588", 
+            "title": "Palette 1"
+        }, 
+        {
+            "location": "/shell/colors/#alt-palette", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Cyan  \u2588\u2588    02  Red  \u2588\u2588    03  White  \u2588\u2588", 
+            "title": "Alt Palette"
+        }, 
+        {
+            "location": "/shell/colors/#ega-mood", 
+            "text": "EGA Maood have total 64 colors but only 16 colors can be used as current palette. There is a default palette of 16 colors in which colors can be changed.", 
+            "title": "EGA Mood"
+        }, 
+        {
+            "location": "/shell/colors/#default-palette", 
+            "text": "Color Code  Color Name  Preview      00  Black  \u2588\u2588    01  Blue  \u2588\u2588    02  Green  \u2588\u2588    03  Cyan  \u2588\u2588    04  Red  \u2588\u2588    05  Magenta  \u2588\u2588    06  Brown  \u2588\u2588    07  Light Gray  \u2588\u2588    08  Gray  \u2588\u2588    09  Light Blue  \u2588\u2588    10  Light Green  \u2588\u2588    11  Light Cyan  \u2588\u2588    12  Light Red  \u2588\u2588    13  Light Magenta  \u2588\u2588    14  Light Yellow  \u2588\u2588    15  White  \u2588\u2588", 
+            "title": "Default Palette"
+        }, 
+        {
+            "location": "/shell/colors/#all-colors", 
+            "text": "0 \n         \n         8 \n         \n         16 \n         \n         24 \n         \n         32 \n         \n         40 \n         \n         48 \n         \n         56 \n         \n     \n     \n         1 \n         \n         9 \n         \n         17 \n         \n         25 \n         \n         33 \n         \n         41 \n         \n         49 \n         \n         57 \n         \n     \n     \n         2 \n         \n         10 \n         \n         18 \n         \n         26 \n         \n         34 \n         \n         42 \n         \n         50 \n         \n         58 \n         \n     \n     \n         3 \n         \n         11 \n         \n         19 \n         \n         27 \n         \n         35 \n         \n         43 \n         \n         51 \n         \n         59 \n         \n     \n     \n         4 \n         \n         12 \n         \n         20 \n         \n         28 \n         \n         36 \n         \n         44 \n         \n         52 \n         \n         60 \n         \n     \n     \n         5 \n         \n         13 \n         \n         21 \n         \n         29 \n         \n         37 \n         \n         45 \n         \n         53 \n         \n         61 \n         \n     \n     \n         6 \n         \n         14 \n         \n         22 \n         \n         30 \n         \n         38 \n         \n         46 \n         \n         54 \n         \n         62 \n         \n     \n     \n         7 \n         \n         15 \n         \n         23 \n         \n         31 \n         \n         39 \n         \n         47 \n         \n         55 \n         \n         63", 
+            "title": "All Colors"
+        }, 
+        {
+            "location": "/shell/selections/", 
+            "text": "xyz", 
+            "title": "Selections"
+        }, 
+        {
+            "location": "/language/Statements/CLS/", 
+            "text": "Syntax\n\n\n1\nCLS [region]\n\n\n\n\n\n\nregion\n has numeric value that describes the region to clear:\n\n\n\n\n0\n clears both text and graphics\n\n\n1\n clears graphics only\n\n\n2\n clears text only\n\n\n\n\n\n\nNote\n\n\nAny thing after region upto and of statement (\n:\n) or line or file is ignored", 
+            "title": "CLS"
+        }, 
+        {
+            "location": "/language/Statements/CLS/#syntax", 
+            "text": "1 CLS [region]   region  has numeric value that describes the region to clear:   0  clears both text and graphics  1  clears graphics only  2  clears text only    Note  Any thing after region upto and of statement ( : ) or line or file is ignored", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/about/", 
+            "text": "xyx", 
+            "title": "License"
+        }, 
+        {
+            "location": "/about/#xyx", 
+            "text": "", 
+            "title": "xyx"
+        }
+    ]
+}

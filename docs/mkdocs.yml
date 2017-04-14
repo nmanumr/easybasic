@@ -1,0 +1,17 @@
+site_name: 'Easybasic documentation'
+theme: 'material'
+pages:
+- Home: 'index.md'
+- Shell:
+  - 'Layout' : 'shell/Layout.md'
+  - 'Colors' : 'shell/colors.md'
+  - 'Selections' : 'shell/selections.md'
+- Language:
+  - Statements:
+    - CLS : 'language/Statements/CLS.md'
+- About:
+    - 'License': 'about.md'
+markdown_extensions:
+  - admonition
+  - toc(permalink=true)
+  - codehilite(linenums=true)

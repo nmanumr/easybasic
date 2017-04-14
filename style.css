@@ -1,0 +1,117 @@
+@media only screen and (min-width:1025px) {
+    .mdl-layout__drawer-button {
+        display: none;
+    }
+}
+
+.mdl-layout__drawer-button>i {
+    margin-top: 12px;
+}
+
+.app-intro{
+    position: relative;
+    width: auto;
+    background: #3f51b5;
+    padding-top: 120px;
+    padding-bottom: 65px;
+}
+.app-intro-title{
+    font-size: 4.5em;
+    font-weight: 200;
+    color: #fff;
+}
+.app-intro-subtitle{
+    font-size: 20px;
+    font-weight: 200;
+    color: #fff;
+    letter-spacing: .3px;
+    line-height: 1.7em;
+    margin: 30px 0;
+}
+.mdl-button--raised{
+    background: rgba(255,255,255,.9);
+}
+.mdl-button:hover {
+    background-color: rgba(255,255,255,1);
+}
+.feature{
+    background: #f8f8f8;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.feature1{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.feature1 .fa,
+.feature .fa{
+    background: #3f51b5;
+    border-radius: 50%;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 20px;
+    float: left;
+}
+
+#newsletter{
+    background: #f8f8f8;
+    background-size: cover;
+    background-position: 0 80%;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+#newsletter button{
+    position: relative;
+    top: -70px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #222;
+    height: 50px;
+    color: #fff;
+}
+
+#newsletter p{
+    font-weight: bold;
+}
+
+#newsletter input{
+    border: none;
+    height: 50px;
+    margin: 20px 0;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+#newsletter p{
+    margin: 20px 0;
+}
+
+#newsletter h2{
+    margin-top: 50px;
+    text-transform: uppercase;
+}
+
+.mdl-textfield{
+    width: 100%
+}
+.section{
+    padding: 75px 0;
+}
+
+a{
+    text-decoration: none!important;
+}
+
+footer a:hover{
+    color: #fff!important
+}
+
+.mdl-mega-footer__link-list li{
+    padding-bottom: 5px;
+}
