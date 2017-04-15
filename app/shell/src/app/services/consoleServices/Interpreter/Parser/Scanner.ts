@@ -163,17 +163,31 @@ export class Scanner {
 
 	/** Get a string starts from current position until end of statement */
 	public scanTilEndOfStatement(): string {
-		var string = "", token, previousToken;
+		var string = "", token;
 		while (true) {
 			token = this.stream.peekChar();
 			if (Constants.statementTerminators.indexOf(token) > -1) {
 				break;
 			}
-			string += String.fromCharCode(token);
-			previousToken = token;
-			this.stream.advance(1);
+
 		}
 		return string;
+	}
+
+	/** scan until the given chars not found */
+	public scanUntil(delimiter: string[]) {
+		var expr = "", token;
+
+		while (true) {
+			token = this.scan().text;
+			if (delimiter.indexOf(token) > -1 || Constants.statementTerminators.indexOf(token.charCodeAt(0)) > -1
+				|| token == "") {
+				break;
+			}
+			expr += token;
+		}
+
+		return expr;
 	}
 
 	/** Read an identifier */
@@ -223,7 +237,7 @@ export class Scanner {
 			this.readDecimal();
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -278,7 +292,7 @@ export class Scanner {
 		var builder = '"';
 		while (true) {
 			current = this.stream.peekChar();
-			if (current == _DQO || current == _NWL) {
+			if (current == _DQO || Constants.lineTerminator.indexOf(current) > -1) {
 				break;
 			}
 			else {

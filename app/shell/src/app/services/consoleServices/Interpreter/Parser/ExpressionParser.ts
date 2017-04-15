@@ -58,7 +58,6 @@ export class ExpressionParser {
         var token: IToken, output = ""
         while (true) {
             token = this.scanner.scan();
-            console.log(token);
             if (token.type == TokenType.EOL || token.type == TokenType.EOF) {
                 break;
             }
