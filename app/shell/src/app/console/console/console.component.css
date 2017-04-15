@@ -32,8 +32,6 @@ td:first-child {
     font-weight: 100;
     font-size: 14px;
     position: absolute;
-    margin-left: -8px;
-    margin-top: 1px;
     opacity: 1;
     -webkit-animation: blink .3s linear 0s infinite;
 }
