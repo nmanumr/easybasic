@@ -50,17 +50,20 @@ export class Scanner {
 		this.console = console;
 	}
 
+	/** set the current position of stream and return it */
 	public pos(index: number = this.stream.pos()) {
 		return this.stream.pos(index);
 	}
 
+
+	/** Set stream to be scanned */
 	public setSource(input: string): void {
 		this.stream = new StreamReader(input);
 		this.stream.pos(0);
 		this.lineStarted = true;
 	}
 
-	public finishToken(offset: number, Type: TokenType, text?: string): IToken {
+	private finishToken(offset: number, Type: TokenType, text?: string): IToken {
 		if (Type == TokenType.Newline) {
 			this.lineStarted = true;
 		}
@@ -72,10 +75,12 @@ export class Scanner {
 		};
 	}
 
+	/** return a string from stream that starts from offset */
 	public substring(offset: number, len: number): string {
 		return this.stream.substring(offset, offset + len);
 	}
 
+	/** Return a scanned token */
 	public scan(): IToken {
 		let content: string[] = [];
 		let offset = this.stream.pos();
@@ -156,7 +161,8 @@ export class Scanner {
 		}
 	}
 
-	public scanTilEndofStatement(): string {
+	/** Get a string starts from current position until end of statement */
+	public scanTilEndOfStatement(): string {
 		var string = "", token, previousToken;
 		while (true) {
 			token = this.stream.peekChar();
@@ -170,6 +176,7 @@ export class Scanner {
 		return string;
 	}
 
+	/** Read an identifier */
 	private readKeyword(): string {
 		var token,
 			word = "";
@@ -186,7 +193,8 @@ export class Scanner {
 		return word;
 	}
 
-	public readNumber(): boolean {
+	/** Read a BASIC number */
+	private readNumber(): boolean {
 		var token = this.stream.peekChar();
 		if (token == -1)
 			return false;
@@ -211,7 +219,7 @@ export class Scanner {
 				return false
 			}
 		}
-		else if (Constants.deciamlLiterals.indexOf(token) > -1) {
+		else if (Constants.decimalLiterals.indexOf(token) > -1) {
 			this.readDecimal();
 			return true;
 		}
@@ -219,10 +227,11 @@ export class Scanner {
 		return false;
 	}
 
+	/** Reads a BASIC decimal number */
 	private readDecimal() {
 		while (true) {
 			var token = this.stream.peekChar();
-			if (Constants.deciamlLiterals.indexOf(token) > -1) {
+			if (Constants.decimalLiterals.indexOf(token) > -1) {
 				this.stream.advance(1);
 			}
 			else {
@@ -231,6 +240,7 @@ export class Scanner {
 		}
 	}
 
+	/** Reads a BASIC Hexadecimal number */
 	private readHexa() {
 
 		while (true) {
@@ -244,6 +254,7 @@ export class Scanner {
 		}
 	}
 
+	/** Read an BASIC octal number */
 	private readOctal() {
 
 		while (true) {
@@ -257,7 +268,8 @@ export class Scanner {
 		}
 	}
 
-	public readString(): string {
+	/** Reads a BASIC string */
+	private readString(): string {
 		var current = this.stream.peekChar();
 		if (current != _DQO)
 			return null;
@@ -283,6 +295,7 @@ export class Scanner {
 		return builder;
 	}
 
+	/** Checks if next token is operator or not */
 	private _isOperator(): boolean {
 		var token = this.stream.peekChar();
 		if (this.stream.advanceIfChars([_EQL, _LES]) || // =<
@@ -313,6 +326,7 @@ export class Scanner {
 		return false;
 	}
 
+	/** Checks if next token is Decimal number or not */
 	private _Num(): boolean {
 		let ch: number;
 		ch = this.stream.peekChar();
