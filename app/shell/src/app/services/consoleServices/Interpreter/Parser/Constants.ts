@@ -46,7 +46,7 @@ export const decimalDigits: number[] = [
     "9".charCodeAt(0),
 ].concat(octalDigits)
 
-export const deciamlLiterals: number[] =[
+export const decimalLiterals: number[] =[
     ".".charCodeAt(0),
     "E".charCodeAt(0),
     "e".charCodeAt(0),
@@ -124,7 +124,7 @@ export const name: number[] = [
 ].concat(letters).concat(decimalDigits);
 
 export const lineTerminator: number[] = [
-    0, -1
+    0, -1, "\n".charCodeAt(0)
 ]
 
 export const remarkTerminator: number[] = [
@@ -132,7 +132,7 @@ export const remarkTerminator: number[] = [
 ]
 
 export const statementTerminators: number[] = [
-    ":".charCodeAt(0), "\n".charCodeAt(0)
+    ":".charCodeAt(0)
 ].concat(lineTerminator);
 
 export const expressionTerminator: number[] = [
