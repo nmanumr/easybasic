@@ -13,9 +13,14 @@ This project is built using Electron.js and is the continuity of  [GwBasic.Net](
 
 ## For Developers
 
-* Install development node modules with `npm install`(from project root)
 * Install other mode modules with `npm install`(Inside app folder)
-* run with `npm start`
+* Run all apps or any of follwoing:
+```
+npm run home
+npm run ide
+npm run shell
+```
+* Open electron window using `npm run electron`
 
 ## Documentation
 
